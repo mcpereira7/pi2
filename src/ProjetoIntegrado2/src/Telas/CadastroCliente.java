@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package Telas;
 
 /**
  *
@@ -26,80 +27,60 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jTextField13 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
+        jTextField14 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
+        jTextField15 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         jLabel7 = new javax.swing.JLabel();
         jTextField7 = new javax.swing.JTextField();
+        jToggleButton1 = new javax.swing.JToggleButton();
         jLabel8 = new javax.swing.JLabel();
+        jToggleButton2 = new javax.swing.JToggleButton();
         jTextField8 = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox<>();
         jTextField9 = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jTextField10 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jTextField11 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jTextField12 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel14 = new javax.swing.JLabel();
-        jTextField13 = new javax.swing.JTextField();
-        jLabel15 = new javax.swing.JLabel();
-        jTextField14 = new javax.swing.JTextField();
-        jLabel16 = new javax.swing.JLabel();
-        jTextField15 = new javax.swing.JTextField();
-        jLabel17 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jToggleButton1 = new javax.swing.JToggleButton();
-        jToggleButton2 = new javax.swing.JToggleButton();
-        jLabel18 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jLabel19 = new javax.swing.JLabel();
 
-        jLabel1.setText("Código");
-
-        jLabel2.setText("Nome*");
+        jLabel14.setText("Telefone");
 
         jLabel3.setText("Data");
 
         jLabel4.setText("CPF*");
 
-        jLabel5.setText("RG*");
-
-        jLabel6.setText("Data de Nasc.*");
-
-        jLabel7.setText("Endereço*");
-
-        jLabel8.setText("Nº");
-
-        jLabel9.setText("Complemento");
-
-        jLabel10.setText("Bairro*");
-
-        jLabel11.setText("CEP*");
-
-        jLabel12.setText("Cidade*");
-
-        jLabel13.setText("UF*");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel14.setText("Telefone");
-
         jLabel15.setText("Celular*");
 
+        jLabel5.setText("RG*");
+
         jLabel16.setText("E-mail*");
+
+        jLabel6.setText("Data de Nasc.*");
 
         jLabel17.setText("Observações");
 
@@ -107,18 +88,38 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
+        jLabel7.setText("Endereço*");
+
         jToggleButton1.setText("Salvar");
         jToggleButton1.setMaximumSize(new java.awt.Dimension(81, 32));
         jToggleButton1.setMinimumSize(new java.awt.Dimension(81, 32));
         jToggleButton1.setPreferredSize(new java.awt.Dimension(81, 32));
 
+        jLabel8.setText("Nº");
+
         jToggleButton2.setText("Cancelar");
 
         jLabel18.setText("Sexo");
 
+        jLabel9.setText("Complemento");
+
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel19.setText("Campos obrigatórios *");
+
+        jLabel10.setText("Bairro*");
+
+        jLabel11.setText("CEP*");
+
+        jLabel1.setText("Código");
+
+        jLabel12.setText("Cidade*");
+
+        jLabel2.setText("Nome*");
+
+        jLabel13.setText("UF*");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -271,7 +272,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
                     .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jToggleButton2)
                     .addComponent(jLabel19))
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
