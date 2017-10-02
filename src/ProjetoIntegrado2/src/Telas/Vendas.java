@@ -50,6 +50,10 @@ public class Vendas extends javax.swing.JInternalFrame {
         jLabel9 = new javax.swing.JLabel();
         jTextField7 = new javax.swing.JTextField();
 
+        setClosable(true);
+        setIconifiable(true);
+        setResizable(true);
+
         jLabel1.setText("Código");
 
         jLabel2.setText("Data");
