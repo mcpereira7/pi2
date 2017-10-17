@@ -3,15 +3,16 @@
  * aay.andre@outlook.com
  * Turma A
  */
-package Model;
+package Controllers;
 
+import Model.Produto;
 import java.util.ArrayList;
 
 /**
  *
  * @author aayan
  */
-public class ConsultaProduto {
+public class ServicoProduto {
 
     public static ArrayList<Produto> ListarProduto(String filtro) {
         

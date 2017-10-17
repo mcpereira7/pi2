@@ -14,26 +14,36 @@ import java.util.Date;
 public class Produto {
 
     //Atributos
-    private int prodID;
+    private int id;
+    private int codProduto;
     private double preco;
     private Date dataCadastro;
     private String plataforma;
     private String fornecedor;
     private String descricao;
     private String tipo;
-    private int quantidade;
-    
+    private int quantidadeVenda;
+    private int quantidadeEstoque;//Se precisar
+
     //Construtor
     public Produto() {
     }
 
     //Metodos
-    public int getProdID() {
-        return prodID;
+    public int getId() {
+        return id;
     }
 
-    public void setProdID(int prodID) {
-        this.prodID = prodID;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getCodProduto() {
+        return codProduto;
+    }
+
+    public void setCodProduto(int codProduto) {
+        this.codProduto = codProduto;
     }
 
     public double getPreco() {
@@ -84,12 +94,19 @@ public class Produto {
         this.tipo = tipo;
     }
 
-    public int getQuantidade() {
-        return quantidade;
+    public int getQuantidadeVenda() {
+        return quantidadeVenda;
     }
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+    public void setQuantidadeVenda(int quantidadeVenda) {
+        this.quantidadeVenda = quantidadeVenda;
     }
-    
+
+    public int getQuantidadeEstoque() {
+        return quantidadeEstoque;
+    }
+
+    public void setQuantidadeEstoque(int quantidadeEstoque) {
+        this.quantidadeEstoque = quantidadeEstoque;
+    }
 }

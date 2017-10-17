@@ -3,12 +3,12 @@
  * aay.andre@outlook.com
  * Turma A
  */
-package Model;
+package Controllers;
 
 /**
  *
  * @author aayan
  */
-public class CadastroCliente {
+public class ServicoCliente {
     
 }

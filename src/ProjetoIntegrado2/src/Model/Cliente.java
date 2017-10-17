@@ -12,9 +12,10 @@ import java.util.Date;
  * @author aayan
  */
 public class Cliente {
-    
+
     //Atributos
     private int id;
+    private int codCliente;
     private String cep;
     private String nome;
     private String sobrenome;
@@ -35,9 +36,9 @@ public class Cliente {
 
     //Construtor
     public Cliente() {
-        
+
     }
-    
+
     //Metodos
     public int getId() {
         return id;
@@ -45,6 +46,14 @@ public class Cliente {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getCodCliente() {
+        return codCliente;
+    }
+
+    public void setCodCliente(int codCliente) {
+        this.codCliente = codCliente;
     }
 
     public String getCep() {
@@ -182,5 +191,5 @@ public class Cliente {
     public void setDataNasc(Date dataNasc) {
         this.dataNasc = dataNasc;
     }
-        
+
 }

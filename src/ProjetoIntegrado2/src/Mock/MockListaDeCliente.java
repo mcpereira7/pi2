@@ -6,7 +6,7 @@
 package Mock;
 
 import Model.Cliente;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class MockListaDeCliente {
     
-    private static ArrayList<Cliente> listaDeCliente;
+    private static List<Cliente> listaDeCliente;
 
     //Construtor
     public MockListaDeCliente() {
