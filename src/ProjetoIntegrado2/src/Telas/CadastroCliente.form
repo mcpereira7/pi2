@@ -67,10 +67,7 @@
                                               <Component id="jTextField2" pref="204" max="32767" attributes="0"/>
                                               <EmptySpace min="-2" pref="158" max="-2" attributes="0"/>
                                           </Group>
-                                          <Group type="102" attributes="0">
-                                              <Component id="fieldCod" min="-2" pref="81" max="-2" attributes="0"/>
-                                              <EmptySpace max="32767" attributes="0"/>
-                                          </Group>
+                                          <Component id="fieldCod" min="-2" pref="81" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel18" alignment="1" min="-2" max="-2" attributes="0"/>
