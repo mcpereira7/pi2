@@ -1,19 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Telas;
 
-/**
- *
- * @author Rerum
- */
+import java.beans.PropertyVetoException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Principal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Principal
-     */
+// Criando as variaveis / Objetos das interfaces
+    CadastroCliente menuCadCli = null;
+     CadastroProduto menuCadProduto = null;
+     Vendas menuVenda = null;
+
     public Principal() {
         initComponents();
     }
@@ -30,8 +27,8 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jdiPrincipal = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jmCadProd = new javax.swing.JMenu();
+        jmCadCli = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -46,7 +43,7 @@ public class Principal extends javax.swing.JFrame {
         jdiPrincipal.setLayout(jdiPrincipalLayout);
         jdiPrincipalLayout.setHorizontalGroup(
             jdiPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 737, Short.MAX_VALUE)
+            .addGap(0, 761, Short.MAX_VALUE)
         );
         jdiPrincipalLayout.setVerticalGroup(
             jdiPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -55,15 +52,20 @@ public class Principal extends javax.swing.JFrame {
 
         getContentPane().add(jdiPrincipal, java.awt.BorderLayout.CENTER);
 
-        jMenu1.setText("Cadastro");
-
-        jMenuItem1.setText("Cliente");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jmCadProd.setText("Cadastro");
+        jmCadProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jmCadProdActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+
+        jmCadCli.setText("Cliente");
+        jmCadCli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmCadCliActionPerformed(evt);
+            }
+        });
+        jmCadProd.add(jmCadCli);
 
         jMenuItem2.setText("Produto");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
@@ -71,9 +73,9 @@ public class Principal extends javax.swing.JFrame {
                 jMenuItem2ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jmCadProd.add(jMenuItem2);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(jmCadProd);
 
         jMenu4.setText("Venda");
         jMenu4.addActionListener(new java.awt.event.ActionListener() {
@@ -100,31 +102,76 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        CadastroCliente menuCadCli = new CadastroCliente();
-        jdiPrincipal.add(menuCadCli);
-        menuCadCli.setVisible(true);
-        
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    private void jmCadCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCadCliActionPerformed
+        if (menuCadCli == null || !menuCadCli.isVisible()) {
+            menuCadCli = new CadastroCliente();
+            jdiPrincipal.add(menuCadCli);
+            menuCadCli.setVisible(true);
+        } else if (menuCadCli.isVisible()) {
+            try {
+                menuCadCli.setSelected(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            menuCadCli.getDesktopPane().getDesktopManager().deiconifyFrame(menuCadCli);
+            menuCadCli.getDesktopPane().getDesktopManager().maximizeFrame(menuCadCli);
+            menuCadCli.getDesktopPane().getDesktopManager().minimizeFrame(menuCadCli);
+            menuCadCli.toFront();
+//            try {
+//                menuCadCli.setMaximum(true);
+//            } catch (PropertyVetoException ex) {
+//                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+        }
+
+    }//GEN-LAST:event_jmCadCliActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        
-        CadastroProduto menuCadProduto = new CadastroProduto();
-        jdiPrincipal.add(menuCadProduto);
-        menuCadProduto.setVisible(true);
+        if (menuCadProduto == null || !menuCadProduto.isVisible()) {
+            menuCadProduto = new CadastroProduto();
+            jdiPrincipal.add(menuCadProduto);
+            menuCadProduto.setVisible(true);
+        } else if (menuCadProduto.isVisible()) {
+            try {
+                menuCadProduto.setSelected(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            menuCadProduto.getDesktopPane().getDesktopManager().deiconifyFrame(menuCadProduto);
+            menuCadProduto.getDesktopPane().getDesktopManager().maximizeFrame(menuCadProduto);
+            menuCadProduto.getDesktopPane().getDesktopManager().minimizeFrame(menuCadProduto);
+            menuCadProduto.toFront();
+        }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenu4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu4ActionPerformed
-        
-        
+
+
     }//GEN-LAST:event_jMenu4ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+
         
-        Vendas menuVenda = new Vendas();
-        jdiPrincipal.add(menuVenda);
-        menuVenda.setVisible(true);
+        if (menuVenda == null || !menuVenda.isVisible()) {
+            menuVenda = new Vendas();
+            jdiPrincipal.add(menuVenda);
+            menuVenda.setVisible(true);
+        } else if (menuVenda.isVisible()) {
+            try {
+                menuVenda.setSelected(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            menuVenda.getDesktopPane().getDesktopManager().deiconifyFrame(menuVenda);
+            menuVenda.getDesktopPane().getDesktopManager().maximizeFrame(menuVenda);
+            menuVenda.getDesktopPane().getDesktopManager().minimizeFrame(menuVenda);
+            menuVenda.toFront();
+        }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jmCadProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCadProdActionPerformed
+        
+    }//GEN-LAST:event_jmCadProdActionPerformed
 
     /**
      * @param args the command line arguments
@@ -162,14 +209,14 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JDesktopPane jdiPrincipal;
+    private javax.swing.JMenuItem jmCadCli;
+    private javax.swing.JMenu jmCadProd;
     // End of variables declaration//GEN-END:variables
 }
