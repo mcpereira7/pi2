@@ -5,12 +5,17 @@
  */
 package Telas;
 
+import Model.DataHoje;
+
 /**
  *
  * @author Rerum
  */
 public class Vendas extends javax.swing.JInternalFrame {
 
+    
+     //Criando objeto que retorna a data atual.
+    DataHoje data = new DataHoje();
     /**
      * Creates new form Vendas
      */
@@ -57,6 +62,9 @@ public class Vendas extends javax.swing.JInternalFrame {
         jLabel1.setText("Código");
 
         jLabel2.setText("Data");
+
+        jTextField2.setEditable(false);
+        jTextField2.setText(data.getDataAtual());
 
         jLabel3.setText("Vendedor");
 

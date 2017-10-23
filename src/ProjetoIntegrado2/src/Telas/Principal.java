@@ -1,5 +1,6 @@
 package Telas;
 
+import Model.DataHoje;
 import java.beans.PropertyVetoException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,6 +11,9 @@ public class Principal extends javax.swing.JFrame {
     CadastroCliente menuCadCli = null;
      CadastroProduto menuCadProduto = null;
      Vendas menuVenda = null;
+     
+     // objeto de data atual 
+     DataHoje data = new DataHoje();
 
     public Principal() {
         initComponents();

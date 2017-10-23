@@ -5,12 +5,16 @@
  */
 package Telas;
 
+import Model.DataHoje;
+
 /**
  *
  * @author Rerum
  */
 public class CadastroCliente extends javax.swing.JInternalFrame {
 
+    //Criando objeto que retorna a data atual.
+    DataHoje data = new DataHoje();
     /**
      * Creates new form CadastroCliente
      */
@@ -72,6 +76,9 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setResizable(true);
+
+        jTextField3.setEditable(false);
+        jTextField3.setText(data.getDataAtual());
 
         jLabel14.setText("Telefone");
 
@@ -236,7 +243,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                                                .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
                                                 .addGap(158, 158, 158))
                                             .addComponent(fieldCod, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,7 +254,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(jTextField3)
-                                            .addComponent(jComboBox2, 0, 94, Short.MAX_VALUE)))))
+                                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel14)

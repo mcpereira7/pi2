@@ -5,12 +5,17 @@
  */
 package Telas;
 
+import Model.DataHoje;
+
 /**
  *
  * @author Rerum
  */
 public class CadastroProduto extends javax.swing.JInternalFrame {
 
+    
+     //Criando objeto que retorna a data atual.
+    DataHoje data = new DataHoje();
     /**
      * Creates new form CadastroProduto
      */
@@ -70,6 +75,10 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         jLabel1.setText("Código");
 
         jLabel3.setText("Data");
+
+        jTextField3.setEditable(false);
+        jTextField3.setText(data.getDataAtual());
+        jTextField3.setCaretColor(new java.awt.Color(153, 153, 153));
 
         jLabel2.setText("Nome*");
 
