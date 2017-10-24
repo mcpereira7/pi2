@@ -5,7 +5,7 @@
  */
 package Model;
 
-import java.util.Date;
+import java.util.Calendar;
 
 /**
  *
@@ -17,7 +17,7 @@ public class Produto {
     private int id;
     private int codProduto;
     private double preco;
-    private Date dataCadastro;
+    private Calendar dataCadastro;
     private String plataforma;
     private String fornecedor;
     private String descricao;
@@ -54,11 +54,11 @@ public class Produto {
         this.preco = preco;
     }
 
-    public Date getDataCadastro() {
+    public Calendar getDataCadastro() {
         return dataCadastro;
     }
 
-    public void setDataCadastro(Date dataCadastro) {
+    public void setDataCadastro(Calendar dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
 

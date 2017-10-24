@@ -5,7 +5,7 @@
  */
 package Model;
 
-import java.util.Date;
+import java.util.Calendar;
 
 /**
  *
@@ -31,8 +31,8 @@ public class Cliente {
     private String rg;
     private String uf;
     private String obs;
-    private Date dataCadastro;
-    private Date dataNasc;
+    private Calendar dataCadastro;
+    private Calendar dataNasc;
 
     //Construtor
     public Cliente() {
@@ -176,19 +176,19 @@ public class Cliente {
         this.obs = obs;
     }
 
-    public Date getDataCadastro() {
+    public Calendar getDataCadastro() {
         return dataCadastro;
     }
 
-    public void setDataCadastro(Date dataCadastro) {
+    public void setDataCadastro(Calendar dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
 
-    public Date getDataNasc() {
+    public Calendar getDataNasc() {
         return dataNasc;
     }
 
-    public void setDataNasc(Date dataNasc) {
+    public void setDataNasc(Calendar dataNasc) {
         this.dataNasc = dataNasc;
     }
 

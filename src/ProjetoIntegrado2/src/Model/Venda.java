@@ -5,7 +5,7 @@
  */
 package Model;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -18,7 +18,7 @@ public class Venda {
     private int codVenda;
     //Vai ter um vendedor??????????
     private String vendedor;
-    private Date dataVenda;
+    private Calendar dataVenda;
     private Cliente cliente;
     private List<Produto> listaProdutos;
     private double valorTotal;
@@ -57,11 +57,11 @@ public class Venda {
         this.vendedor = vendedor;
     }
 
-    public Date getDataVenda() {
+    public Calendar getDataVenda() {
         return dataVenda;
     }
 
-    public void setDataVenda(Date dataVenda) {
+    public void setDataVenda(Calendar dataVenda) {
         this.dataVenda = dataVenda;
     }
 
