@@ -11,6 +11,7 @@ public class Principal extends javax.swing.JFrame {
     CadastroCliente menuCadCli = null;
      CadastroProduto menuCadProduto = null;
      Vendas menuVenda = null;
+     Relatorio novoRel = null;
      
      // objeto de data atual 
      DataHoje data = new DataHoje();
@@ -188,7 +189,26 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jmCadProdActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
+       if (novoRel == null || !novoRel.isVisible()) {
+            novoRel = new Relatorio();
+            jdiPrincipal.add(novoRel);
+            novoRel.setVisible(true);
+        } else if (novoRel.isVisible()) {
+            try {
+                novoRel.setSelected(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            novoRel.getDesktopPane().getDesktopManager().deiconifyFrame(novoRel);
+            novoRel.getDesktopPane().getDesktopManager().maximizeFrame(novoRel);
+            novoRel.getDesktopPane().getDesktopManager().minimizeFrame(novoRel);
+            novoRel.toFront();
+//            try {
+//                menuCadCli.setMaximum(true);
+//            } catch (PropertyVetoException ex) {
+//                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+        }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
