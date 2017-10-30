@@ -1,9 +1,0 @@
-Projeto Integrado 2 - Estrutura de pastas
-
-Pessoal, vamos tentar deixar o mais organizado possível. Para isso, criei uma pasta para documentos
-e outra para o código, ainda devemos separar a pasta referente ao banco, ficando assim cada coisa em seu lugar.
-
-DOCUMENTOS - todo e qualquer documento referente ao projeto
-BANCO DE DADOS - Todos os scripts de banco de dados (aqui não vai documentação de banco)
-SRC - Código do aplicativo.
-
