@@ -6,6 +6,7 @@
 package Mock;
 
 import Model.Produto;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,7 +15,15 @@ import java.util.List;
  */
 public class MockListaDeProduto {
     
-    private static List<Produto> lista;
+    private static ArrayList<Produto> lista;
+
+    public static ArrayList<Produto> getLista() {
+        return lista;
+    }
+
+    public static void setListaProduto(Produto produto) {
+        lista.add(produto);
+    }
     
     
 }

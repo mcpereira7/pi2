@@ -22,6 +22,7 @@ public class Produto {
     private String fornecedor;
     private String descricao;
     private String tipo;
+    private String nome;
     private int quantidadeVenda;
     private int quantidadeEstoque;//Se precisar
 
@@ -92,6 +93,14 @@ public class Produto {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+    
+    public String getNome(){
+        return nome;
+    }
+    
+    public void setNome(String nome){
+        this.nome=nome;
     }
 
     public int getQuantidadeVenda() {
