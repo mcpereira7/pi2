@@ -27,7 +27,6 @@ public class Produto {
     private int quantidadeEstoque;//Se precisar
 
     //Construtor
-
     //Venda de produtos
     public int Venda(int quantidadeVenda) {
         if (quantidadeEstoque > 0) {
@@ -39,6 +38,10 @@ public class Produto {
     //Metodos
     public int getId() { //Banco de dados, não será usado.
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getCodProduto() {
@@ -96,13 +99,13 @@ public class Produto {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-    
-    public String getNome(){
+
+    public String getNome() {
         return nome;
     }
-    
-    public void setNome(String nome){
-        this.nome=nome;
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public int getQuantidadeVenda() {

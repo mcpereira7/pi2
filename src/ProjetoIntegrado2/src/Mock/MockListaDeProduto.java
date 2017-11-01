@@ -16,13 +16,13 @@ import java.util.List;
  */
 public class MockListaDeProduto {
 
+    private static int totalProdutos = 0;
+
     public static ArrayList<Produto> listaProdutos = new ArrayList<Produto>();
 
-
-    public static ArrayList<Produto> lista;
-
-    public static ArrayList<Produto> getLista() {
-        return lista;
+    public static void adicionar(Produto p) throws Exception {
+        p.setId(totalProdutos++);
+        listaProdutos.add(p);
     }
-
+    
 }

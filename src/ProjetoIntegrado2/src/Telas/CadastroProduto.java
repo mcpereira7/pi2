@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Telas;
 
 import Model.DataHoje;
@@ -73,7 +68,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
         labelPlataforma.setText("Plataforma");
 
-        cboxPlataforma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Escolha", "Playstation 3", "Playstation 4", "Xbox 360", "Xbox One", "PC" }));
+        cboxPlataforma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Escolha", "Nintendo Switch","Playstation 3", "Playstation 4", "Xbox 360", "Xbox One", "PC","Wii","Wii U" }));
         cboxPlataforma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboxPlataformaActionPerformed(evt);
@@ -100,7 +95,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
         labelDescricao.setText("Descrição");
 
-        cboxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Escolha", "Jogo", "Periférico" }));
+        cboxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Escolha", "Jogo", "Periférico","Itens Diversos" }));
 
         labelQuantidade.setText("Quantidade");
 
@@ -300,14 +295,14 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
 
-        Mock.MockListaDeProduto.listaProdutos.add(p);
-
-        if (MockListaDeProduto.listaProdutos.isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Falhou!");
-        } else {
-            JOptionPane.showMessageDialog(rootPane, p);
+//gravando o objeto na lista
+        try {
+            MockListaDeProduto.adicionar(p); //chama serviço para adicionar produtos.
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Erro," + e);
         }
-        System.out.println(Mock.MockListaDeProduto.listaProdutos.indexOf(p));
+
+        JOptionPane.showMessageDialog(rootPane, "Produto cadastrado com sucesso!");
     }//GEN-LAST:event_jbuttonSaveActionPerformed
 
 

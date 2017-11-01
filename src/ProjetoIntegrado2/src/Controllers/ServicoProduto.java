@@ -5,15 +5,29 @@
  */
 package Controllers;
 
+import Exceptions.productException;
 import Model.Produto;
 import java.util.ArrayList;
 import java.util.List;
+import Mock.MockValidarProduto;
+import Mock.MockListaDeProduto;
 
 /**
  *
  * @author aayan
  */
 public class ServicoProduto {
+
+    public static void cadastroProduto(Produto produto) throws productException {
+        //validação do quarto:
+        MockValidarProduto.validacao(produto);
+
+        try {
+            MockListaDeProduto.adicionar(produto);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 //    public static ArrayList<Produto> ListarProduto(String filtro) {
     public static ArrayList<Produto> ListarProduto(Produto produto) {
@@ -29,10 +43,9 @@ public class ServicoProduto {
     }
 
     public Produto consultaProduto(List<Produto> produto) {
-            for(int i = 0; i<produto.size(); i++){
-                
-            }
+        for (int i = 0; i < produto.size(); i++) {
+
+        }
         return null;
     }
-
 }
