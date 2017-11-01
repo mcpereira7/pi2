@@ -14,29 +14,31 @@ import java.util.Calendar;
 public class Produto {
 
     //Atributos
-    private int id;
-    private int codProduto;
-    private double preco;
+    private int id; //id do banco de dados, preferencialmente automatico
+    private int codProduto; //id que vai aparecer para o usuário, tbm automático
+    private float preco;
     private Calendar dataCadastro;
+    private String nome;
     private String plataforma;
     private String fornecedor;
     private String descricao;
     private String tipo;
-    private String nome;
     private int quantidadeVenda;
     private int quantidadeEstoque;//Se precisar
 
     //Construtor
-    public Produto() {
+
+    //Venda de produtos
+    public int Venda(int quantidadeVenda) {
+        if (quantidadeEstoque > 0) {
+            quantidadeEstoque -= quantidadeVenda;
+        }
+        return quantidadeEstoque;
     }
 
     //Metodos
-    public int getId() {
+    public int getId() { //Banco de dados, não será usado.
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getCodProduto() {
@@ -51,7 +53,7 @@ public class Produto {
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(float preco) {
         this.preco = preco;
     }
 

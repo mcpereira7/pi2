@@ -5,11 +5,15 @@
  */
 package Telas;
 
-import Controllers.ServicoProduto;
-import Mock.MockListaDeProduto;
 import Model.DataHoje;
+import java.beans.PropertyVetoException;
+import javax.swing.JInternalFrame;
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
+import Mock.MockListaDeProduto;
 import Model.Produto;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -19,15 +23,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
     //Criando objeto que retorna a data atual.
     DataHoje data = new DataHoje();
-
-    //Objeto do tipo Produto
-    Produto produto = new Produto();
-
-//     Objeto do ServiçoProduto
-//    ServicoProduto servicePro = new ServicoProduto();
-
-    // Objeto MOCK Produto
-    MockListaDeProduto mockProduto = new MockListaDeProduto();
 
     /**
      * Creates new form CadastroProduto
@@ -45,85 +40,95 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        cbPlataforma = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
-        cpCodigo = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        cpNome = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        cpFornecedor = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        cbTipo = new javax.swing.JComboBox<>();
-        jLabel8 = new javax.swing.JLabel();
-        cpQtde = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        cpValor = new javax.swing.JTextField();
+        labelTipo = new javax.swing.JLabel();
+        labelPlataforma = new javax.swing.JLabel();
+        cboxPlataforma = new javax.swing.JComboBox<>();
+        labelCodigo = new javax.swing.JLabel();
+        txtCodigo = new javax.swing.JTextField();
+        labelData = new javax.swing.JLabel();
+        txtData = new javax.swing.JTextField();
+        labelNome = new javax.swing.JLabel();
+        txtNome = new javax.swing.JTextField();
+        labelForncedor = new javax.swing.JLabel();
+        txtFornecedor = new javax.swing.JTextField();
+        labelDescricao = new javax.swing.JLabel();
+        cboxTipo = new javax.swing.JComboBox<>();
+        labelQuantidade = new javax.swing.JLabel();
+        txtQuantidade = new javax.swing.JTextField();
+        labelValor = new javax.swing.JLabel();
+        txtPreco = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jLabel10 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        labelObrigatorio = new javax.swing.JLabel();
+        jbuttonSave = new javax.swing.JButton();
+        jbuttonCancel = new javax.swing.JButton();
         jRadioButton1 = new javax.swing.JRadioButton();
-        jButton3 = new javax.swing.JButton();
+        jbuttonProcurar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
         setResizable(true);
 
-        jLabel6.setText("Tipo*");
+        labelTipo.setText("Tipo*");
 
-        jLabel7.setText("Plataforma");
+        labelPlataforma.setText("Plataforma");
 
-        cbPlataforma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbPlataforma.addActionListener(new java.awt.event.ActionListener() {
+        cboxPlataforma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Escolha", "Playstation 3", "Playstation 4", "Xbox 360", "Xbox One", "PC" }));
+        cboxPlataforma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbPlataformaActionPerformed(evt);
+                cboxPlataformaActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Código");
+        labelCodigo.setText("Código");
 
-        jLabel3.setText("Data");
+        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoActionPerformed(evt);
+            }
+        });
 
-        jTextField3.setEditable(false);
-        jTextField3.setText(data.getDataAtual());
-        jTextField3.setCaretColor(new java.awt.Color(153, 153, 153));
-        jTextField3.setEnabled(false);
+        labelData.setText("Data");
 
-        jLabel2.setText("Nome*");
+        txtData.setEditable(false);
+        txtData.setText(data.getDataAtual());
+        txtData.setCaretColor(new java.awt.Color(153, 153, 153));
 
-        jLabel4.setText("Fornecedor*");
+        labelNome.setText("Nome*");
 
-        jLabel5.setText("Descrição");
+        labelForncedor.setText("Fornecedor*");
 
-        cbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        labelDescricao.setText("Descrição");
 
-        jLabel8.setText("Quantidade");
+        cboxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Escolha", "Jogo", "Periférico" }));
 
-        jLabel9.setText("Valor*");
+        labelQuantidade.setText("Quantidade");
+
+        labelValor.setText("Valor*");
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        jLabel10.setText("Campos obrigatórios *");
+        labelObrigatorio.setText("Campos obrigatórios *");
 
-        jButton1.setText(" Salvar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jbuttonSave.setText(" Salvar");
+        jbuttonSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jbuttonSaveActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Cancelar");
+        jbuttonCancel.setText("Cancelar");
+        jbuttonCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbuttonCancelActionPerformed(evt);
+            }
+        });
 
         jRadioButton1.setText("Atualizar Estoque");
 
-        jButton3.setText("...");
+        jbuttonProcurar.setText("...");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -135,54 +140,52 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jRadioButton1)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel8)
+                        .addComponent(labelQuantidade)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cpQtde, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34)
-                        .addComponent(jLabel9)
+                        .addComponent(labelValor)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cpValor, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
-                        .addComponent(jLabel6)
+                        .addComponent(labelTipo)
                         .addGap(12, 12, 12)
-                        .addComponent(cbTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(cboxTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
+                                .addComponent(labelDescricao)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane1))
-                            .addComponent(jLabel10))
+                            .addComponent(labelObrigatorio))
                         .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addComponent(jbuttonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbuttonCancel, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                        .addComponent(labelForncedor)
                         .addGap(18, 18, 18)
-                        .addComponent(cpFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                        .addComponent(txtFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3))
+                        .addComponent(jbuttonProcurar))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
+                            .addComponent(labelCodigo)
+                            .addComponent(labelNome))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cpNome, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
-                                .addGap(18, 18, 18))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(16, 16, 16)
-                                .addComponent(cpCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE))
+                            .addComponent(labelPlataforma)
+                            .addComponent(labelData, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
-                            .addComponent(cbPlataforma, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(txtData, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                            .addComponent(cboxPlataforma, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -190,102 +193,148 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(cpCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(labelCodigo)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelData))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(cpNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addComponent(cbPlataforma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelNome)
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelPlataforma)
+                    .addComponent(cboxPlataforma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(cpFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3))
+                    .addComponent(labelForncedor)
+                    .addComponent(txtFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbuttonProcurar))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addComponent(cpQtde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addComponent(cpValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelTipo)
+                    .addComponent(cboxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelQuantidade)
+                    .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelValor)
+                    .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jRadioButton1))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(jbuttonSave)
                         .addGap(19, 19, 19)
-                        .addComponent(jButton2))
+                        .addComponent(jbuttonCancel))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel5)
+                        .addComponent(labelDescricao)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel10)
+                .addComponent(labelObrigatorio)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbPlataformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPlataformaActionPerformed
+    private void cboxPlataformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxPlataformaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbPlataformaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_cboxPlataformaActionPerformed
+    private void jbuttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbuttonCancelActionPerformed
         // TODO add your handling code here:
-        // Botão Salvar
-        if (cpNome.getText() != null &&cpFornecedor.getText() != null && cpValor.getText() != null && cbTipo.getSelectedIndex() != 0) {
-            produto.setCodProduto(Integer.parseInt(cpCodigo.getText().trim()));
-            produto.setNome(cpNome.getText());
-            produto.setPlataforma((String) cbPlataforma.getSelectedItem());
-            produto.setFornecedor(cpFornecedor.getText());
-//            if(cpQtde.getText()!=null){
-//                produto.setQuantidadeEstoque(Integer.parseInt(cpQtde.getText()));
-//            }
-            produto.setPreco(Double.parseDouble(cpValor.getText()));
-            produto.setTipo((String) cbTipo.getSelectedItem());
-            
-            // gravando o produto no MOCK
-            MockListaDeProduto.setListaProduto(produto);
-            
-            System.out.println(produto.getCodProduto());
-            
-        }else if(cpNome.getText() == null || cpFornecedor.getText() == null || cpValor.getText() == null || cbTipo.getSelectedIndex() == 0){
-            JOptionPane.showMessageDialog(null, "Campos com * são de preenchimento obrigatório!");
+        this.dispose();
+    }//GEN-LAST:event_jbuttonCancelActionPerformed
+
+    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoActionPerformed
+
+    private void jbuttonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbuttonSaveActionPerformed
+        //Novo objeto
+        Produto p = new Produto();
+
+        //dados do objeto
+        try {
+            p.setCodProduto(Integer.parseInt(txtCodigo.getText()));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
-        
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+        try {
+            p.setNome(txtNome.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+
+        try {
+            p.setPreco(Float.parseFloat(txtPreco.getText()));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+
+        try {
+            p.setDataCadastro(Calendar.getInstance());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+
+        try {
+            p.setPlataforma(cboxPlataforma.getName());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+
+        try {
+            p.setDescricao(jTextArea1.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+
+        try {
+            p.setTipo(cboxTipo.getName());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+
+        try {
+            p.setQuantidadeEstoque(Integer.parseInt(txtQuantidade.getText()));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+
+        Mock.MockListaDeProduto.listaProdutos.add(p);
+
+        if (MockListaDeProduto.listaProdutos.isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Falhou!");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, p);
+        }
+        System.out.println(Mock.MockListaDeProduto.listaProdutos.indexOf(p));
+    }//GEN-LAST:event_jbuttonSaveActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cbPlataforma;
-    private javax.swing.JComboBox<String> cbTipo;
-    private javax.swing.JTextField cpCodigo;
-    private javax.swing.JTextField cpFornecedor;
-    private javax.swing.JTextField cpNome;
-    private javax.swing.JTextField cpQtde;
-    private javax.swing.JTextField cpValor;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JComboBox<String> cboxPlataforma;
+    private javax.swing.JComboBox<String> cboxTipo;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JButton jbuttonCancel;
+    private javax.swing.JButton jbuttonProcurar;
+    private javax.swing.JButton jbuttonSave;
+    private javax.swing.JLabel labelCodigo;
+    private javax.swing.JLabel labelData;
+    private javax.swing.JLabel labelDescricao;
+    private javax.swing.JLabel labelForncedor;
+    private javax.swing.JLabel labelNome;
+    private javax.swing.JLabel labelObrigatorio;
+    private javax.swing.JLabel labelPlataforma;
+    private javax.swing.JLabel labelQuantidade;
+    private javax.swing.JLabel labelTipo;
+    private javax.swing.JLabel labelValor;
+    private javax.swing.JTextField txtCodigo;
+    private javax.swing.JTextField txtData;
+    private javax.swing.JTextField txtFornecedor;
+    private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtPreco;
+    private javax.swing.JTextField txtQuantidade;
     // End of variables declaration//GEN-END:variables
 }
