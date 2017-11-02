@@ -298,11 +298,19 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 //gravando o objeto na lista
         try {
             MockListaDeProduto.adicionar(p); //chama serviço para adicionar produtos.
+            JOptionPane.showMessageDialog(rootPane, "Produto cadastrado com sucesso!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, "Erro," + e);
         }
 
-        JOptionPane.showMessageDialog(rootPane, "Produto cadastrado com sucesso!");
+        //limpar a tela após gravar
+        cboxPlataforma.setSelectedIndex(0);
+        cboxTipo.setSelectedIndex(0);
+        txtCodigo.setText("");
+        txtFornecedor.setText("");
+        txtNome.setText("");
+        txtPreco.setText("");
+        txtQuantidade.setText("");
     }//GEN-LAST:event_jbuttonSaveActionPerformed
 
 
