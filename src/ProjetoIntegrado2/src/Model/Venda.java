@@ -7,6 +7,7 @@ package Model;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -27,11 +28,22 @@ public class Venda {
     /*Teoricamente tem que ter um metodo que ja gera o id
     baseado na posicao do banco de dados
     Mas por enquanto deixarei assim*/
-    public Venda(int id) {
-        this.id = id;
+    public Venda() {
+        codVenda = geraCodVenda();
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     //Metodos
+    private int geraCodVenda() {
+        Random rnd = new Random();
+        int parteUM = rnd.nextInt(100) + 1;
+        int parteDOIS = rnd.nextInt(98) + 51;
+
+        int fim = parteUM + parteDOIS;
+
+        return fim;
+    }
+
     public int getId() {
         return id;
     }

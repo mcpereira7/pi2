@@ -6,7 +6,6 @@
 package Mock;
 
 import Model.Produto;
-import Telas.CadastroProduto;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,11 +17,14 @@ public class MockListaDeProduto {
 
     private static int totalProdutos = 0;
 
-    public static ArrayList<Produto> listaProdutos = new ArrayList<Produto>();
+    public static List<Produto> listaProdutos = new ArrayList<Produto>();
 
     public static void adicionar(Produto p) throws Exception {
         p.setId(totalProdutos++);
         listaProdutos.add(p);
     }
-    
+
+    public static List<Produto> listar() throws Exception {
+        return listaProdutos;
+    }
 }

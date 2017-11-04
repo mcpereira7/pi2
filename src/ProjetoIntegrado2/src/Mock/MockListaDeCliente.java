@@ -2,9 +2,7 @@ package Mock;
 
 import Model.Cliente;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  *
@@ -15,10 +13,7 @@ public class MockListaDeCliente {
     private static int numClientes = 0;
     private static List<Cliente> listaClientes = new ArrayList<Cliente>();
 
-    //Construtor
-    public MockListaDeCliente() {
-
-    }
+    //Não precisa de um construtor
 
     // Inserir Cadastro do Cliente 
     public static void inserir(Cliente cliente) throws Exception {

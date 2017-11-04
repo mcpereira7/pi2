@@ -48,4 +48,9 @@ public class ServicoProduto {
         }
         return null;
     }
+    
+//    public Produto getProdutoByCodProduto(String codProduto) throws Exception {
+//        List<Produto> lista = MockListaDeProduto.listar();
+//        
+//    }
 }
