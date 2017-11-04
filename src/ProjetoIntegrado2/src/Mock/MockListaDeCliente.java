@@ -77,20 +77,28 @@ public class MockListaDeCliente {
     }
     
     //Procura um Cliente por Código ou Nome.
-    public static List<Cliente> procurar(int codigo, String nome) throws Exception{
+    public static List<Cliente> procurar(Integer codigo, String nome) throws Exception{
         List<Cliente> resultados = new ArrayList<Cliente>();
         
+        if ((codigo != null || nome != null) && !listaClientes.isEmpty()) {
+            for (Cliente cliente : listaClientes) {
+                if (cliente.getCodCliente() == codigo || cliente.getNome().toUpperCase().contains(nome)){
+                    resultados.add(cliente);
+                }
+            }
+        }
         return resultados;
     }
     
-    //Metodos
-    /* public static Cliente getCliente() {
-        //Cliente consultado = consultarClienteLALALA();
-        Cliente lala = new Cliente();
-        return lala;
+    //Retorna um cliente da lista.
+    public static Cliente obter(Integer id) throws Exception {
+        if (id != null && !listaClientes.isEmpty()) {
+            for (int i = 0; i < listaClientes.size(); i++) {
+                if (listaClientes.get(i) != null && listaClientes.get(i).getId() == id) {
+                    return listaClientes.get(i);
+                }                
+            }
+        }
+        return null;
     }
-    
-    public static void setCliente(Cliente cadastrado) {
-        listaDeCliente.add(cadastrado);
-    }*/
 }
