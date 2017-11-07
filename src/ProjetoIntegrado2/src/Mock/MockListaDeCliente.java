@@ -19,7 +19,6 @@ public class MockListaDeCliente {
     public static void inserir(Cliente cliente) throws Exception {
         cliente.setId(numClientes++);
         listaClientes.add(cliente);
-
     }
     
     //Atualiza o Cadastro do Cliente.
