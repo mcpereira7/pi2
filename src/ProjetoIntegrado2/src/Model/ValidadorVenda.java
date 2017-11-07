@@ -12,13 +12,11 @@ import java.util.Calendar;
  * @author andre.ayamamoto
  */
 public class ValidadorVenda {
-    
-    public void validarData(Calendar de, Calendar ate) {
-        
-        if(de.compareTo(ate) > -31 || de.compareTo(ate) < 31) {
-            
-        }
-        
+
+    public static boolean validarData(Calendar de, Calendar ate) {
+
+        return de.compareTo(ate) > -31 || de.compareTo(ate) < 31;
+
     }
-    
+
 }

@@ -6,6 +6,7 @@
 package Mock;
 
 import Model.Cliente;
+import Model.ValidadorVenda;
 import Model.Venda;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -22,6 +23,7 @@ public class MockListaDeVenda {
 
     private static int totalDeVendas = 0;
 
+    //Metodos
     public static void inserirVenda(Venda novaVenda)
             throws Exception {
         //ID do "banco", nunca mostramos
@@ -88,10 +90,13 @@ public class MockListaDeVenda {
         List<Venda> resultado = new ArrayList<>();
         Calendar agora = Calendar.getInstance();
 
-        if (!de.after(agora) || !ate.after(agora)) {
-            while (de.before(ate)) {
-                resultado.add(getVenda(de));
-                de.add(Calendar.DATE, 1);
+        if (ValidadorVenda.validarData(de, ate)) {
+
+            if (!de.after(agora) || !ate.after(agora)) {
+                while (de.before(ate)) {
+                    resultado.add(getVenda(de));
+                    de.add(Calendar.DATE, 1);
+                }
             }
         }
 
@@ -100,6 +105,14 @@ public class MockListaDeVenda {
 
     public static List<Venda> getVenda(Cliente cliente)
             throws Exception {
-        return null;
+
+        List<Venda> resultado = new ArrayList<>();
+
+        for (Venda venda : listaDeVendas) {
+            if (venda.getCliente() == cliente) {
+                resultado.add(venda);
+            }
+        }
+        return resultado;
     }
 }

@@ -10,6 +10,7 @@ import Exceptions.VendaException;
 import Model.Venda;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -63,5 +64,17 @@ public class ServicoVenda {
             e.printStackTrace();
             throw new DataSourceException("Erro na fonte de dados.", e);
         }
+    }
+    
+//    public static String ObterNomeClienteByCod(String codCliente)
+    
+    public static int geraCodVenda() {
+        Random rnd = new Random();
+        int parteUM = rnd.nextInt(100) + 1;
+        int parteDOIS = rnd.nextInt(98) + 151;
+
+        int fim = parteUM + parteDOIS;
+
+        return fim;
     }
 }

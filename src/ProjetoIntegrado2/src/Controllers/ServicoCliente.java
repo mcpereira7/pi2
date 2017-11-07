@@ -5,10 +5,16 @@
  */
 package Controllers;
 
+import javax.swing.JInternalFrame;
+
 /**
  *
  * @author aayan
  */
 public class ServicoCliente {
+    
+    public static void getClienteSelecionadoConsulta(JInternalFrame consulta) {
+        
+    }
     
 }

@@ -9,12 +9,12 @@ public class Principal extends javax.swing.JFrame {
 
 // Criando as variaveis / Objetos das interfaces
     CadastroCliente menuCadCli = null;
-     CadastroProduto menuCadProduto = null;
-     Vendas menuVenda = null;
-     Relatorio novoRel = null;
-     
-     // objeto de data atual 
-     DataHoje data = new DataHoje();
+    CadastroProduto menuCadProduto = null;
+    Vendas menuVenda = null;
+    Relatorio novoRel = null;
+
+    // objeto de data atual 
+    DataHoje data = new DataHoje();
 
     public Principal() {
         initComponents();
@@ -166,7 +166,6 @@ public class Principal extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
 
-        
         if (menuVenda == null || !menuVenda.isVisible()) {
             menuVenda = new Vendas();
             jdiPrincipal.add(menuVenda);
@@ -185,11 +184,11 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jmCadProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCadProdActionPerformed
-        
+
     }//GEN-LAST:event_jmCadProdActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-       if (novoRel == null || !novoRel.isVisible()) {
+        if (novoRel == null || !novoRel.isVisible()) {
             novoRel = new Relatorio();
             jdiPrincipal.add(novoRel);
             novoRel.setVisible(true);
