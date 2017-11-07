@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author aayan
+ * Alexandre Vinicius Ferreira da Silva & Leandro Alves
+ *alexandre.vfsilva
  */
 public class MockListaDeCliente {
 
