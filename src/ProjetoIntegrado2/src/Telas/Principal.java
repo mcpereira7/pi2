@@ -8,13 +8,15 @@ import java.util.logging.Logger;
 public class Principal extends javax.swing.JFrame {
 
 // Criando as variaveis / Objetos das interfaces
-    CadastroCliente menuCadCli = null;
-    CadastroProduto menuCadProduto = null;
-    Vendas menuVenda = null;
-    Relatorio novoRel = null;
-
-    // objeto de data atual 
-    DataHoje data = new DataHoje();
+     CadastroCliente menuCadCli = null;
+     ConsultaCliente menuConsCli = null;
+     CadastroProduto menuCadProduto = null;
+     ConsultaProduto menuConsProd = null;
+     Vendas menuVenda = null;
+     Relatorio novoRel = null;
+     
+     // objeto de data atual 
+     DataHoje data = new DataHoje();
 
     public Principal() {
         initComponents();
@@ -32,11 +34,14 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jdiPrincipal = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jmCadProd = new javax.swing.JMenu();
-        jmCadCli = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuCli = new javax.swing.JMenu();
+        jmCadCli = new javax.swing.JMenuItem();
+        jmConsultCliente = new javax.swing.JMenuItem();
+        jMenuProduto = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jmConsultProd = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
@@ -44,6 +49,8 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(800, 600));
+
+        jdiPrincipal.setPreferredSize(new java.awt.Dimension(800, 600));
 
         javax.swing.GroupLayout jdiPrincipalLayout = new javax.swing.GroupLayout(jdiPrincipal);
         jdiPrincipal.setLayout(jdiPrincipalLayout);
@@ -57,31 +64,6 @@ public class Principal extends javax.swing.JFrame {
         );
 
         getContentPane().add(jdiPrincipal, java.awt.BorderLayout.CENTER);
-
-        jmCadProd.setText("Cadastro");
-        jmCadProd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmCadProdActionPerformed(evt);
-            }
-        });
-
-        jmCadCli.setText("Cliente");
-        jmCadCli.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmCadCliActionPerformed(evt);
-            }
-        });
-        jmCadProd.add(jmCadCli);
-
-        jMenuItem2.setText("Produto");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-        jmCadProd.add(jMenuItem2);
-
-        jMenuBar1.add(jmCadProd);
 
         jMenu4.setText("Venda");
         jMenu4.addActionListener(new java.awt.event.ActionListener() {
@@ -99,6 +81,51 @@ public class Principal extends javax.swing.JFrame {
         jMenu4.add(jMenuItem3);
 
         jMenuBar1.add(jMenu4);
+
+        jMenuCli.setText("Cliente");
+
+        jmCadCli.setText("Cadastro");
+        jmCadCli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmCadCliActionPerformed(evt);
+            }
+        });
+        jMenuCli.add(jmCadCli);
+
+        jmConsultCliente.setText("Consulta");
+        jmConsultCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmConsultClienteActionPerformed(evt);
+            }
+        });
+        jMenuCli.add(jmConsultCliente);
+
+        jMenuBar1.add(jMenuCli);
+
+        jMenuProduto.setText("Produto");
+        jMenuProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuProdutoActionPerformed(evt);
+            }
+        });
+
+        jMenuItem2.setText("Cadastro");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenuProduto.add(jMenuItem2);
+
+        jmConsultProd.setText("Editar");
+        jmConsultProd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmConsultProdActionPerformed(evt);
+            }
+        });
+        jMenuProduto.add(jmConsultProd);
+
+        jMenuBar1.add(jMenuProduto);
 
         jMenu3.setText("Relatórios");
 
@@ -183,10 +210,6 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
-    private void jmCadProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmCadProdActionPerformed
-
-    }//GEN-LAST:event_jmCadProdActionPerformed
-
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         if (novoRel == null || !novoRel.isVisible()) {
             novoRel = new Relatorio();
@@ -209,6 +232,46 @@ public class Principal extends javax.swing.JFrame {
 //            }
         }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jmConsultClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmConsultClienteActionPerformed
+                if (menuConsCli == null || !menuConsCli.isVisible()) {
+                        menuConsCli = new ConsultaCliente();
+                        jdiPrincipal.add(menuConsCli);
+                        menuConsCli.setVisible(true);
+                } else if (menuConsCli.isVisible()) {
+                         try {
+                                menuConsCli.setSelected(true);
+                } catch (PropertyVetoException ex) {
+                                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                            menuConsCli.getDesktopPane().getDesktopManager().deiconifyFrame(menuConsCli);
+                            menuConsCli.getDesktopPane().getDesktopManager().maximizeFrame(menuConsCli);
+                            menuConsCli.getDesktopPane().getDesktopManager().minimizeFrame(menuConsCli);
+                            menuConsCli.toFront();
+                }
+    }//GEN-LAST:event_jmConsultClienteActionPerformed
+
+    private void jmConsultProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmConsultProdActionPerformed
+        if (menuConsProd == null || !menuConsProd.isVisible()) {
+                        menuConsProd = new ConsultaProduto();
+                        jdiPrincipal.add(menuConsProd);
+                        menuConsProd.setVisible(true);
+                } else if (menuConsProd.isVisible()) {
+                         try {
+                                menuConsProd.setSelected(true);
+                } catch (PropertyVetoException ex) {
+                                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                            menuConsProd.getDesktopPane().getDesktopManager().deiconifyFrame(menuConsProd);
+                            menuConsProd.getDesktopPane().getDesktopManager().maximizeFrame(menuConsProd);
+                            menuConsProd.getDesktopPane().getDesktopManager().minimizeFrame(menuConsProd);
+                            menuConsProd.toFront();
+                }
+    }//GEN-LAST:event_jmConsultProdActionPerformed
+
+    private void jMenuProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuProdutoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuProdutoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -249,12 +312,15 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuCli;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenu jMenuProduto;
     private javax.swing.JDesktopPane jdiPrincipal;
     private javax.swing.JMenuItem jmCadCli;
-    private javax.swing.JMenu jmCadProd;
+    private javax.swing.JMenuItem jmConsultCliente;
+    private javax.swing.JMenuItem jmConsultProd;
     // End of variables declaration//GEN-END:variables
 }

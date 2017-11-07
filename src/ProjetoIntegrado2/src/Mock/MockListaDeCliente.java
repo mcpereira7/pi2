@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author aayan
+ * Alexandre Vinicius Ferreira da Silva & Leandro Alves
+ *alexandre.vfsilva
  */
 public class MockListaDeCliente {
 
@@ -19,7 +19,6 @@ public class MockListaDeCliente {
     public static void inserir(Cliente cliente) throws Exception {
         cliente.setId(numClientes++);
         listaClientes.add(cliente);
-
     }
     
     //Atualiza o Cadastro do Cliente.

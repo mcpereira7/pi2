@@ -29,7 +29,8 @@ public class Venda {
     baseado na posicao do banco de dados
     Mas por enquanto deixarei assim*/
     public Venda() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //codVenda = geraCodVenda();
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     //Metodos

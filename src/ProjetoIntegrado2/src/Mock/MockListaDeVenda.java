@@ -90,14 +90,14 @@ public class MockListaDeVenda {
         List<Venda> resultado = new ArrayList<>();
         Calendar agora = Calendar.getInstance();
 
-        if (ValidadorVenda.validarData(de, ate)) {
+        if (!de.after(agora) || !ate.after(agora)) {
 
-            if (!de.after(agora) || !ate.after(agora)) {
-                while (de.before(ate)) {
-                    resultado.add(getVenda(de));
-                    de.add(Calendar.DATE, 1);
+            for (Venda venda : listaDeVendas) {
+                if (venda.getDataVenda().after(de) && venda.getDataVenda().before(ate)){
+                    resultado.add(venda);
                 }
             }
+            de.add(Calendar.DATE, 1);
         }
 
         return resultado;

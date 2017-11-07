@@ -1,6 +1,6 @@
 /*
- * Andre de Amorim Yamamoto
- * aay.andre@outlook.com
+ * Alexandre Vinicius Ferreida da Silva & Leandro Alves
+ * @author alexandre.vfsilva
  * Turma A
  */
 package Model;
