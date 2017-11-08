@@ -311,6 +311,11 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         txtNome.setText("");
         txtPreco.setText("");
         txtQuantidade.setText("");
+        
+// testanto se produto está ok
+//        System.out.println("ID: "+p.getCodProduto()
+//        +" Nome: " + p.getNome());
+        
     }//GEN-LAST:event_jbuttonSaveActionPerformed
 
 

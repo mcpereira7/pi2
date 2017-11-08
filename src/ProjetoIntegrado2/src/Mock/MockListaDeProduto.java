@@ -29,11 +29,12 @@ public class MockListaDeProduto {
     }
 
     // Consulta produto
-    public static ArrayList<Produto> ListarProduto(Integer codigo, String nome, String tipo, String fornecedor) throws Exception {
-        ArrayList<Produto> listaDeProduto = new ArrayList<>();
-        if (codigo != null || nome != null || tipo != null || fornecedor != null) {
+    public static List<Produto> ListarProduto(Integer codigo, String nome, String tipo, String fornecedor) throws Exception {
+        List<Produto> listaDeProduto = new ArrayList<>();
+        
+        if (codigo != 0 || nome != null || tipo != null || fornecedor != null) {
             for (Produto produto : listaDeProduto) {
-                if (produto.getCodProduto() == codigo || produto.getNome() == nome || produto.getTipo() == tipo || produto.getFornecedor() == fornecedor) {
+                if (produto.getCodProduto() == codigo || produto.getNome().equalsIgnoreCase(nome) || produto.getTipo().equalsIgnoreCase(tipo) || produto.getFornecedor().equalsIgnoreCase(fornecedor)) {
                     listaDeProduto.add(produto);
                 }
             }

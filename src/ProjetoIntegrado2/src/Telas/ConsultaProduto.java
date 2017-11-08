@@ -8,6 +8,7 @@ package Telas;
 import Mock.MockListaDeProduto;
 import Model.Produto;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -201,11 +202,22 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
         tipo = (String) jComboBox1.getSelectedItem();
         produto = jTextField3.getText();
 
+        try {
+            resultSearch = consultaProdResult();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage(),"Falha ao obter lista", JOptionPane.ERROR_MESSAGE);
+        }
+         if (!resultSearch) {
+            JOptionPane.showMessageDialog(rootPane, "A pesquisa não retornou resultados ","Sem resultados", JOptionPane.ERROR_MESSAGE);
+        }
+         
+         
 
     }//GEN-LAST:event_jButton1ActionPerformed
     public boolean consultaProdResult() throws Exception {
         List<Produto> resultado = MockListaDeProduto.ListarProduto(codigo, nome, tipo, nome);
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0);
 
         if (resultado == null || resultado.size() == 0) {
             return false;
@@ -213,6 +225,9 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
 
         for (int i = 0; i < resultado.size(); i++) {
             Produto produto = resultado.get(i);
+            
+            // testando retorno do produto
+         System.out.println("ID: "+ produto.getCodProduto()+ " Nome: "+ produto.getNome());
 
             if (produto != null) {
                 Object[] row = new Object[5];
@@ -221,6 +236,7 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
                 row[2] = produto.getFornecedor();
                 row[3] = produto.getDataCadastro();
                 row[4] = produto.getQuantidadeEstoque();
+                model.addRow(row);
 
             }
         }
