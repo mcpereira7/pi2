@@ -5,6 +5,11 @@
  */
 package Telas;
 
+import Mock.MockListaDeProduto;
+import Model.Produto;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Rerum
@@ -14,6 +19,10 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
     /**
      * Creates new form ConsultaProduto
      */
+    // Variáveis globais usadas na consulta produto
+    Integer codigo;
+    String nome, tipo, produto;
+
     public ConsultaProduto() {
         initComponents();
     }
@@ -50,6 +59,11 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
         jLabel2.setText("Cod.");
 
         jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Tipo");
 
@@ -135,6 +149,11 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
         );
 
         jButton2.setText("Cancelar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Selecionar");
 
@@ -171,6 +190,43 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        boolean resultSearch = false;
+        codigo = Integer.parseInt(jTextField2.getText());
+        nome = jTextField1.getText();
+        tipo = (String) jComboBox1.getSelectedItem();
+        produto = jTextField3.getText();
+
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+    public boolean consultaProdResult() throws Exception {
+        List<Produto> resultado = MockListaDeProduto.ListarProduto(codigo, nome, tipo, nome);
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+
+        if (resultado == null || resultado.size() == 0) {
+            return false;
+        }
+
+        for (int i = 0; i < resultado.size(); i++) {
+            Produto produto = resultado.get(i);
+
+            if (produto != null) {
+                Object[] row = new Object[5];
+                row[0] = produto.getCodProduto();
+                row[1] = produto.getNome();
+                row[2] = produto.getFornecedor();
+                row[3] = produto.getDataCadastro();
+                row[4] = produto.getQuantidadeEstoque();
+
+            }
+        }
+
+        return true;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
