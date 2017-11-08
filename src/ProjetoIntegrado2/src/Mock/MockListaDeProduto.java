@@ -27,4 +27,19 @@ public class MockListaDeProduto {
     public static List<Produto> listar() throws Exception {
         return listaProdutos;
     }
+
+    // Consulta produto
+    public static ArrayList<Produto> ListarProduto(Integer codigo, String nome, String tipo, String fornecedor) throws Exception {
+        ArrayList<Produto> listaDeProduto = new ArrayList<>();
+        if (codigo != null || nome != null || tipo != null || fornecedor != null) {
+            for (Produto produto : listaDeProduto) {
+                if (produto.getCodProduto() == codigo || produto.getNome() == nome || produto.getTipo() == tipo || produto.getFornecedor() == fornecedor) {
+                    listaDeProduto.add(produto);
+                }
+            }
+        }
+
+        return listaDeProduto;
+    }
+
 }

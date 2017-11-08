@@ -30,17 +30,17 @@ public class ServicoProduto {
     }
 
 //    public static ArrayList<Produto> ListarProduto(String filtro) {
-    public static ArrayList<Produto> ListarProduto(Produto produto) {
-        ArrayList<Produto> listaDeProduto = new ArrayList<>();
-
-        for (int i = 0; i < listaDeProduto.size(); i++) {
-            if (listaDeProduto.get(i) == null) {
-                listaDeProduto.add(produto);
-            }
-        }
-
-        return listaDeProduto;
-    }
+//    public static ArrayList<Produto> ListarProduto(Produto produto) {
+//        ArrayList<Produto> listaDeProduto = new ArrayList<>();
+//
+//        for (int i = 0; i < listaDeProduto.size(); i++) {
+//            if (listaDeProduto.get(i) == null) {
+//                listaDeProduto.add(produto);
+//            }
+//        }
+//
+//        return listaDeProduto;
+//    }
 
     public Produto consultaProduto(List<Produto> produto) {
         for (int i = 0; i < produto.size(); i++) {
