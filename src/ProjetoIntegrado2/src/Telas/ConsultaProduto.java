@@ -7,6 +7,8 @@ package Telas;
 
 import Mock.MockListaDeProduto;
 import Model.Produto;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -196,14 +198,24 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
         boolean resultSearch = false;
-        codigo = Integer.parseInt(jTextField2.getText());
-        nome = jTextField1.getText();
+        if (!jTextField2.getText().isEmpty()){
+            codigo = Integer.parseInt(jTextField2.getText().trim());
+        }
+        if(!jTextField1.getText().isEmpty()){
+        nome = jTextField1.getText().trim();
+        }
+        if(jComboBox1.getSelectedIndex()!=0){
         tipo = (String) jComboBox1.getSelectedItem();
-        produto = jTextField3.getText();
+        }
+        if(!jTextField3.getText().isEmpty()){
+        produto = jTextField3.getText().trim();
+        }
 
         try {
             resultSearch = consultaProdResult();
+            MockListaDeProduto.listar();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage(),"Falha ao obter lista", JOptionPane.ERROR_MESSAGE);
         }
@@ -217,7 +229,9 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
     public boolean consultaProdResult() throws Exception {
         List<Produto> resultado = MockListaDeProduto.ListarProduto(codigo, nome, tipo, nome);
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-        model.setRowCount(0);
+        model.setNumRows(0);
+//        Formatar a saida da data para o padrão dd/MM/yyyy
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
         if (resultado == null || resultado.size() == 0) {
             return false;
@@ -234,7 +248,7 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
                 row[0] = produto.getCodProduto();
                 row[1] = produto.getNome();
                 row[2] = produto.getFornecedor();
-                row[3] = produto.getDataCadastro();
+                row[3] = df.format(produto.getDataCadastro().getTime());
                 row[4] = produto.getQuantidadeEstoque();
                 model.addRow(row);
 

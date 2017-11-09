@@ -288,11 +288,19 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
-
-        try {
-            p.setQuantidadeEstoque(Integer.parseInt(txtQuantidade.getText()));
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        if (!txtQuantidade.getText().isEmpty()) {
+            try {
+                p.setQuantidadeEstoque(Integer.parseInt(txtQuantidade.getText()));
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(rootPane, e.getMessage());
+            }
+        }
+        if(!txtFornecedor.getText().isEmpty()){
+            try {
+                p.setFornecedor(txtFornecedor.getText());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(rootPane, e.getMessage());
+            }
         }
 
 //gravando o objeto na lista
@@ -311,11 +319,11 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         txtNome.setText("");
         txtPreco.setText("");
         txtQuantidade.setText("");
-        
+
 // testanto se produto está ok
 //        System.out.println("ID: "+p.getCodProduto()
 //        +" Nome: " + p.getNome());
-        
+
     }//GEN-LAST:event_jbuttonSaveActionPerformed
 
 
