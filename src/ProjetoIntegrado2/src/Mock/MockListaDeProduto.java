@@ -31,54 +31,55 @@ public class MockListaDeProduto {
 
     // Consulta produto
     public static List<Produto> ListarProduto(Integer codigo, String nome, String tipo, String fornecedor) throws Exception {
-        List<Produto> listaDeProduto = new ArrayList<>();
 
-//        try {
-//            if (codigo != null || nome != null || tipo != null || fornecedor != null) {
-//                for (Produto produto : listaProdutos) {
-//                    if ((produto.getCodProduto() == codigo && codigo!=null) ||(produto.getNome().toUpperCase().contains(nome.toUpperCase())&& nome!=null)
-//                            || (produto.getTipo().equalsIgnoreCase(tipo) && tipo!=null) || (produto.getFornecedor().equalsIgnoreCase(fornecedor)&& fornecedor!=null)) {
-//                        listaDeProduto.add(produto);
-//                    }
-//                }
-//            }
-//
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
         try {
-            if (codigo != null) {
-                for (Produto pc : listaProdutos) {
-                    if (pc.getCodProduto() == codigo) {
-                        listaDeProduto.add(pc);
-                    }
-                }
-                if (nome != null) {
-                    for (Produto pn : listaProdutos) {
-                        if (pn.getNome().equalsIgnoreCase(nome)) {
-                            listaDeProduto.add(pn);
-                        }
-                    }
-                }
-                if (tipo != null) {
-                    for (Produto pt : listaProdutos) {
-                        if (pt.getTipo().equalsIgnoreCase(tipo)) {
-                            listaDeProduto.add(pt);
-                        }
-                    }
-                }
-                if (fornecedor != null) {
-                    for (Produto pf : listaProdutos) {
-                        if (pf.getFornecedor().equalsIgnoreCase(fornecedor)) {
-                            listaDeProduto.add(pf);
-                        }
+            if (codigo != null || nome != null || tipo != null || fornecedor != null) {
+                for (Produto produto : listaProdutos) {
+                    if ((produto.getCodProduto() == codigo) || (produto.getNome().toUpperCase().contains(nome.toUpperCase()))
+                            || (produto.getTipo().equalsIgnoreCase(tipo)) || (produto.getFornecedor().equalsIgnoreCase(fornecedor))) {
+                        listaProdutos.add(produto);
                     }
                 }
             }
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return listaDeProduto;
+//        try {
+//            if (codigo != null) {
+//                for (Produto pc : listaProdutos) {
+//                    if (pc.getCodProduto() == codigo) {
+//                        listaDeProduto.add(pc);
+//                    }
+//                }
+//                if (nome != null) {
+//                    for (Produto pn : listaProdutos) {
+//                        if (pn.getNome().equalsIgnoreCase(nome)) {
+//                            listaDeProduto.add(pn);
+//                        }
+//                    }
+//                }
+//                if (tipo != null) {
+//                    for (Produto pt : listaProdutos) {
+//                        if (pt.getTipo().equalsIgnoreCase(tipo)) {
+//                            listaDeProduto.add(pt);
+//                        }
+//                    }
+//                }
+//                if (fornecedor != null) {
+//                    for (Produto pf : listaProdutos) {
+//                        if (pf.getFornecedor().equalsIgnoreCase(fornecedor)) {
+//                            listaDeProduto.add(pf);
+//                        }
+//                    }
+//                }
+//            }
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
+
+        return listaProdutos;
+        
     }
 
 }

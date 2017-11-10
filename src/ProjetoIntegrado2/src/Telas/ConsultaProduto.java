@@ -8,7 +8,6 @@ package Telas;
 import Mock.MockListaDeProduto;
 import Model.Produto;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -22,9 +21,9 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
     /**
      * Creates new form ConsultaProduto
      */
-    // Variáveis globais usadas na consulta produto
+    // Variáveis globais usadas na consulta fornecedor
     Integer codigo;
-    String nome, tipo, produto;
+    String nome, tipo, fornecedor;
 
     public ConsultaProduto() {
         initComponents();
@@ -41,19 +40,19 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTextFieldNomeProduto = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        jTextFieldCodProdutp = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBoxTipoProduto = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        jTextFieldFornecedor = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButtonCancelar = new javax.swing.JButton();
+        jButtonSelecionar = new javax.swing.JButton();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Consulta Produto"));
 
@@ -70,7 +69,7 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Tipo");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxTipoProduto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel4.setText("Fornecedor");
 
@@ -87,19 +86,19 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jComboBoxTipoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2)))
+                                .addComponent(jTextFieldCodProdutp)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
-                            .addComponent(jTextField3))))
+                            .addComponent(jTextFieldNomeProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+                            .addComponent(jTextFieldFornecedor))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -108,15 +107,15 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldNomeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldCodProdutp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxTipoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -151,14 +150,14 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
-        jButton2.setText("Cancelar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButtonCancelarActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Selecionar");
+        jButtonSelecionar.setText("Selecionar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -171,9 +170,9 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton3)
+                        .addComponent(jButtonSelecionar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)))
+                        .addComponent(jButtonCancelar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -185,51 +184,53 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(jButtonCancelar)
+                    .addComponent(jButtonSelecionar))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
         boolean resultSearch = false;
-        if (!jTextField2.getText().isEmpty()){
-            codigo = Integer.parseInt(jTextField2.getText().trim());
+        if (!jTextFieldCodProdutp.getText().isEmpty()) {
+            codigo = Integer.parseInt(jTextFieldCodProdutp.getText().trim());
         }
-        if(!jTextField1.getText().isEmpty()){
-        nome = jTextField1.getText().trim();
+        if (!jTextFieldNomeProduto.getText().isEmpty()) {
+            nome = jTextFieldNomeProduto.getText().trim();
         }
-        if(jComboBox1.getSelectedIndex()!=0){
-        tipo = (String) jComboBox1.getSelectedItem();
+        if (jComboBoxTipoProduto.getSelectedIndex() != 0) {
+            tipo = (String) jComboBoxTipoProduto.getSelectedItem();
         }
-        if(!jTextField3.getText().isEmpty()){
-        produto = jTextField3.getText().trim();
+        if (!jTextFieldFornecedor.getText().isEmpty()) {
+            fornecedor = jTextFieldFornecedor.getText().trim();
         }
 
         try {
             resultSearch = consultaProdResult();
             MockListaDeProduto.listar();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, e.getMessage(),"Falha ao obter lista", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Falha ao obter lista", JOptionPane.ERROR_MESSAGE);
         }
-         if (!resultSearch) {
-            JOptionPane.showMessageDialog(rootPane, "A pesquisa não retornou resultados ","Sem resultados", JOptionPane.ERROR_MESSAGE);
+        if (!resultSearch) {
+            JOptionPane.showMessageDialog(rootPane, "A pesquisa não retornou resultados ", "Sem resultados", JOptionPane.ERROR_MESSAGE);
         }
-         
-         
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
     public boolean consultaProdResult() throws Exception {
-        List<Produto> resultado = MockListaDeProduto.ListarProduto(codigo, nome, tipo, nome);
+        List<Produto> resultado = MockListaDeProduto.ListarProduto(codigo, nome, tipo, fornecedor);
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-        model.setNumRows(0);
+        model.setRowCount(0);
+
+        jTable2.setModel(model);
+
 //        Formatar a saida da data para o padrão dd/MM/yyyy
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -237,32 +238,36 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
             return false;
         }
 
-        for (int i = 0; i < resultado.size(); i++) {
+        for (int i = 0; i < resultado.size(); i++) { //mudar do-while
             Produto produto = resultado.get(i);
-            
-            // testando retorno do produto
-         System.out.println("ID: "+ produto.getCodProduto()+ " Nome: "+ produto.getNome());
 
-            if (produto != null) {
-                Object[] row = new Object[5];
-                row[0] = produto.getCodProduto();
-                row[1] = produto.getNome();
-                row[2] = produto.getFornecedor();
-                row[3] = df.format(produto.getDataCadastro().getTime());
-                row[4] = produto.getQuantidadeEstoque();
-                model.addRow(row);
+            // testando retorno do fornecedor
+            if (codigo == produto.getCodProduto() || nome == produto.getNome() || tipo == produto.getTipo() || fornecedor == produto.getFornecedor()) {
+                System.out.println("ID: " + produto.getCodProduto() + " Nome: " + produto.getNome());
 
+                if (produto != null) {
+                    Object[] row = new Object[5];
+                    row[0] = produto.getCodProduto();
+                    row[1] = produto.getNome();
+                    row[2] = produto.getFornecedor();
+                    row[3] = df.format(produto.getDataCadastro().getTime());
+                    row[4] = produto.getQuantidadeEstoque();
+                    model.addRow(row);
+                }
             }
         }
-
         return true;
+    }
+
+    public void limpar() {
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonSelecionar;
+    private javax.swing.JComboBox<String> jComboBoxTipoProduto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -271,8 +276,8 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextFieldCodProdutp;
+    private javax.swing.JTextField jTextFieldFornecedor;
+    private javax.swing.JTextField jTextFieldNomeProduto;
     // End of variables declaration//GEN-END:variables
 }
