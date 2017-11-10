@@ -2,14 +2,9 @@ package Telas;
 
 import Controllers.ServicoProduto;
 import Model.DataHoje;
-import java.beans.PropertyVetoException;
-import javax.swing.JInternalFrame;
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
-import Mock.MockListaDeProduto;
 import Model.Produto;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 /**
  *
@@ -242,7 +237,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cboxPlataformaActionPerformed
     private void jbuttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbuttonCancelActionPerformed
         // TODO add your handling code here:
-        this.dispose();
     }//GEN-LAST:event_jbuttonCancelActionPerformed
 
     private void cpCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
@@ -279,7 +273,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         }
 
         try {
-            p.setPlataforma(cbPlataforma.getName());
+            p.setPlataforma((String) cbPlataforma.getSelectedItem());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
@@ -291,7 +285,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         }
 
         try {
-            p.setTipo(cbTipo.getName());
+            p.setTipo((String) cbTipo.getSelectedItem());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
@@ -307,15 +301,8 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             ServicoProduto.cadastroProduto(p);//chama serviço para adicionar produtos.
             JOptionPane.showMessageDialog(rootPane, "Produto cadastrado com sucesso!");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, "Erro," + e);
-        }
-
-        Controllers.ServicoProduto.ListarProduto(p);
-
-        if (Mock.MockListaDeProduto.listaProdutos.isEmpty()) {
-            JOptionPane.showMessageDialog(rootPane, "Produto não cadastrado.");
-        } else {
-            JOptionPane.showMessageDialog(rootPane, "Produto cadastrado com sucesso!");
+            JOptionPane.showMessageDialog(rootPane, e, "Erro, ", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         //limpar a tela após gravar
