@@ -51,7 +51,7 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaResultados = new javax.swing.JTable();
         jButtonCancel = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButtonSelecionar = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -149,14 +149,14 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
         jButtonCancel.setText("Cancelar");
         jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCancelActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Selecionar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSelecionar.setText("Selecionar");
+        jButtonSelecionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRetornaValorSelecionado(evt);
+                jButton4ActionPerformed(evt);
             }
         });
 
@@ -179,7 +179,7 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3)
+                        .addComponent(jButtonSelecionar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonCancel)))
                 .addContainerGap())
@@ -194,7 +194,7 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancel)
-                    .addComponent(jButton3)
+                    .addComponent(jButtonSelecionar)
                     .addComponent(jButton4))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -204,10 +204,11 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         boolean resultSearch = false;
-
-        codPesquisa = Integer.parseInt(CodPesquisaField.getText());
+        
+        if (CodPesquisaField.getText() != null && !"".equals(CodPesquisaField.getText())){
+            codPesquisa = Integer.parseInt(CodPesquisaField.getText());
+        }
         nomePesquisa = NomePesquisaField.getText();
-
         try {
             resultSearch = refreshList();
         } catch (Exception e) {
@@ -219,23 +220,13 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
-        try {
-            // TODO add your handling code here:
-            setClosed(true);
-        } catch (PropertyVetoException ex) {
-            Logger.getLogger(ConsultaCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jButtonCancelActionPerformed
-
-    private void jButtonRetornaValorSelecionado(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRetornaValorSelecionado
-        // TODO add your handling code here:
-        
-
-    }//GEN-LAST:event_jButtonRetornaValorSelecionado
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        getClienteSelecionado();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     public boolean refreshList() throws Exception {
@@ -276,9 +267,9 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
     private javax.swing.JTextField CodPesquisaField;
     private javax.swing.JTextField NomePesquisaField;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButtonCancel;
+    private javax.swing.JButton jButtonSelecionar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
