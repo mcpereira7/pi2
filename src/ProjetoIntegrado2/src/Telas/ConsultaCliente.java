@@ -139,6 +139,11 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
         );
 
         jButton2.setText("Cancelar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Selecionar");
 
@@ -182,9 +187,10 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         boolean resultSearch = false;
         
-        codPesquisa = Integer.parseInt(CodPesquisaField.getText());
+        if (CodPesquisaField.getText() != null && !"".equals(CodPesquisaField.getText())){
+            codPesquisa = Integer.parseInt(CodPesquisaField.getText());
+        }
         nomePesquisa = NomePesquisaField.getText();
-        
         try {
             resultSearch = refreshList();
         } catch (Exception e) {
@@ -195,6 +201,10 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "A pesquisa não retornou resultados ","Sem resultados", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public boolean refreshList() throws Exception{
         
