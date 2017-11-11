@@ -30,7 +30,7 @@ public class MockValidarProduto {
             throw new productException("Nome inválido");
         }
 
-        if (produto.getPlataforma().equalsIgnoreCase(null)) {
+        if (produto.getPlataforma().contentEquals("Escolha") && produto.getTipo().contentEquals("Jogo")) {
             throw new productException("Não foi informado uma plataforma para o produto. Escolha uma das opções.");
         }
 
@@ -42,7 +42,7 @@ public class MockValidarProduto {
             throw new productException("Quantidade inválida, informe a quantidade em estoque.");
         }
 
-        if (produto.getTipo().equalsIgnoreCase(null)) {
+        if (produto.getTipo().contentEquals("Escolha")) {
             throw new productException("Tipo de produto inválido, selecione uma das opções");
         }
 
