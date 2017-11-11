@@ -80,6 +80,7 @@ public class Relatorio extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
+        setTitle("Relatório");
 
         jLabel1.setText("Data de");
 

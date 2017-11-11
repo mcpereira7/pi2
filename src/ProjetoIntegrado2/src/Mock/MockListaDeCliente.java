@@ -12,7 +12,7 @@ public class MockListaDeCliente {
 
     private static int numClientes = 0;
     private static List<Cliente> listaClientes = new ArrayList<Cliente>();
-
+    
     //Não precisa de um construtor
 
     // Inserir Cadastro do Cliente 

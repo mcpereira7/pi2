@@ -7,10 +7,13 @@ package Controllers;
 
 import Exceptions.DataSourceException;
 import Exceptions.VendaException;
-import Model.Venda;
+import Mock.MockListaDeVenda;
+import Model.*;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,21 +21,16 @@ import java.util.Random;
  */
 public class ServicoVenda {
 
-    public static void AdicionarProdutoNaVenda(String codVenda,
-            String codProduto, String quantidade) {
-
-        //Metodo para procurar o produto no estoque
-        //Produto novo = Mock.MockListaDeProduto.getProdutoByCod(codProduto);
-        //Metodo para ditar a quantidade em venda
-        //produto.setQuantidadeVenda(quantidade);
-        //List<Produto> listaNova = venda.getListaProdutos();
-        //Adicionando o produto na lista da venda
-        //listaNova.add(produto);
-        //Retornando a lista
-        //venda.setListaProdutos(listaNova);
-
+    public static void ConcluirVenda(Venda entrada) throws VendaException {
+        try {
+            ServicoProduto.AtualizaEstoque(entrada.getListaProdutos());
+            MockListaDeVenda.inserirVenda(entrada);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new VendaException("Erro na fonte de dados.", e);
+        }
     }
-
+    
     public static List<Venda> ConsultaVendaByCodVenda(int codVenda)
             throws VendaException, DataSourceException {
         try {
@@ -43,7 +41,7 @@ public class ServicoVenda {
             throw new DataSourceException("Erro na fonte de dados.", e);
         }
     }
-    
+
     public static List<Venda> ConsultaVendaByVendedor(String vendedor)
             throws VendaException, DataSourceException {
         try {
@@ -54,7 +52,7 @@ public class ServicoVenda {
             throw new DataSourceException("Erro na fonte de dados.", e);
         }
     }
-    
+
     public static List<Venda> ConsultaVendaByData(Calendar de, Calendar ate)
             throws VendaException, DataSourceException {
         try {
@@ -65,9 +63,8 @@ public class ServicoVenda {
             throw new DataSourceException("Erro na fonte de dados.", e);
         }
     }
-    
+
 //    public static String ObterNomeClienteByCod(String codCliente)
-    
     public static int geraCodVenda() {
         Random rnd = new Random();
         int parteUM = rnd.nextInt(100) + 1;

@@ -51,8 +51,42 @@ public class ServicoProduto {
         return null;
     }
 
-//    public Produto getProdutoByCodProduto(String codProduto) throws Exception {
-//        List<Produto> lista = MockListaDeProduto.listar();
-//        
-//    }
+    public static Produto getProdutoByCodProduto(String codProduto) throws productException {
+        try {
+            int codProdutoNumero = Integer.parseInt(codProduto);
+            Produto resultado = null;
+
+            List<Produto> lista = MockListaDeProduto.listar();
+            for (Produto produto : lista) {
+                if (produto.getCodProduto() == codProdutoNumero) {
+                    resultado = produto;
+                }
+            }
+            return resultado;
+
+        } catch (Exception e) {
+            throw new productException("Erro: ");
+        }
+    }
+
+    public static void AtualizaEstoque(List<Produto> lista)
+            throws productException {
+        try {
+            List<Produto> old = MockListaDeProduto.listar();
+
+            for (Produto produto : lista) {
+                for (Produto produtoOld : old) {
+                    if (produto.getCodProduto() == produtoOld.getCodProduto()) {
+                        int quant = produtoOld.getQuantidadeEstoque();
+                        quant -= produto.getQuantidadeVenda();
+                        produtoOld.setQuantidadeEstoque(quant);
+                    }
+                }
+            }
+            MockListaDeProduto.RefreshLista(old);
+
+        } catch (Exception e) {
+        }
+
+    }
 }

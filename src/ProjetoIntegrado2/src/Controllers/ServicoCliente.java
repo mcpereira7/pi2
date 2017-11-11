@@ -11,6 +11,8 @@ import Mock.MockListaDeCliente;
 import Model.Cliente;
 import Model.ValidadorCliente;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -86,13 +88,24 @@ public class ServicoCliente {
             throw new DataSourceException("Erro na fonte de da dados", e);
         }
     }
-    
+
+    public static Cliente obterCliente(String codigo) 
+            throws DataSourceException {
+        try {
+            int numCod = Integer.parseInt(codigo);
+            return MockListaDeCliente.obter(numCod);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DataSourceException("Erro na fonte de da dados", e);
+        }
+    }
+
     public static void excluiCliente(Integer codigo)
             throws ClienteException, DataSourceException {
         try {
             MockListaDeCliente.excluir(codigo);
-        }catch (Exception e){
-            
+        } catch (Exception e) {
+
             e.printStackTrace();
             throw new DataSourceException("Erro na fonte de dados", e);
         }

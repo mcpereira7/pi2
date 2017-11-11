@@ -48,6 +48,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem5.setText("jMenuItem5");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema da Loja");
         setMinimumSize(new java.awt.Dimension(800, 600));
 
         jdiPrincipal.setPreferredSize(new java.awt.Dimension(800, 600));

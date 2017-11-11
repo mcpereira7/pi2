@@ -68,6 +68,7 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jTable1);
 
         setClosable(true);
+        setTitle("Consulta Cliente");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Consulta Cliente"));
 

@@ -34,6 +34,10 @@ public class Venda {
     }
 
     //Metodos
+    public void setProdutoNaLista(Produto entrada) {
+        listaProdutos.add(entrada);
+    }
+    
     public int getId() {
         return id;
     }

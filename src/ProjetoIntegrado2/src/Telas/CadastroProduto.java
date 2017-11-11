@@ -1,8 +1,11 @@
 package Telas;
 
 import Controllers.ServicoProduto;
+import Exceptions.DataSourceException;
+import Exceptions.productException;
 import Model.DataHoje;
 import Model.Produto;
+import java.awt.HeadlessException;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
 
@@ -52,12 +55,13 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         jTextArea1 = new javax.swing.JTextArea();
         jLabel10 = new javax.swing.JLabel();
         jButtonSave = new javax.swing.JButton();
-        jButtonCancelar = new javax.swing.JButton();
+        jButtonCancel = new javax.swing.JButton();
         jButtonProcurar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
         setResizable(true);
+        setTitle("Cadastro Produto");
 
         jLabel6.setText("Tipo*");
 
@@ -110,7 +114,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonCancelar.setText("Cancelar");
+        jButtonCancel.setText("Cancelar");
 
         jButtonProcurar.setText("...");
 
@@ -143,7 +147,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButtonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                            .addComponent(jButtonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 83, Short.MAX_VALUE)
                             .addComponent(jButtonSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,7 +223,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonSave)
                         .addGap(19, 19, 19)
-                        .addComponent(jButtonCancelar))
+                        .addComponent(jButtonCancel))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel5)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -250,7 +254,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         //dados do objeto
         try {
             p.setCodProduto(Integer.parseInt(cpCodigo.getText()));
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
 
@@ -262,7 +266,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
         try {
             p.setPreco(Float.parseFloat(cpValor.getText()));
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
 
@@ -292,7 +296,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
         try {
             p.setQuantidadeEstoque(Integer.parseInt(cpQtde.getText()));
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
 
@@ -300,7 +304,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         try {
             ServicoProduto.cadastroProduto(p);//chama serviço para adicionar produtos.
             JOptionPane.showMessageDialog(rootPane, "Produto cadastrado com sucesso!");
-        } catch (Exception e) {
+        } catch (DataSourceException | productException | HeadlessException e) {
             JOptionPane.showMessageDialog(rootPane, e, "Erro, ", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -324,7 +328,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
     private javax.swing.JTextField cpNome;
     private javax.swing.JTextField cpQtde;
     private javax.swing.JTextField cpValor;
-    private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonCancel;
     private javax.swing.JButton jButtonProcurar;
     private javax.swing.JButton jButtonSave;
     private javax.swing.JLabel jLabel10;

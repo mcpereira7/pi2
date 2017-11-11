@@ -1,3 +1,4 @@
+
 /*
  * Andre de Amorim Yamamoto
  * aay.andre@outlook.com
@@ -6,7 +7,6 @@
 package Mock;
 
 import Model.Cliente;
-import Model.ValidadorVenda;
 import Model.Venda;
 import java.util.ArrayList;
 import java.util.Calendar;
