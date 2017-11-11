@@ -44,9 +44,12 @@ public class ServicoProduto {
         return listaDeProduto;
     }
 
-    public Produto consultaProduto(List<Produto> produto) {
+    public static List<Produto> consultaProduto(int codigo, String nome, String tipo, String fornecedor) throws Exception {
+        List<Produto> produto=MockListaDeProduto.procurar(codigo, nome, tipo, fornecedor);
         for (int i = 0; i < produto.size(); i++) {
-
+                if(!produto.isEmpty()){
+                    return produto;
+                }
         }
         return null;
     }

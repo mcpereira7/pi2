@@ -5,6 +5,19 @@
  */
 package Telas;
 
+import Controllers.ServicoProduto;
+import Mock.MockListaDeProduto;
+import Model.Produto;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Rerum
@@ -14,6 +27,10 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
     /**
      * Creates new form ConsultaProduto
      */
+    
+        // Variáveis globais usadas na consulta Produto
+    Integer codigo;
+    String nome, tipo, fornecedor;
     
     //Selecionado
     String codDoProdutoSelecionado = null;
@@ -47,6 +64,7 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
         jTableTabelaDeProdutos = new javax.swing.JTable();
         jButtonCancelar = new javax.swing.JButton();
         jButtonSelecionar = new javax.swing.JButton();
+        jButtonCadastroGenerico = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Consulta Produto");
@@ -58,6 +76,11 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
         jLabel2.setText("Cod.");
 
         jButtonBuscar.setText("Buscar");
+        jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBuscarActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Tipo");
 
@@ -156,6 +179,13 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
             }
         });
 
+        jButtonCadastroGenerico.setText("Generico");
+        jButtonCadastroGenerico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCadastroGenericoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -166,7 +196,9 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(8, 8, 8)
+                        .addComponent(jButtonCadastroGenerico)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
                         .addComponent(jButtonSelecionar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonCancelar)))
@@ -182,7 +214,8 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancelar)
-                    .addComponent(jButtonSelecionar))
+                    .addComponent(jButtonSelecionar)
+                    .addComponent(jButtonCadastroGenerico))
                 .addContainerGap())
         );
 
@@ -193,9 +226,13 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         int coluna = jTableTabelaDeProdutos.getSelectedColumn();
         int linha = jTableTabelaDeProdutos.getSelectedRow();
-        int codCliente = (int) jTableTabelaDeProdutos.getValueAt(linha, coluna);
-        codDoProdutoSelecionado = Integer.toString(codCliente);
-        setVisible(false);
+        String codCliente =(String)jTableTabelaDeProdutos.getValueAt(linha, 0);
+        int cod = Integer.parseInt(codCliente);
+        
+        Produto p = MockListaDeProduto.selecionaProduto(cod);
+      
+      
+        
     }//GEN-LAST:event_jButtonSelecionarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
@@ -203,13 +240,106 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
+    private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
+        boolean resultSearch = false;        
+//Verifica os campos da pesquisa e atribui seus valores as variaveis
+        if (!jTextFieldCodProduto.getText().isEmpty()) {
+            codigo = Integer.parseInt(jTextFieldCodProduto.getText().trim());
+        }
+        if (!jTextFieldNomeProduto.getText().isEmpty()) {
+            nome = jTextFieldNomeProduto.getText().trim();
+        }
+        if (jComboBoxTipoDoProduto.getSelectedIndex() != 0) {
+            tipo = (String) jComboBoxTipoDoProduto.getSelectedItem();
+        }
+        if (!jTextFieldFornecedor.getText().isEmpty()) {
+            fornecedor = jTextFieldFornecedor.getText().trim();
+        }
+        
+        try {
+            resultSearch=refreshList();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Falha ao obter lista", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonBuscarActionPerformed
+
+    private void jButtonCadastroGenericoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastroGenericoActionPerformed
+        // TODO add your handling code here:
+        ArrayList<Produto> listaProduto = new ArrayList<Produto>();
+    Produto p;
+    String str = "AAA";
+    String tipo = "jogo";
+//    Random rd = new Random(100+1);
+    int n=0;
+    
+    while(n<=5){
+        p=new Produto();
+        p.setCodProduto(n+1);
+        p.setNome(str+(n+1));
+        p.setFornecedor(str+(n+3));
+        p.setTipo(tipo);
+        p.setQuantidadeEstoque(10);
+        p.setPreco(100.00f);
+            Calendar dataCadastro = Calendar.getInstance();
+        p.setDataCadastro(dataCadastro);
+            try {
+                Mock.MockListaDeProduto.adicionar(p);
+            } catch (Exception ex) {
+                Logger.getLogger(ConsultaProduto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        n++;
+             
+    }
+    }//GEN-LAST:event_jButtonCadastroGenericoActionPerformed
+
     public String RetornaCodProduto() {
         return codDoProdutoSelecionado;
+    }
+    
+    public boolean refreshList() throws Exception {
+
+        List<Produto> resultado = MockListaDeProduto.procurar(codigo, nome, tipo, fornecedor);
+
+        DefaultTableModel model = (DefaultTableModel) jTableTabelaDeProdutos.getModel();
+        model.setRowCount(0);
+        
+        //        Formatar a saida da data para o padrão dd/MM/yyyy
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        
+        
+       
+
+        if (resultado == null || resultado.size() <= 0) {
+            return false;
+        }
+
+        for (int i = 0; i < resultado.size(); i++) {
+            Produto p = resultado.get(i);
+            if (p != null) {
+                Object[] row = new Object[5];
+                row[0] = p.getCodProduto();
+                row[1] = p.getNome();
+                row[2] = p.getFornecedor();
+                row[3] = df.format(p.getDataCadastro().getTime());
+                row[4] = p.getQuantidadeEstoque();
+                model.addRow(row);
+                // teste
+        
+                System.out.println("Codigo: "+ p.getCodProduto() + "| Nome: " + p.getNome() + " | Fornecedor: " + p.getFornecedor()
+            + " | Tipo: "+ p.getTipo() + " | Qtd: " + p.getQuantidadeEstoque() + " | Valor: " + p.getPreco());
+           
+        // teste
+            }
+        }
+ 
+        return true;
     }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBuscar;
+    private javax.swing.JButton jButtonCadastroGenerico;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonSelecionar;
     private javax.swing.JComboBox<String> jComboBoxTipoDoProduto;
