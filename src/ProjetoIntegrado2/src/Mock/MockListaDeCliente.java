@@ -101,5 +101,16 @@ public class MockListaDeCliente {
         }
         return null;
     }
+    
+    public static Cliente obterByCod(Integer cod) throws Exception {
+        if (cod != null && !listaClientes.isEmpty()) {
+            for (int i = 0; i < listaClientes.size(); i++) {
+                if (listaClientes.get(i) != null && listaClientes.get(i).getCodCliente()== cod) {
+                    return listaClientes.get(i);
+                }
+            }
+        }
+        return null;
+    }
 
 }

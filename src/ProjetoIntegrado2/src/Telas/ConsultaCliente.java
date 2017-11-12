@@ -20,6 +20,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ConsultaCliente extends javax.swing.JInternalFrame {
 
+    Principal principal = null;
+    CadastroCliente menuCadCli = null;
     Integer codPesquisa = null;
     String nomePesquisa = null;
 
@@ -28,6 +30,7 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
      */
     public ConsultaCliente() {
         initComponents();
+        jButtonCadastrar.setVisible(false);
     }
 
     /**
@@ -52,7 +55,7 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
         tabelaResultados = new javax.swing.JTable();
         jButtonCancel = new javax.swing.JButton();
         jButtonSelecionar = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jButtonCadastrar = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -153,17 +156,17 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonSelecionar.setText("Selecionar");
+        jButtonSelecionar.setText("Alterar");
         jButtonSelecionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jButtonCadastrarActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Cadastrar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCadastrar.setText("Cadastrar");
+        jButtonCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jButtonCadastrarActionPerformed(evt);
             }
         });
 
@@ -177,11 +180,11 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton4)
+                        .addComponent(jButtonCadastrar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonSelecionar)
+                        .addComponent(jButtonSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonCancel)))
+                        .addComponent(jButtonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -195,7 +198,7 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancel)
                     .addComponent(jButtonSelecionar)
-                    .addComponent(jButton4))
+                    .addComponent(jButtonCadastrar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -204,8 +207,8 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         boolean resultSearch = false;
-        
-        if (CodPesquisaField.getText() != null && !"".equals(CodPesquisaField.getText())){
+
+        if (CodPesquisaField.getText() != null && !"".equals(CodPesquisaField.getText())) {
             codPesquisa = Integer.parseInt(CodPesquisaField.getText());
         }
         nomePesquisa = NomePesquisaField.getText();
@@ -224,10 +227,33 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-        getClienteSelecionado();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
+        
+        Cliente cliente = new Cliente();
+        try {
+            cliente = MockListaDeCliente.obterByCod(getClienteSelecionado());
+            //getClienteSelecionado()
+        } catch (Exception ex) {
+            Logger.getLogger(ConsultaCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (menuCadCli == null || !menuCadCli.isVisible()) {
+            menuCadCli = new CadastroCliente(cliente);
+            this.getParent().add(menuCadCli);
+            menuCadCli.setVisible(true);
+        } else if (menuCadCli.isVisible()) {
+            try {
+                menuCadCli.setSelected(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            menuCadCli.getDesktopPane().getDesktopManager().deiconifyFrame(menuCadCli);
+            menuCadCli.getDesktopPane().getDesktopManager().maximizeFrame(menuCadCli);
+            menuCadCli.getDesktopPane().getDesktopManager().minimizeFrame(menuCadCli);
+            menuCadCli.toFront();
+            //getClienteSelecionado();
+        }
+    }//GEN-LAST:event_jButtonCadastrarActionPerformed
 
     public boolean refreshList() throws Exception {
 
@@ -254,20 +280,19 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
 
         return true;
     }
-    
+
     public int getClienteSelecionado() {
-        int coluna = jTable1.getSelectedColumn();
         int linha = jTable1.getSelectedRow();
-        int codCliente = (int) jTable1.getValueAt(linha, coluna);
+        int coluna = jTable1.getSelectedColumn();
+        int codCliente = (int) jTable1.getValueAt(linha, 0);
         return codCliente;
-//            Cliente clienteParaVenda = MockListaDeCliente.obter((Integer) codCliente);
-//            Vendas.setClienteVendaByConsulta(clienteParaVenda);
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CodPesquisaField;
     private javax.swing.JTextField NomePesquisaField;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButtonCadastrar;
     private javax.swing.JButton jButtonCancel;
     private javax.swing.JButton jButtonSelecionar;
     private javax.swing.JLabel jLabel1;
