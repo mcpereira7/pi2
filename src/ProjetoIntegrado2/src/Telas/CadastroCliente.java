@@ -26,6 +26,30 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
     public CadastroCliente() {
         initComponents();
     }
+    
+    // Chamada para atualizar o cliente.
+    public CadastroCliente(Cliente cliente) {
+        initComponents();
+        
+        fieldCod.setText(String.valueOf(cliente.getCodCliente()));
+        fFieldDataCadastro.setValue(cliente.getDataCadastro());
+        fieldNome.setText(cliente.getNome());
+        //comboSexo.getSelectedItem()
+        fieldCPF.setText(cliente.getCpf());
+        fieldRG.setText(cliente.getRg());
+        //fFieldDataNasc.getValue());
+        fieldTelefone.setText(cliente.getTelefone());
+        fieldCelular.setText(cliente.getCelular());
+        fieldEmail.setText(cliente.getEmail());
+        fieldCEP.setText(cliente.getCep());
+        fieldCidade.setText(cliente.getCidade());
+        //comboUF.getSelectedItem());
+        fieldEndereco.setText(cliente.getEndereco());
+        fieldNr.setText(cliente.getEndNumero());
+        fieldComplemento.setText(cliente.getComplemento());
+        fieldBairro.setText(cliente.getBairro());
+        TextAreaOBS.setText(cliente.getObs());
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -118,7 +142,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
 
         jLabel18.setText("Sexo");
 
-        comboSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione\t", "Masculino", "Feminino" }));
 
         jLabel19.setText("Campos obrigatórios *");
 
@@ -138,7 +162,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
 
         jLabel7.setText("Endereço*");
 
-        comboUF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboUF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MG", "MS", "MT", "PA", "PB", "PE", "PI", "PR", "RJ", "RN", "RO", "RR", "RS", "SC", "SE", "SP", "TO" }));
 
         jLabel8.setText("Nº");
 
