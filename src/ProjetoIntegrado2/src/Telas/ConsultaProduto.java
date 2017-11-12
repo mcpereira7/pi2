@@ -233,27 +233,24 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         TableModel model = (AbstractTableModel) jTableTabelaDeProdutos.getModel();
         jTableTabelaDeProdutos.setModel(model);
-
-        Produto p  = (Produto) model.getValueAt(0, 0);
+        int coluna = jTableTabelaDeProdutos.getSelectedColumn();
+        int linha = jTableTabelaDeProdutos.getSelectedRow();
+        int codProduto = Integer.parseInt(jTableTabelaDeProdutos.getValueAt(linha, coluna).toString());
+        //Produto p  = (Produto) model.getValueAt(0, 0);
         
-        Produto produto = MockListaDeProduto.selecionaProduto(p.getCodProduto());
+        Produto p = MockListaDeProduto.selecionaProduto(codProduto);
+        
+        // Teste
+        System.out.println("Selecionado");
+        System.out.println("Codigo: "+ p.getCodProduto() + "| Nome: " + p.getNome() + " | Fornecedor: " + p.getFornecedor()
+            + " | Tipo: "+ p.getTipo() + " | Qtd: " + p.getQuantidadeEstoque() + " | Valor: " + p.getPreco());
       
         try {
-            if (alteraProduto == null || !alteraProduto.isVisible()) {
+            
             alteraProduto = new CadastroProduto();
-            //jdiPrincipal.add(alteraProduto);
             alteraProduto.setVisible(true);
-        } else if (alteraProduto.isVisible()) {
-            try {
-                alteraProduto.setSelected(true);
-            } catch (PropertyVetoException ex) {
-                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            alteraProduto.getDesktopPane().getDesktopManager().deiconifyFrame(alteraProduto);
-            alteraProduto.getDesktopPane().getDesktopManager().maximizeFrame(alteraProduto);
-            alteraProduto.getDesktopPane().getDesktopManager().minimizeFrame(alteraProduto);
-            alteraProduto.toFront();
-        }
+            
+            
             
         } catch (Exception e) {
         }

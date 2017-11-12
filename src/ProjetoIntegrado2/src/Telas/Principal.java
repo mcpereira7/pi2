@@ -4,6 +4,7 @@ import Model.DataHoje;
 import java.beans.PropertyVetoException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDesktopPane;
 
 public class Principal extends javax.swing.JFrame {
 
@@ -277,6 +278,10 @@ public class Principal extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    public Principal(JDesktopPane jdp){
+       // jdp = new CadastroProduto();
+        jdiPrincipal.add(jdp);
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -308,6 +313,8 @@ public class Principal extends javax.swing.JFrame {
             }
         });
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu3;
