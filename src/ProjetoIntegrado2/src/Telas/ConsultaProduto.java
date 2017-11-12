@@ -8,6 +8,7 @@ package Telas;
 import Controllers.ServicoProduto;
 import Mock.MockListaDeProduto;
 import Model.Produto;
+import java.beans.PropertyVetoException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,7 +17,9 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -31,6 +34,10 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
         // Variáveis globais usadas na consulta Produto
     Integer codigo;
     String nome, tipo, fornecedor;
+    
+    // Variavel para alteração do produto selecionado
+    // abre a tela de Cadastro
+    CadastroProduto alteraProduto = null;
     
     //Selecionado
     String codDoProdutoSelecionado = null;
@@ -224,14 +231,32 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
 
     private void jButtonSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelecionarActionPerformed
         // TODO add your handling code here:
-        int coluna = jTableTabelaDeProdutos.getSelectedColumn();
-        int linha = jTableTabelaDeProdutos.getSelectedRow();
-        String codCliente =(String)jTableTabelaDeProdutos.getValueAt(linha, 0);
-        int cod = Integer.parseInt(codCliente);
+        TableModel model = (AbstractTableModel) jTableTabelaDeProdutos.getModel();
+        jTableTabelaDeProdutos.setModel(model);
+
+        Produto p  = (Produto) model.getValueAt(0, 0);
         
-        Produto p = MockListaDeProduto.selecionaProduto(cod);
+        Produto produto = MockListaDeProduto.selecionaProduto(p.getCodProduto());
       
-      
+        try {
+            if (alteraProduto == null || !alteraProduto.isVisible()) {
+            alteraProduto = new CadastroProduto();
+            //jdiPrincipal.add(alteraProduto);
+            alteraProduto.setVisible(true);
+        } else if (alteraProduto.isVisible()) {
+            try {
+                alteraProduto.setSelected(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            alteraProduto.getDesktopPane().getDesktopManager().deiconifyFrame(alteraProduto);
+            alteraProduto.getDesktopPane().getDesktopManager().maximizeFrame(alteraProduto);
+            alteraProduto.getDesktopPane().getDesktopManager().minimizeFrame(alteraProduto);
+            alteraProduto.toFront();
+        }
+            
+        } catch (Exception e) {
+        }
         
     }//GEN-LAST:event_jButtonSelecionarActionPerformed
 
