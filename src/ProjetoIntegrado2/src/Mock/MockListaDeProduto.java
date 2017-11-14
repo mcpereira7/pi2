@@ -31,54 +31,19 @@ public class MockListaDeProduto {
 
     // Consulta produto
     public static List<Produto> ListarProduto(Integer codigo, String nome, String tipo, String fornecedor) throws Exception {
-
-        try {
-            if (codigo != null || nome != null || tipo != null || fornecedor != null) {
-                for (Produto produto : listaProdutos) {
-                    if ((produto.getCodProduto() == codigo) || (produto.getNome().toUpperCase().contains(nome.toUpperCase()))
-                            || (produto.getTipo().equalsIgnoreCase(tipo)) || (produto.getFornecedor().equalsIgnoreCase(fornecedor))) {
-                        listaProdutos.add(produto);
-                    }
-                }
-            }
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-//        try {
-//            if (codigo != null) {
-//                for (Produto pc : listaProdutos) {
-//                    if (pc.getCodProduto() == codigo) {
-//                        listaDeProduto.add(pc);
-//                    }
-//                }
-//                if (nome != null) {
-//                    for (Produto pn : listaProdutos) {
-//                        if (pn.getNome().equalsIgnoreCase(nome)) {
-//                            listaDeProduto.add(pn);
-//                        }
-//                    }
-//                }
-//                if (tipo != null) {
-//                    for (Produto pt : listaProdutos) {
-//                        if (pt.getTipo().equalsIgnoreCase(tipo)) {
-//                            listaDeProduto.add(pt);
-//                        }
-//                    }
-//                }
-//                if (fornecedor != null) {
-//                    for (Produto pf : listaProdutos) {
-//                        if (pf.getFornecedor().equalsIgnoreCase(fornecedor)) {
-//                            listaDeProduto.add(pf);
-//                        }
-//                    }
-//                }
-//            }
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-
-        return listaProdutos;
+        
+        // Criando array que recebe o tipo de Objeto Produto
+        ArrayList<Produto> resultadoBusca = new ArrayList<Produto>();
+        
+       for(Produto p:listaProdutos){
+           if(codigo!=null){
+               resultadoBusca.add(p);
+           }
+           else if(nome!=null && p.getNome().equalsIgnoreCase(nome)){
+               resultadoBusca.add(p);
+           }
+       }
+        return resultadoBusca;
         
     }
 

@@ -214,7 +214,7 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
 
         try {
             resultSearch = consultaProdResult();
-            MockListaDeProduto.listar();
+            MockListaDeProduto.ListarProduto(codigo, nome, tipo, fornecedor);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Falha ao obter lista", JOptionPane.ERROR_MESSAGE);
         }
