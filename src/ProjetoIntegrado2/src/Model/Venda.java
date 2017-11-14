@@ -5,6 +5,8 @@
  */
 package Model;
 
+import com.sun.javafx.scene.control.skin.VirtualFlow;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
@@ -21,7 +23,7 @@ public class Venda {
     private String vendedor;
     private Calendar dataVenda;
     private Cliente cliente;
-    private List<Produto> listaProdutos;
+    private List<Produto> listaProdutos=new ArrayList<Produto>();
     private double valorTotal;
 
     //Construtor

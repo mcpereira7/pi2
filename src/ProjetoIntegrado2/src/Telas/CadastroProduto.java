@@ -40,6 +40,8 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         if(produto.getTipo().equals("Jogo")){
             cbPlataforma.setSelectedItem(produto.getPlataforma());
         }
+        
+        // Adicionando evento personalizado ao botão salvar, quando este construtor for chamado
 //        for(int i=0; i<cbTipo.getItemCount();i++){
 //            if(cbTipo.getSelectedItem().equals(produto.getTipo())){
 //                cbTipo.setSelectedIndex(i);
@@ -329,6 +331,9 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             p.setQuantidadeEstoque(Integer.parseInt(cpQtde.getText()));
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+        if(!cpFornecedor.getText().isEmpty()){
+            p.setFornecedor(cpFornecedor.getText());
         }
 
 //gravando o objeto na lista

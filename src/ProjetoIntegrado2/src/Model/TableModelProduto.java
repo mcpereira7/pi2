@@ -12,15 +12,15 @@ public class TableModelProduto extends AbstractTableModel {
 
     private List<Produto> linhas;
     private String[] colunas = new String[]{
-        "Codigo", "Nome", "Fornecedor", "Data Entrada", "Estoque"
+        "Codigo", "Nome", "Fornecedor", "DataEntrada", "Estoque"
     };
-    
+
     // Constantes referente ao indice das colunas
-    private static final int codigo=0;
-    private static final int nome=1;
-    private static final int fornecedor=2;
-    private static final int dtEntrada=3;
-    private static final int estoque=4;
+    private static final int CODIGO = 0;
+    private static final int NOME = 1;
+    private static final int FORNECEDOR = 2;
+    private static final int DATAENTRADA = 3;
+    private static final int ESTOQUE = 4;
 
     // Construtores
     public TableModelProduto() {
@@ -53,7 +53,18 @@ public class TableModelProduto extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Produto produto = linhas.get(rowIndex);
+
+        switch (columnIndex) {
+            case NOME:
+            case CODIGO:
+            case FORNECEDOR:
+            case DATAENTRADA:
+            case ESTOQUE:
+                return produto.getCodProduto();
+            default:
+                throw new IndexOutOfBoundsException("columnIndex out of bounds");
+        }
     }
 
 }
