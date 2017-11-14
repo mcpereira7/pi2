@@ -17,13 +17,46 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
     //Criando objeto que retorna a data atual.
     DataHoje data = new DataHoje();
+    // Objeto tipo produto
+    Produto produto = new Produto();
 
+    
     /**
      * Creates new form CadastroProduto
      */
     public CadastroProduto() {
         initComponents();
     }
+     public CadastroProduto(Produto produto) {
+        initComponents();
+        
+        // inicializando os campos com os dados do Produto
+        cpCodigo.setText(String.valueOf(produto.getCodProduto()));
+        cpNome.setText(produto.getNome());
+        cpFornecedor.setText(produto.getFornecedor());
+        cpQtde.setText(String.valueOf(produto.getQuantidadeEstoque()));
+        cpValor.setText(String.valueOf(produto.getPreco()));
+        cbTipo.setSelectedItem(produto.getTipo());
+        if(produto.getTipo().equals("Jogo")){
+            cbPlataforma.setSelectedItem(produto.getPlataforma());
+        }
+//        for(int i=0; i<cbTipo.getItemCount();i++){
+//            if(cbTipo.getSelectedItem().equals(produto.getTipo())){
+//                cbTipo.setSelectedIndex(i);
+//            }
+//        }
+        
+    }
+    
+    // getters e setters referente a tela alteração
+    public Produto getProduto(){
+        return produto;
+    }
+    public void setProduto(Produto produto){
+        this.produto=produto;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -95,7 +128,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Descrição");
 
-        cbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Escolha", "Jogo", "Periférico", "Itens diversos" }));
+        cbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Jogo", "Periférico", "Itens diversos" }));
 
         jLabel8.setText("Quantidade");
 
@@ -133,11 +166,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cpValor, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -147,7 +175,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButtonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 83, Short.MAX_VALUE)
+                            .addComponent(jButtonCancel, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
                             .addComponent(jButtonSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,7 +183,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cpNome, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                            .addComponent(cpNome, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(cpCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))
@@ -176,7 +204,11 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cpQtde, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(159, 159, 159))
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cpValor, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(44, 44, 44))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addGap(18, 18, 18)
@@ -210,15 +242,14 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel8)
-                        .addComponent(cpQtde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel7)
-                        .addComponent(cbPlataforma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cpQtde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel9)
                         .addComponent(cpValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButtonProcurar)))
-                .addGap(18, 18, 18)
+                        .addComponent(jButtonProcurar))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel7)
+                        .addComponent(cbPlataforma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButtonSave)
@@ -227,7 +258,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel5)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addComponent(jLabel10)
                 .addContainerGap())
         );

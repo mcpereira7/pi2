@@ -59,7 +59,9 @@ public class MockListaDeProduto {
                     if (p.getTipo().toUpperCase().contains(tipo.toUpperCase())) {
                         resultados.add(p);
                     }
-                }
+                } else  if ((codigo == null ||codigo.equals(""))&& (nome == null || nome.equals(""))&& (tipo == null || tipo.equals(""))&& (fornecedor == null ||fornecedor.equals(""))) {
+                        resultados.add(p);
+                    }
             }
         
         return resultados;

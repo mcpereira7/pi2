@@ -1,10 +1,12 @@
 package Telas;
 
 import Model.DataHoje;
+import Model.Produto;
 import java.beans.PropertyVetoException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 
 public class Principal extends javax.swing.JFrame {
 
@@ -12,6 +14,7 @@ public class Principal extends javax.swing.JFrame {
      CadastroCliente menuCadCli = null;
      ConsultaCliente menuConsCli = null;
      CadastroProduto menuCadProduto = null;
+     CadastroProduto alteraProduto = null;
      ConsultaProduto menuConsProd = null;
      Vendas menuVenda = null;
      Relatorio novoRel = null;
@@ -271,6 +274,8 @@ public class Principal extends javax.swing.JFrame {
                 }
     }//GEN-LAST:event_jmConsultProdActionPerformed
 
+    
+    
     private void jMenuProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuProdutoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuProdutoActionPerformed
@@ -278,10 +283,7 @@ public class Principal extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public Principal(JDesktopPane jdp){
-       // jdp = new CadastroProduto();
-        jdiPrincipal.add(jdp);
-    }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

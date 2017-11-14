@@ -8,6 +8,7 @@ package Telas;
 import Controllers.ServicoProduto;
 import Mock.MockListaDeProduto;
 import Model.Produto;
+import java.awt.Container;
 import java.beans.PropertyVetoException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,10 +35,11 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
         // Variáveis globais usadas na consulta Produto
     Integer codigo;
     String nome, tipo, fornecedor;
+    CadastroProduto menuCadProduto = null;
     
     // Variavel para alteração do produto selecionado
     // abre a tela de Cadastro
-    CadastroProduto alteraProduto = null;
+   // CadastroProduto alteraProduto = null;
     
     //Selecionado
     String codDoProdutoSelecionado = null;
@@ -91,7 +93,7 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Tipo");
 
-        jComboBoxTipoDoProduto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxTipoDoProduto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Jogo", "Periférico", "Itens diversos" }));
 
         jLabel4.setText("Fornecedor");
 
@@ -244,19 +246,27 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
         System.out.println("Selecionado");
         System.out.println("Codigo: "+ p.getCodProduto() + "| Nome: " + p.getNome() + " | Fornecedor: " + p.getFornecedor()
             + " | Tipo: "+ p.getTipo() + " | Qtd: " + p.getQuantidadeEstoque() + " | Valor: " + p.getPreco());
-      
-        try {
-            
-            alteraProduto = new CadastroProduto();
-            alteraProduto.setVisible(true);
-            
-            
-            
-        } catch (Exception e) {
+
+        // Chama tela altera produto
+        if (menuCadProduto == null || !menuCadProduto.isVisible()) {
+            menuCadProduto = new CadastroProduto(p);
+            this.getParent().add(menuCadProduto);
+            menuCadProduto.setVisible(true);
+        } else if (menuCadProduto.isVisible()) {
+            try {
+                menuCadProduto.setSelected(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            menuCadProduto.getDesktopPane().getDesktopManager().deiconifyFrame(menuCadProduto);
+            menuCadProduto.getDesktopPane().getDesktopManager().maximizeFrame(menuCadProduto);
+            menuCadProduto.getDesktopPane().getDesktopManager().minimizeFrame(menuCadProduto);
+            menuCadProduto.toFront();
         }
         
+        
     }//GEN-LAST:event_jButtonSelecionarActionPerformed
-
+    
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         // TODO add your handling code here:
         dispose();
@@ -284,20 +294,35 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Falha ao obter lista", JOptionPane.ERROR_MESSAGE);
         }
+        
+        // limpado dados do filtro após pesquisa
+        jTextFieldCodProduto.setText(null);
+        jTextFieldNomeProduto.setText(null);
+        jComboBoxTipoDoProduto.setSelectedIndex(0);
+        jTextFieldFornecedor.setText(null);
+        codigo=null;
+        nome=null;
+        tipo=null;
+        fornecedor=null;
+        
+        
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jButtonCadastroGenericoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastroGenericoActionPerformed
         // TODO add your handling code here:
         ArrayList<Produto> listaProduto = new ArrayList<Produto>();
     Produto p;
-    String str = "AAA";
-    String tipo = "jogo";
+     int n=0;
+    String str = jTextFieldNomeProduto.getText();
+    String tipo = jComboBoxTipoDoProduto.getSelectedItem().toString();
+    
 //    Random rd = new Random(100+1);
-    int n=0;
+   
     
     while(n<=5){
+        String codigo = jTextFieldCodProduto.getText() +""+ n;
         p=new Produto();
-        p.setCodProduto(n+1);
+        p.setCodProduto(Integer.parseInt(codigo));
         p.setNome(str+(n+1));
         p.setFornecedor(str+(n+3));
         p.setTipo(tipo);
