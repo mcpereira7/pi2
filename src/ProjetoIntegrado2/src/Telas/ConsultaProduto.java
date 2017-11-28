@@ -72,6 +72,8 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
         jButtonCancelar = new javax.swing.JButton();
         jButtonSelecionar = new javax.swing.JButton();
         jButtonCadastroGenerico = new javax.swing.JButton();
+        jButtonEditar = new javax.swing.JButton();
+        jButtonExcluir = new javax.swing.JButton();
 
         setClosable(true);
         setTitle("Consulta Produto");
@@ -168,7 +170,7 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -193,6 +195,15 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
             }
         });
 
+        jButtonEditar.setText("Editar");
+
+        jButtonExcluir.setText("Excluir");
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -203,9 +214,12 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
                         .addComponent(jButtonCadastroGenerico)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonExcluir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonEditar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                         .addComponent(jButtonSelecionar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonCancelar)))
@@ -222,7 +236,9 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancelar)
                     .addComponent(jButtonSelecionar)
-                    .addComponent(jButtonCadastroGenerico))
+                    .addComponent(jButtonCadastroGenerico)
+                    .addComponent(jButtonEditar)
+                    .addComponent(jButtonExcluir))
                 .addContainerGap())
         );
 
@@ -234,7 +250,7 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
         TableModel model = (AbstractTableModel) jTableTabelaDeProdutos.getModel();
         jTableTabelaDeProdutos.setModel(model);
 
-        Produto p  = (Produto) model.getValueAt(0, 0);
+        Produto p  = (Produto) model.getValueAt(0,0);
         
         Produto produto = MockListaDeProduto.selecionaProduto(p.getCodProduto());
       
@@ -318,6 +334,10 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
     }
     }//GEN-LAST:event_jButtonCadastroGenericoActionPerformed
 
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
+
     public String RetornaCodProduto() {
         return codDoProdutoSelecionado;
     }
@@ -366,6 +386,8 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonCadastroGenerico;
     private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonEditar;
+    private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonSelecionar;
     private javax.swing.JComboBox<String> jComboBoxTipoDoProduto;
     private javax.swing.JLabel jLabel1;
