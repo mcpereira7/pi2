@@ -118,7 +118,7 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenuProduto.add(jMenuItem2);
 
-        jmConsultProd.setText("Editar");
+        jmConsultProd.setText("Consulta");
         jmConsultProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmConsultProdActionPerformed(evt);

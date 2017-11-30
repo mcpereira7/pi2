@@ -79,7 +79,7 @@
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="comboSexo" pref="109" max="32767" attributes="0"/>
+                                          <Component id="comboSexo" max="32767" attributes="0"/>
                                           <Component id="fFieldDataCadastro" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -487,6 +487,9 @@
           <Format subtype="1" type="1"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="caretColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="99" green="99" red="99" type="rgb"/>
+        </Property>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="fFieldDataCadastro.setText(data.getDataAtual());"/>
