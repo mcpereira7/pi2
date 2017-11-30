@@ -5,17 +5,32 @@
  */
 package Telas;
 
+import Model.Cliente;
+import Mock.MockListaDeCliente;
+import java.beans.PropertyVetoException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Rerum
  */
 public class ConsultaCliente extends javax.swing.JInternalFrame {
 
+    Principal principal = null;
+    CadastroCliente menuCadCli = null;
+    Integer codPesquisa = null;
+    String nomePesquisa = null;
+
     /**
      * Creates new form ConsultaCliente
      */
     public ConsultaCliente() {
         initComponents();
+        jButtonCadastrar.setVisible(false);
     }
 
     /**
@@ -31,16 +46,16 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
         jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        NomePesquisaField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        CodPesquisaField = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        tabelaResultados = new javax.swing.JTable();
+        jButtonCancel = new javax.swing.JButton();
+        jButtonSelecionar = new javax.swing.JButton();
+        jButtonCadastrar = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -55,6 +70,9 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        setClosable(true);
+        setTitle("Consulta Cliente");
+
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Consulta Cliente"));
 
         jLabel1.setText("Nome");
@@ -62,6 +80,11 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
         jLabel2.setText("Cod.");
 
         jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -73,11 +96,11 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2)
+                        .addComponent(CodPesquisaField)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(NomePesquisaField, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton1)))
@@ -89,9 +112,9 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NomePesquisaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(CodPesquisaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
@@ -99,7 +122,7 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaResultados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -107,7 +130,7 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
                 "Código", "Nome", "Telefone", "CPF"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tabelaResultados);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -122,15 +145,30 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(221, 221, 221))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(231, 231, 231))
         );
 
-        jButton2.setText("Cancelar");
+        jButtonCancel.setText("Cancelar");
+        jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Selecionar");
+        jButtonSelecionar.setText("Alterar");
+        jButtonSelecionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCadastrarActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Cadastrar");
+        jButtonCadastrar.setText("Cadastrar");
+        jButtonCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCadastrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -142,11 +180,11 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton4)
+                        .addComponent(jButtonCadastrar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3)
+                        .addComponent(jButtonSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)))
+                        .addComponent(jButtonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -158,21 +196,105 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(jButtonCancel)
+                    .addComponent(jButtonSelecionar)
+                    .addComponent(jButtonCadastrar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        boolean resultSearch = false;
 
+        if (CodPesquisaField.getText() != null && !"".equals(CodPesquisaField.getText())) {
+            codPesquisa = Integer.parseInt(CodPesquisaField.getText());
+        }
+        nomePesquisa = NomePesquisaField.getText();
+        try {
+            resultSearch = refreshList();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Falha ao obter lista", JOptionPane.ERROR_MESSAGE);
+        }
+
+        if (!resultSearch) {
+            JOptionPane.showMessageDialog(rootPane, "A pesquisa não retornou resultados ", "Sem resultados", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
+        
+        Cliente cliente = new Cliente();
+        try {
+            cliente = MockListaDeCliente.obterByCod(getClienteSelecionado());
+            //getClienteSelecionado()
+        } catch (Exception ex) {
+            Logger.getLogger(ConsultaCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (menuCadCli == null || !menuCadCli.isVisible()) {
+            menuCadCli = new CadastroCliente(cliente);
+            this.getParent().add(menuCadCli);
+            menuCadCli.setVisible(true);
+        } else if (menuCadCli.isVisible()) {
+            try {
+                menuCadCli.setSelected(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            menuCadCli.getDesktopPane().getDesktopManager().deiconifyFrame(menuCadCli);
+            menuCadCli.getDesktopPane().getDesktopManager().maximizeFrame(menuCadCli);
+            menuCadCli.getDesktopPane().getDesktopManager().minimizeFrame(menuCadCli);
+            menuCadCli.toFront();
+            //getClienteSelecionado();
+        }
+    }//GEN-LAST:event_jButtonCadastrarActionPerformed
+
+    public boolean refreshList() throws Exception {
+
+        List<Cliente> resultado = MockListaDeCliente.procurar(codPesquisa, nomePesquisa);
+
+        DefaultTableModel model = (DefaultTableModel) tabelaResultados.getModel();
+        model.setRowCount(0);
+
+        if (resultado == null || resultado.size() <= 0) {
+            return false;
+        }
+
+        for (int i = 0; i < resultado.size(); i++) {
+            Cliente cli = resultado.get(i);
+            if (cli != null) {
+                Object[] row = new Object[5];
+                row[0] = cli.getCodCliente();
+                row[1] = cli.getNome();
+                row[2] = cli.getTelefone();
+                row[3] = cli.getCpf();
+                model.addRow(row);
+            }
+        }
+
+        return true;
+    }
+
+    public int getClienteSelecionado() {
+        int linha = jTable1.getSelectedRow();
+        int coluna = jTable1.getSelectedColumn();
+        int codCliente = (int) jTable1.getValueAt(linha, 0);
+        return codCliente;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField CodPesquisaField;
+    private javax.swing.JTextField NomePesquisaField;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButtonCadastrar;
+    private javax.swing.JButton jButtonCancel;
+    private javax.swing.JButton jButtonSelecionar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -180,8 +302,6 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTable tabelaResultados;
     // End of variables declaration//GEN-END:variables
 }

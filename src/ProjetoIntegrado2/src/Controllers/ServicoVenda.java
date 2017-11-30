@@ -5,7 +5,15 @@
  */
 package Controllers;
 
-import Model.Venda;
+import Exceptions.DataSourceException;
+import Exceptions.VendaException;
+import Mock.MockListaDeVenda;
+import Model.*;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -13,32 +21,46 @@ import Model.Venda;
  */
 public class ServicoVenda {
 
-    public static Venda AdicionarProdutoNaVenda(int codVenda, int codProduto, int quantidade) {
-
-        //Metodo para procurar o produto no estoque
-        //Produto novo = Mock.MockListaDeProduto.getProdutoByCod(codProduto);
-        //Metodo para ditar a quantidade em venda
-        //produto.setQuantidadeVenda(quantidade);
-        //List<Produto> listaNova = venda.getListaProdutos();
-        //Adicionando o produto na lista da venda
-        //listaNova.add(produto);
-        //Retornando a lista
-        //venda.setListaProdutos(listaNova);
-        return null;
-        //return venda;
-
-    }
-
-    public static Venda RemoverProdutoNaVenda(int codVenda, int codProduto) {
-        return null;
-
-    }
-
-    public static Venda ConsultaVenda(int codVenda) {
-        return null;
-
-        //Metodo que encontra a venda no banco com o codVenda
+    public static void ConcluirVenda(Venda entrada) throws VendaException {
+        try {
+            ServicoProduto.AtualizaEstoque(entrada.getListaProdutos());
+            MockListaDeVenda.inserirVenda(entrada);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new VendaException("Erro na fonte de dados.", e);
+        }
     }
     
+    public static List<Venda> ConsultaVendaByCodVenda(int codVenda)
+            throws VendaException, DataSourceException {
+        try {
+            //Metodo que encontra a venda no banco com o codVenda
+            return Mock.MockListaDeVenda.getVenda(codVenda);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DataSourceException("Erro na fonte de dados.", e);
+        }
+    }
+
+    public static List<Venda> ConsultaVendaByData(Calendar de, Calendar ate)
+            throws VendaException, DataSourceException {
+        try {
+            //Metodo que encontra a venda no banco com o codVenda
+            return Mock.MockListaDeVenda.getVenda(de, ate);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DataSourceException("Erro na fonte de dados.", e);
+        }
+    }
     
+//    public static String ObterNomeClienteByCod(String codCliente)
+    public static int geraCodVenda() {
+        Random rnd = new Random();
+        int parteUM = rnd.nextInt(100) + 1;
+        int parteDOIS = rnd.nextInt(98) + 151;
+
+        int fim = parteUM + parteDOIS;
+
+        return fim;
+    }
 }

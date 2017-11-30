@@ -1,3 +1,4 @@
+
 /*
  * Andre de Amorim Yamamoto
  * aay.andre@outlook.com
@@ -18,18 +19,31 @@ import java.util.List;
 public class MockListaDeVenda {
 
     //Atributos
-    private static ArrayList<Venda> vendas;
+    private static List<Venda> listaDeVendas = new ArrayList<Venda>();
 
-    //Construtor
-    public MockListaDeVenda() {
+    private static int totalDeVendas = 0;
+
+    //Metodos
+    public static void inserirVenda(Venda novaVenda)
+            throws Exception {
+        //ID do "banco", nunca mostramos
+        novaVenda.setId(totalDeVendas++);
+        //Adicionando
+        listaDeVendas.add(novaVenda);
     }
 
-    public List<Venda> getVendasByCod(int codVenda) {
+    public static List<Venda> listar()
+            throws Exception {
+        return listaDeVendas;
+    }
+
+    public static List<Venda> getVenda(int codVenda)
+            throws Exception {
 
         List<Venda> resultado = new ArrayList<>();
 
         if (codVenda > 0) {
-            for (Venda venda : vendas) {
+            for (Venda venda : listaDeVendas) {
                 if (venda != null && venda.getCodVenda() > 0) {
                     if (venda.getCodVenda() == codVenda) {
                         resultado.add(venda);
@@ -41,38 +55,47 @@ public class MockListaDeVenda {
         return resultado;
     }
 
-    public List<Venda> getVendasByVendedor(String vendedor) {
+    public static Venda getVenda(Calendar data)
+            throws Exception {
 
-        List<Venda> resultado = new ArrayList<>();
-
-        if (vendedor != null) {
-            for (Venda venda : vendas) {
-                if (venda != null && venda.getVendedor() != null) {
-                    if (vendedor.toUpperCase().equals(venda.getVendedor().toUpperCase())) {
-                        resultado.add(venda);
-                    }
-                }
+        for (Venda Venda : listaDeVendas) {
+            if (Venda.getDataVenda() == data) {
+                return Venda;
             }
         }
-
-        return resultado;
+        return null;
     }
 
-    public List<Venda> getVendasByData(Calendar de, Calendar ate) {
+    public static List<Venda> getVenda(Calendar de, Calendar ate)
+            throws Exception {
 
         List<Venda> resultado = new ArrayList<>();
         Calendar agora = Calendar.getInstance();
 
         if (!de.after(agora) || !ate.after(agora)) {
 
+            for (Venda venda : listaDeVendas) {
+                if ((venda.getDataVenda().compareTo(de) == 0 || venda.getDataVenda().compareTo(de) >= 1)
+                        && (venda.getDataVenda().compareTo(de) == 0 || venda.getDataVenda().compareTo(de) >= 1)) {
+                    resultado.add(venda);
+                }
+            }
+            de.add(Calendar.DATE, 1);
         }
 
         return resultado;
     }
 
-    public List<Venda> getVendasByCliente(Cliente cliente) {
+    public static List<Venda> getVenda(Cliente cliente)
+            throws Exception {
+
         List<Venda> resultado = new ArrayList<>();
 
-        return null;
+        for (Venda venda : listaDeVendas) {
+            if (venda.getCliente() == cliente) {
+                resultado.add(venda);
+            }
+        }
+        return resultado;
     }
 }
