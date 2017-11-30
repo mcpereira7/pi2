@@ -265,6 +265,12 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         }
 
         try {
+            p.setFornecedor(cpFornecedor.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+
+        try {
             p.setPreco(Float.parseFloat(cpValor.getText()));
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());

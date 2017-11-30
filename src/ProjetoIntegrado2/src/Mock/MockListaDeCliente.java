@@ -93,9 +93,14 @@ public class MockListaDeCliente {
 //Retorna um cliente da lista.
     public static Cliente obter(Integer id) throws Exception {
         if (id != null && !listaClientes.isEmpty()) {
-            for (int i = 0; i < listaClientes.size(); i++) {
-                if (listaClientes.get(i) != null && listaClientes.get(i).getId() == id) {
-                    return listaClientes.get(i);
+//            for (int i = 0; i <= listaClientes.size(); i++) {
+//                if (listaClientes.get(i) != null && listaClientes.get(i).getCodCliente()== id) {
+//                    return listaClientes.get(i);
+//                }
+//            }
+            for (Cliente cliente : listaClientes) {
+                if(cliente.getCodCliente() == id) {
+                    return cliente;
                 }
             }
         }
@@ -107,6 +112,18 @@ public class MockListaDeCliente {
             for (int i = 0; i < listaClientes.size(); i++) {
                 if (listaClientes.get(i) != null && listaClientes.get(i).getCodCliente()== cod) {
                     return listaClientes.get(i);
+                }
+            }
+        }
+        return null;
+    }
+    
+    //by Andre
+    public static Cliente obterByNome(String nome) throws Exception {
+        if (!nome.isEmpty() && !listaClientes.isEmpty()) {
+            for (Cliente cliente : listaClientes) {
+                if(cliente.getNome().trim().toLowerCase().equals(nome.trim().toLowerCase())) {
+                    return cliente;
                 }
             }
         }

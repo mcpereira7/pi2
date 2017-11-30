@@ -55,24 +55,6 @@ public class MockListaDeVenda {
         return resultado;
     }
 
-    public static List<Venda> getVenda(String vendedor)
-            throws Exception {
-
-        List<Venda> resultado = new ArrayList<>();
-
-        if (vendedor != null) {
-            for (Venda venda : listaDeVendas) {
-                if (venda != null && venda.getVendedor() != null) {
-                    if (vendedor.toUpperCase().equals(venda.getVendedor().toUpperCase())) {
-                        resultado.add(venda);
-                    }
-                }
-            }
-        }
-
-        return resultado;
-    }
-
     public static Venda getVenda(Calendar data)
             throws Exception {
 
@@ -93,7 +75,8 @@ public class MockListaDeVenda {
         if (!de.after(agora) || !ate.after(agora)) {
 
             for (Venda venda : listaDeVendas) {
-                if (venda.getDataVenda().after(de) && venda.getDataVenda().before(ate)){
+                if ((venda.getDataVenda().compareTo(de) == 0 || venda.getDataVenda().compareTo(de) >= 1)
+                        && (venda.getDataVenda().compareTo(de) == 0 || venda.getDataVenda().compareTo(de) >= 1)) {
                     resultado.add(venda);
                 }
             }

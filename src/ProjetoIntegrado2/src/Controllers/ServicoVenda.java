@@ -42,17 +42,6 @@ public class ServicoVenda {
         }
     }
 
-    public static List<Venda> ConsultaVendaByVendedor(String vendedor)
-            throws VendaException, DataSourceException {
-        try {
-            //Metodo que encontra a venda no banco com o codVenda
-            return Mock.MockListaDeVenda.getVenda(vendedor);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new DataSourceException("Erro na fonte de dados.", e);
-        }
-    }
-
     public static List<Venda> ConsultaVendaByData(Calendar de, Calendar ate)
             throws VendaException, DataSourceException {
         try {
@@ -63,7 +52,7 @@ public class ServicoVenda {
             throw new DataSourceException("Erro na fonte de dados.", e);
         }
     }
-
+    
 //    public static String ObterNomeClienteByCod(String codCliente)
     public static int geraCodVenda() {
         Random rnd = new Random();
