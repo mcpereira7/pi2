@@ -33,6 +33,7 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuItem5 = new javax.swing.JMenuItem();
         jdiPrincipal = new javax.swing.JDesktopPane();
+        jLabel3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -49,19 +50,34 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema da Loja");
+        setBackground(new java.awt.Color(0, 0, 0));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(800, 600));
 
+        jdiPrincipal.setBackground(new java.awt.Color(0, 0, 0));
         jdiPrincipal.setPreferredSize(new java.awt.Dimension(800, 600));
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\leandro.asantos17\\Pictures\\Games-3B.png")); // NOI18N
+        jLabel3.setToolTipText("");
+
+        jdiPrincipal.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jdiPrincipalLayout = new javax.swing.GroupLayout(jdiPrincipal);
         jdiPrincipal.setLayout(jdiPrincipalLayout);
         jdiPrincipalLayout.setHorizontalGroup(
             jdiPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 761, Short.MAX_VALUE)
+            .addGroup(jdiPrincipalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 741, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jdiPrincipalLayout.setVerticalGroup(
             jdiPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 469, Short.MAX_VALUE)
+            .addGroup(jdiPrincipalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10))
         );
 
         getContentPane().add(jdiPrincipal, java.awt.BorderLayout.CENTER);
@@ -310,6 +326,7 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
