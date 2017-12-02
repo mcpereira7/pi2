@@ -315,7 +315,7 @@ public class Relatorio extends javax.swing.JInternalFrame {
         cliente.setNome("Vinicius da Silva");
         
         Produto prod = new Produto();
-        List<Produto> listaProdutos = new ArrayList<Produto>();
+        ArrayList<Produto> listaProdutos = new ArrayList<Produto>();
         prod.setId(1);
         prod.setCodProduto(123);
         prod.setDescricao("Generico");
@@ -332,7 +332,6 @@ public class Relatorio extends javax.swing.JInternalFrame {
         venda.setId(1);
         venda.setListaProdutos(listaProdutos);
         venda.setValorTotal(100);
-        venda.setVendedor("joão");
         try {
             MockListaDeVenda.inserirVenda(venda);
         } catch (Exception ex) {

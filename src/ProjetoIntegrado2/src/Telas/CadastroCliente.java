@@ -148,12 +148,6 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Código");
 
-        fieldCod.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fieldCodActionPerformed(evt);
-            }
-        });
-
         jLabel2.setText("Nome*");
 
         panelEndereco.setBorder(javax.swing.BorderFactory.createTitledBorder("Endereço"));
@@ -235,8 +229,10 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
                 .addGap(0, 10, Short.MAX_VALUE))
         );
 
-        fFieldDataCadastro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        fFieldDataCadastro.setEditable(false);
+        fFieldDataCadastro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
         fFieldDataCadastro.setToolTipText("");
+        fFieldDataCadastro.setText(data.getDataAtual());
 
         fFieldDataNasc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
 
@@ -290,7 +286,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
                                                 .addComponent(jLabel3)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(comboSexo, 0, 109, Short.MAX_VALUE)
+                                            .addComponent(comboSexo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(fFieldDataCadastro)))))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -354,19 +350,19 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
                     .addComponent(jLabel17))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jToggleButton2))
-                    .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap(15, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jToggleButton2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(0, 2, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void fieldCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldCodActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fieldCodActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         Cliente cli = new Cliente();

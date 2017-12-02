@@ -89,11 +89,22 @@ public class ServicoCliente {
         }
     }
 
-    public static Cliente obterCliente(String codigo) 
+    public static Cliente obterCliente(String codigo)
             throws DataSourceException {
         try {
             int numCod = Integer.parseInt(codigo);
             return MockListaDeCliente.obter(numCod);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DataSourceException("Erro na fonte de da dados", e);
+        }
+    }
+
+    //by Andre
+    public static Cliente obterClienteByNome(String nome)
+            throws DataSourceException {
+        try {
+            return MockListaDeCliente.obterByNome(nome);
         } catch (Exception e) {
             e.printStackTrace();
             throw new DataSourceException("Erro na fonte de da dados", e);

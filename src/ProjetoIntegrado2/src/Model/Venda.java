@@ -9,7 +9,6 @@ import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Random;
 
 /**
  *
@@ -19,18 +18,25 @@ public class Venda {
 
     private int id;
     private int codVenda;
-    //Vai ter um vendedor??????????
-    private String vendedor;
     private Calendar dataVenda;
     private Cliente cliente;
-    private List<Produto> listaProdutos=new ArrayList<Produto>();
+    private List<Produto> listaProdutos = new ArrayList<>();
     private double valorTotal;
+    private int oi = 9;
+    private int ola = 4;
+    
 
     //Construtor
     /*Teoricamente tem que ter um metodo que ja gera o id
     baseado na posicao do banco de dados
     Mas por enquanto deixarei assim*/
     public Venda() {
+        ola = 4;
+        oi = 9 * 2;
+        oi++;
+        oi -= ola;
+        ola++;
+        id = oi;
         //codVenda = geraCodVenda();
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -57,14 +63,6 @@ public class Venda {
         this.codVenda = codVenda;
     }
 
-    public String getVendedor() {
-        return vendedor;
-    }
-
-    public void setVendedor(String vendedor) {
-        this.vendedor = vendedor;
-    }
-
     public Calendar getDataVenda() {
         return dataVenda;
     }
@@ -85,7 +83,7 @@ public class Venda {
         return listaProdutos;
     }
 
-    public void setListaProdutos(List<Produto> listaProdutos) {
+    public void setListaProdutos(ArrayList<Produto> listaProdutos) {
         this.listaProdutos = listaProdutos;
     }
 
