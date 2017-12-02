@@ -6,6 +6,8 @@ import Exceptions.productException;
 import Model.DataHoje;
 import Model.Produto;
 import java.awt.HeadlessException;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
 
@@ -103,6 +105,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         jLabel7.setText("Plataforma");
 
         cbPlataforma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Escolha", "Nintendo Switch", "PC", "Playstation 3", "Playstation 4", "Xbox 360", "Xbox One", "Wii", "Wii U" }));
+        cbPlataforma.setEnabled(false);
         cbPlataforma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbPlataformaActionPerformed(evt);
@@ -131,6 +134,11 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         jLabel5.setText("Descrição");
 
         cbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Jogo", "Periférico", "Itens diversos" }));
+        cbTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbTipoActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Quantidade");
 
@@ -273,17 +281,19 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_cboxPlataformaActionPerformed
     private void jbuttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbuttonCancelActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_jbuttonCancelActionPerformed
 
     private void cpCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodigoActionPerformed
 
+    
+    
     private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
         //Novo objeto
         Produto p = new Produto();
-
+        
         //dados do objeto
         try {
             p.setCodProduto(Integer.parseInt(cpCodigo.getText()));
@@ -354,6 +364,10 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         cpQtde.setText("");
         cpValor.setText("");
     }//GEN-LAST:event_jButtonSaveActionPerformed
+
+    private void cbTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbTipoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

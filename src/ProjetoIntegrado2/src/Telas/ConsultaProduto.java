@@ -235,17 +235,17 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         TableModel model = (AbstractTableModel) jTableTabelaDeProdutos.getModel();
         jTableTabelaDeProdutos.setModel(model);
-        int coluna = jTableTabelaDeProdutos.getSelectedColumn();
+        int coluna = 0;
         int linha = jTableTabelaDeProdutos.getSelectedRow();
         int codProduto = Integer.parseInt(jTableTabelaDeProdutos.getValueAt(linha, coluna).toString());
         //Produto p  = (Produto) model.getValueAt(0, 0);
         
         Produto p = MockListaDeProduto.selecionaProduto(codProduto);
         
-        // Teste
-        System.out.println("Selecionado");
-        System.out.println("Codigo: "+ p.getCodProduto() + "| Nome: " + p.getNome() + " | Fornecedor: " + p.getFornecedor()
-            + " | Tipo: "+ p.getTipo() + " | Qtd: " + p.getQuantidadeEstoque() + " | Valor: " + p.getPreco());
+//         Teste
+//        System.out.println("Selecionado");
+//        System.out.println("Codigo: "+ p.getCodProduto() + "| Nome: " + p.getNome() + " | Fornecedor: " + p.getFornecedor()
+//            + " | Tipo: "+ p.getTipo() + " | Qtd: " + p.getQuantidadeEstoque() + " | Valor: " + p.getPreco());
 
         // Chama tela altera produto
         if (menuCadProduto == null || !menuCadProduto.isVisible()) {
