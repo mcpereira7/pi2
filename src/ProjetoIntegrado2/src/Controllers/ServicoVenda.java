@@ -7,13 +7,10 @@ package Controllers;
 
 import Exceptions.DataSourceException;
 import Exceptions.VendaException;
-import Mock.MockListaDeVenda;
 import Model.*;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -24,21 +21,19 @@ public class ServicoVenda {
     public static void ConcluirVenda(Venda entrada) throws VendaException {
         try {
             ServicoProduto.AtualizaEstoque(entrada.getListaProdutos());
-            MockListaDeVenda.inserirVenda(entrada);
+            DAO.VendaDAO.inserir(entrada);
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new VendaException("Erro na fonte de dados.", e);
+            throw new VendaException("Erro na fonte de dados.", e.getCause());
         }
     }
-    
-    public static List<Venda> ConsultaVendaByCodVenda(int codVenda)
+
+    public static Venda ConsultaVendaByCodVenda(int codVenda)
             throws VendaException, DataSourceException {
         try {
             //Metodo que encontra a venda no banco com o codVenda
-            return Mock.MockListaDeVenda.getVenda(codVenda);
+            return DAO.VendaDAO.getVendaByCod(codVenda);
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new DataSourceException("Erro na fonte de dados.", e);
+            throw new VendaException("Erro na fonte de dados.", e.getCause());
         }
     }
 
@@ -46,13 +41,12 @@ public class ServicoVenda {
             throws VendaException, DataSourceException {
         try {
             //Metodo que encontra a venda no banco com o codVenda
-            return Mock.MockListaDeVenda.getVenda(de, ate);
+            return DAO.VendaDAO.getVendaByDates(de, ate);
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new DataSourceException("Erro na fonte de dados.", e);
+            throw new VendaException("Erro na fonte de dados.", e.getCause());
         }
     }
-    
+
 //    public static String ObterNomeClienteByCod(String codCliente)
     public static int geraCodVenda() {
         Random rnd = new Random();

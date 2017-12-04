@@ -5,6 +5,8 @@
  */
 package Model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -38,6 +40,15 @@ public class Venda {
         id = oi;
         //codVenda = geraCodVenda();
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    //Construtor para preencher a venda com um ResultSet
+    public Venda(ResultSet rs) throws SQLException {
+        codVenda = rs.getInt("CodVenda");
+        dataVenda = DAO.VendaDAO.toCalendar(rs.getDate("DataVenda"));
+        //cliente = DAO.ClienteDAO.getClienteByCod(rs.getInt("CodCliente"));
+        //itensVenda
+        valorTotal = rs.getDouble("Total");
     }
 
     //Metodos
