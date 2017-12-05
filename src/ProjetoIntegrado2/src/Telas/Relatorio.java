@@ -5,19 +5,14 @@
  */
 package Telas;
 
-import Mock.MockListaDeVenda;
 import Model.Venda;
 import Model.Cliente;
 import Controllers.ServicoVenda;
-import Model.DataHoje;
-import Model.Produto;
+import Model.ItensVenda;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -53,14 +48,13 @@ public class Relatorio extends javax.swing.JInternalFrame {
         FieldDataInicial = new javax.swing.JFormattedTextField();
         FieldDataFinal = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jButtonGerarRelatorio = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton3 = new javax.swing.JRadioButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableReport = new javax.swing.JTable();
-        jToggleButton1 = new javax.swing.JToggleButton();
 
         jFormattedTextField1.setText("jFormattedTextField1");
 
@@ -94,10 +88,10 @@ public class Relatorio extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Gerar Relatório de Vendas:");
 
-        jButton1.setText("Gerar Relatório");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonGerarRelatorio.setText("Gerar Relatório");
+        jButtonGerarRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonGerarRelatorioActionPerformed(evt);
             }
         });
 
@@ -107,11 +101,6 @@ public class Relatorio extends javax.swing.JInternalFrame {
 
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setText("Asc.");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
-            }
-        });
 
         buttonGroup1.add(jRadioButton3);
         jRadioButton3.setText("Desc.");
@@ -152,13 +141,6 @@ public class Relatorio extends javax.swing.JInternalFrame {
         ));
         jScrollPane2.setViewportView(tableReport);
 
-        jToggleButton1.setText("HardCode");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -188,10 +170,8 @@ public class Relatorio extends javax.swing.JInternalFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jToggleButton1)
-                .addGap(24, 24, 24)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(115, 115, 115)
+                .addComponent(jButtonGerarRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -213,18 +193,16 @@ public class Relatorio extends javax.swing.JInternalFrame {
                         .addComponent(jLabel3))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jToggleButton1))
+                .addComponent(jButtonGerarRelatorio)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
                 .addGap(15, 15, 15))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGerarRelatorioActionPerformed
         //Obtém as datas configuradas no relatório
         Calendar dataIni = Calendar.getInstance();
         Calendar dataFim = Calendar.getInstance();
@@ -261,17 +239,17 @@ public class Relatorio extends javax.swing.JInternalFrame {
                 }
 
                 //Obtém a lista de itens de reserva
-                List<Produto> listaProdutos = venda.getListaProdutos();
+                List<ItensVenda> listaProdutos = venda.getListaItensVenda();
                 //Verifica se há itens de reserva antes de iterá-los
                 if (listaProdutos != null || !listaProdutos.isEmpty()) {
                     //Itera pelos itens de reserva
-                    for (Produto item : listaProdutos) {
+                    for (ItensVenda item : listaProdutos) {
                         Object[] linhaItem = new Object[6];
                         
                         linhaItem[2] = item.getCodProduto();
                         linhaItem[3] = item.getPreco();
-                        linhaItem[4] = item.getQuantidadeVenda();
-                        linhaItem[5] = item.getPreco() * item.getQuantidadeVenda();
+                        linhaItem[4] = item.getQuantidade();
+                        linhaItem[5] = item.getPreco() * item.getQuantidade();
                         totalVenda += (double)linhaItem[5];
                         
                         modelRelatorio.addRow(linhaItem);
@@ -299,52 +277,14 @@ public class Relatorio extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Erro", e.getMessage(),
                     JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
-
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        
-        Venda venda = new Venda();
-        
-        Cliente cliente = new Cliente();
-        cliente.setId(1);
-        cliente.setCodCliente(1);
-        cliente.setNome("Vinicius da Silva");
-        
-        Produto prod = new Produto();
-        ArrayList<Produto> listaProdutos = new ArrayList<Produto>();
-        prod.setId(1);
-        prod.setCodProduto(123);
-        prod.setDescricao("Generico");
-        prod.setPreco(1.5f);
-        prod.setQuantidadeVenda(1);
-        listaProdutos.add(prod);
-        listaProdutos.add(prod);
-        listaProdutos.add(prod);
-        listaProdutos.add(prod);
-        
-        venda.setCliente(cliente);
-        venda.setCodVenda(1);
-        venda.setDataVenda(Calendar.getInstance());
-        venda.setId(1);
-        venda.setListaProdutos(listaProdutos);
-        venda.setValorTotal(100);
-        try {
-            MockListaDeVenda.inserirVenda(venda);
-        } catch (Exception ex) {
-            Logger.getLogger(Relatorio.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
+    }//GEN-LAST:event_jButtonGerarRelatorioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFormattedTextField FieldDataFinal;
     private javax.swing.JFormattedTextField FieldDataInicial;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonGerarRelatorio;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
@@ -357,7 +297,6 @@ public class Relatorio extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JTable tableReport;
     // End of variables declaration//GEN-END:variables
 }

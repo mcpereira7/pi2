@@ -20,7 +20,7 @@ public class ServicoVenda {
 
     public static void ConcluirVenda(Venda entrada) throws VendaException {
         try {
-            ServicoProduto.AtualizaEstoque(entrada.getListaProdutos());
+            ServicoProduto.AtualizaEstoque(entrada.getListaItensVenda());
             DAO.VendaDAO.inserir(entrada);
         } catch (Exception e) {
             throw new VendaException("Erro na fonte de dados.", e.getCause());

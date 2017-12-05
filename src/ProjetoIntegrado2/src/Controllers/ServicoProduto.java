@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import Mock.MockValidarProduto;
 import Mock.MockListaDeProduto;
+import Model.ItensVenda;
 
 /**
  *
@@ -72,16 +73,16 @@ public class ServicoProduto {
         }
     }
 
-    public static void AtualizaEstoque(List<Produto> lista)
+    public static void AtualizaEstoque(List<ItensVenda> lista)
             throws productException {
         try {
             List<Produto> old = MockListaDeProduto.listar();
 
-            for (Produto produto : lista) {
+            for (ItensVenda item : lista) {
                 for (Produto produtoOld : old) {
-                    if (produto.getCodProduto() == produtoOld.getCodProduto()) {
+                    if (item.getCodProduto() == produtoOld.getCodProduto()) {
                         int quant = produtoOld.getQuantidadeEstoque();
-                        quant -= produto.getQuantidadeVenda();
+                        quant -= item.getQuantidade();
                         produtoOld.setQuantidadeEstoque(quant);
                     }
                 }
@@ -90,6 +91,5 @@ public class ServicoProduto {
 
         } catch (Exception e) {
         }
-
     }
 }

@@ -284,7 +284,7 @@ public class Vendas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try {
             if (!jTextFieldNomeCliente.getText().isEmpty()) {
-                if (ServicoCliente.obterCliente(jTextFieldNomeCliente.getText()) != null) {
+                if (ServicoCliente.obterClienteByNome(jTextFieldNomeCliente.getText()) != null) {
                     clienteVenda = ServicoCliente.obterClienteByNome(jTextFieldNomeCliente.getText());
                     JOptionPane.showMessageDialog(rootPane, "Cliente validado com sucesso.");
                 } else {
@@ -405,7 +405,7 @@ public class Vendas extends javax.swing.JInternalFrame {
         //Adiciona produto a venda
         try {
 
-            carrinho.setProdutoNaLista(novo);
+            carrinho.setProdutoNoItensVenda(novo);
             DefaultTableModel model = (DefaultTableModel) jTableProdutosNaVenda.getModel();
             Object[] row = new Object[5];
             row[0] = novo.getCodProduto();
