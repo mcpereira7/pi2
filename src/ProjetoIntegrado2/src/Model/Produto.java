@@ -52,7 +52,7 @@ public class Produto {
         this.codProduto = codProduto;
     }
 
-    public double getPreco() {
+    public float getPreco() {
         return preco;
     }
 

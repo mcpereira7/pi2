@@ -8,6 +8,7 @@ package Mock;
 import Model.Produto;
 import java.util.ArrayList;
 import java.util.List;
+import Controllers.CodigoProduto;
 
 /**
  *
@@ -21,6 +22,7 @@ public class MockListaDeProduto {
 
     public static void adicionar(Produto p) throws Exception {
         p.setId(totalProdutos++);
+        p.setCodProduto(Controllers.CodigoProduto.CodigoProduto(p));
         listaProdutos.add(p);
     }
 

@@ -18,9 +18,6 @@ public class MockValidarProduto {
         if (produto == null) {
             throw new productException("Não foi informado produto.");
         }
-        if (produto.getCodProduto() <= 0) {
-            throw new productException("Código do produto inválido.");
-        }
 
         if (produto.getDescricao().equalsIgnoreCase(null)) {
             throw new productException("Descrição inválida.");
