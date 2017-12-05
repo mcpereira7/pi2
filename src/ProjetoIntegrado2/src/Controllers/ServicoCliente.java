@@ -10,6 +10,7 @@ import Exceptions.DataSourceException;
 import Mock.MockListaDeCliente;
 import Model.Cliente;
 import Model.ValidadorCliente;
+import DAO.ClienteDAO;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,7 +30,8 @@ public class ServicoCliente {
 
         try {
             // Realizada a inserção de dados no 'MOCk'
-            MockListaDeCliente.inserir(cliente);
+            //MockListaDeCliente.inserir(cliente);
+            ClienteDAO.inserir(cliente);
         } catch (Exception e) {
 
             //mostra no console qualquer erro que ocorra no 'MOCK'
@@ -47,7 +49,8 @@ public class ServicoCliente {
 
         try {
             //Utiliza a Atualização no 'MOCK'
-            MockListaDeCliente.atualizar(cliente);
+            //MockListaDeCliente.atualizar(cliente);
+            ClienteDAO.atualizar(cliente);
             return;
         } catch (Exception e) {
 
@@ -58,16 +61,18 @@ public class ServicoCliente {
     }
 
     // Realiza a pesquisa do Cliente por um nome no 'Mock'
-    public static List<Cliente> procuraCliente(String nome)
+    public static List<Cliente> procuraCliente(Integer cod, String nome)
             throws ClienteException, DataSourceException {
         try {
             // Verifica se foi ou não informado um dado para pesquisa.
             // Se informado um dado, realiza a listagem simples do mock.
             // Se não informado um dado, realiza uma pesquisa com o dado.
             if (nome == null && "".equals(nome)) {
-                return MockListaDeCliente.listar();
+                //return MockListaDeCliente.listar();
+                return ClienteDAO.listar();
             } else {
-                return MockListaDeCliente.procurar(null, nome);
+                //return MockListaDeCliente.procurar(null, nome);
+                return ClienteDAO.procurar(cod, nome);
             }
         } catch (Exception e) {
             //mostra no console qualquer erro que ocorra no 'MOCK'
@@ -77,11 +82,12 @@ public class ServicoCliente {
     }
 
     //Obtem um cliente com ID informado do MOCK
-    public static Cliente obterCliente(Integer codigo)
+    public static Cliente obterCliente(Integer id)
             throws ClienteException, DataSourceException {
         try {
             // Retorn o Cliente obtido
-            return MockListaDeCliente.obter(codigo);
+            //return MockListaDeCliente.obter(codigo);
+            return ClienteDAO.obter(id);
         } catch (Exception e) {
             //mostra no console qualquer erro que ocorra no 'MOCK'
             e.printStackTrace();
@@ -89,21 +95,22 @@ public class ServicoCliente {
         }
     }
 
-    public static Cliente obterCliente(String codigo) 
-            throws DataSourceException {
-        try {
-            int numCod = Integer.parseInt(codigo);
-            return MockListaDeCliente.obter(numCod);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new DataSourceException("Erro na fonte de da dados", e);
-        }
-    }
+//    public static Cliente obterCliente(String codigo) 
+//            throws DataSourceException {
+//        try {
+//            int numCod = Integer.parseInt(codigo);
+//            return MockListaDeCliente.obter(numCod);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            throw new DataSourceException("Erro na fonte de da dados", e);
+//        }
+//    }
 
-    public static void excluiCliente(Integer codigo)
+    public static void excluiCliente(Integer id)
             throws ClienteException, DataSourceException {
         try {
-            MockListaDeCliente.excluir(codigo);
+            //MockListaDeCliente.excluir(id);
+            ClienteDAO.excluir(id);
         } catch (Exception e) {
 
             e.printStackTrace();

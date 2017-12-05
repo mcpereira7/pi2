@@ -319,18 +319,14 @@ public class Vendas extends javax.swing.JInternalFrame {
 
     private void jButtonConsultaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConsultaClienteActionPerformed
         // TODO add your handling code here:
-        try {
-            if (!jTextFieldCodCliente.getText().isEmpty()) {
-                if (isParsable(jTextFieldCodCliente.getText())) {
-                    clienteVenda = ServicoCliente.obterCliente(jTextFieldCodCliente.getText());
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Digite um código valido.");
-                }
+        if (!jTextFieldCodCliente.getText().isEmpty()) {
+            if (isParsable(jTextFieldCodCliente.getText())) {
+                //clienteVenda = ServicoCliente.obterCliente(jTextFieldCodCliente.getText());
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Insira o código do cliente.");
+                JOptionPane.showMessageDialog(rootPane, "Digite um código valido.");
             }
-        } catch (DataSourceException ex) {
-            Logger.getLogger(Vendas.class.getName()).log(Level.SEVERE, null, ex);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Insira o código do cliente.");
         }
     }//GEN-LAST:event_jButtonConsultaClienteActionPerformed
 

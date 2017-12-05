@@ -198,7 +198,7 @@ public class ClienteDAO {
     public static Cliente obter (Integer id)
             throws SQLException, Exception {
         
-        String sql = "SELECT * FROM cliente WHERE (cliente_id=? AND enabled=?)";
+        String sql = "SELECT * FROM cliente WHERE id = ? AND disable = ?";
         
         
         PreparedStatement stmt = null;
@@ -206,27 +206,92 @@ public class ClienteDAO {
         ResultSet rs = null;
         
         try {
-           
             
             stmt = cn.prepareStatement(sql);
             
-            stmt.setInt(1, id);
-            stmt.setBoolean(2, true);
+            stmt.setInt(0, id);
+            stmt.setBoolean(1, false);
             
             rs = stmt.executeQuery();
             
             if (rs.next()) {
-                
                 Cliente cliente = new Cliente ();
-                cliente.setId(rs.getInt("cliente_id"));
+                
+                cliente.setId(rs.getInt("id"));
+                cliente.setCodCliente(rs.getInt("codCliente"));
+                cliente.setDataCadastro(new Date(rs.getTimestamp("dataCadastro").getTime()));
                 cliente.setNome(rs.getString("nome"));
-                Date d = new Date (rs.getTimestamp("data_nasc").getTime());
-                cliente.setDataNasc(d);
                 cliente.setSexo(rs.getString("sexo"));
+                cliente.setCpf(rs.getString("cpf"));
+                cliente.setRg(rs.getString("rg"));
+                cliente.setDataNasc(new Date(rs.getTimestamp("dataNasc").getTime()));
+                cliente.setTelefone(rs.getString("Telefone"));
+                cliente.setCelular(rs.getString("celular"));
+                cliente.setEmail(rs.getString("Email"));
+                cliente.setCep(rs.getString("cep"));
+                cliente.setCidade(rs.getString("cidade"));
+                cliente.setUf(rs.getString("uf"));
+                cliente.setEndereco(rs.getString("endereco"));
+                cliente.setEndNumero(rs.getString("endNumero"));
+                cliente.setComplemento(rs.getString("complemento"));
+                cliente.setBairro(rs.getString("bairro"));
+                cliente.setObs(rs.getString("obs"));
                 
                 return cliente;
             }
             
+        } finally{
+            ConnectionFactory.closeConnection(cn,stmt,rs);
+        }
+        
+        
+        return null;
+    }
+    
+    public static Cliente obterByCod (Integer codCliente)
+            throws SQLException, Exception {
+        
+        String sql = "SELECT * FROM cliente WHERE codCliente = ? AND disable = ?";
+        
+        
+        PreparedStatement stmt = null;
+        
+        ResultSet rs = null;
+        
+        try {
+            
+            stmt = cn.prepareStatement(sql);
+            
+            stmt.setInt(0, codCliente);
+            stmt.setBoolean(1, false);
+            
+            rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                Cliente cliente = new Cliente ();
+                
+                cliente.setId(rs.getInt("id"));
+                cliente.setCodCliente(rs.getInt("codCliente"));
+                cliente.setDataCadastro(new Date(rs.getTimestamp("dataCadastro").getTime()));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setSexo(rs.getString("sexo"));
+                cliente.setCpf(rs.getString("cpf"));
+                cliente.setRg(rs.getString("rg"));
+                cliente.setDataNasc(new Date(rs.getTimestamp("dataNasc").getTime()));
+                cliente.setTelefone(rs.getString("Telefone"));
+                cliente.setCelular(rs.getString("celular"));
+                cliente.setEmail(rs.getString("Email"));
+                cliente.setCep(rs.getString("cep"));
+                cliente.setCidade(rs.getString("cidade"));
+                cliente.setUf(rs.getString("uf"));
+                cliente.setEndereco(rs.getString("endereco"));
+                cliente.setEndNumero(rs.getString("endNumero"));
+                cliente.setComplemento(rs.getString("complemento"));
+                cliente.setBairro(rs.getString("bairro"));
+                cliente.setObs(rs.getString("obs"));
+                
+                return cliente;
+            }
             
         } finally{
             ConnectionFactory.closeConnection(cn,stmt,rs);
