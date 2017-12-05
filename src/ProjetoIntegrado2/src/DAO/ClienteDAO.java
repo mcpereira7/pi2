@@ -8,7 +8,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import static java.util.Collections.list;
 import java.util.List;
 
 public class ClienteDAO {
@@ -194,5 +193,46 @@ public class ClienteDAO {
             ConnectionFactory.closeConnection(cn,stmt,rs);
         }
         return listaClientes;
+    }
+    
+    public static Cliente obter (Integer id)
+            throws SQLException, Exception {
+        
+        String sql = "SELECT * FROM cliente WHERE (cliente_id=? AND enabled=?)";
+        
+        
+        PreparedStatement stmt = null;
+        
+        ResultSet rs = null;
+        
+        try {
+           
+            
+            stmt = cn.prepareStatement(sql);
+            
+            stmt.setInt(1, id);
+            stmt.setBoolean(2, true);
+            
+            rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                
+                Cliente cliente = new Cliente ();
+                cliente.setId(rs.getInt("cliente_id"));
+                cliente.setNome(rs.getString("nome"));
+                Date d = new Date (rs.getTimestamp("data_nasc").getTime());
+                cliente.setDataNasc(d);
+                cliente.setSexo(rs.getString("sexo"));
+                
+                return cliente;
+            }
+            
+            
+        } finally{
+            ConnectionFactory.closeConnection(cn,stmt,rs);
+        }
+        
+        
+        return null;
     }
 }
