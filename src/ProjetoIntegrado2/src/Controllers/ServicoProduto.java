@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import Mock.MockValidarProduto;
 import Mock.MockListaDeProduto;
-import Controllers.CodigoProduto;
 
 /**
  *
