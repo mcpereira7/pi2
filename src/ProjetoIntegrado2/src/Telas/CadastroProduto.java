@@ -274,12 +274,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
         //dados do objeto
         try {
-            p.setCodProduto(Integer.parseInt(cpCodigo.getText()));
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(rootPane, e.getMessage());
-        }
-
-        try {
             p.setNome(cpNome.getText());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
@@ -349,7 +343,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
         // TODO add your handling code here:
-        int n = 0;
+        int n;
         if (!cpCodigo.equals("")) {
             n = JOptionPane.showConfirmDialog(rootPane, "Deseja sair sem salvar as informações?", "WARNING!", JOptionPane.YES_NO_OPTION);
             if (n != 0) {
