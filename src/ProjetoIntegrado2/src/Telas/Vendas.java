@@ -8,7 +8,6 @@ package Telas;
 import Controllers.ServicoCliente;
 import Controllers.ServicoProduto;
 import Controllers.ServicoVenda;
-import Exceptions.DataSourceException;
 import Exceptions.VendaException;
 import Exceptions.productException;
 import Model.Cliente;
@@ -282,19 +281,14 @@ public class Vendas extends javax.swing.JInternalFrame {
 
     private void jButtonConsultaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConsultaClienteActionPerformed
         // TODO add your handling code here:
-        try {
-            if (!jTextFieldNomeCliente.getText().isEmpty()) {
-                if (ServicoCliente.obterClienteByNome(jTextFieldNomeCliente.getText()) != null) {
-                    clienteVenda = ServicoCliente.obterClienteByNome(jTextFieldNomeCliente.getText());
-                    JOptionPane.showMessageDialog(rootPane, "Cliente validado com sucesso.");
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Cliente não encontrado.");
-                }
+        if (!jTextFieldNomeCliente.getText().isEmpty()) {
+            if (isParsable(jTextFieldNomeCliente.getText())) {
+                //clienteVenda = ServicoCliente.obterCliente(jTextFieldCodCliente.getText());
             } else {
-                JOptionPane.showMessageDialog(rootPane, "Insira o nome do cliente.");
+                JOptionPane.showMessageDialog(rootPane, "Digite um código valido.");
             }
-        } catch (DataSourceException ex) {
-            Logger.getLogger(Vendas.class.getName()).log(Level.SEVERE, null, ex);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Insira o código do cliente.");
         }
     }//GEN-LAST:event_jButtonConsultaClienteActionPerformed
 
@@ -417,7 +411,6 @@ public class Vendas extends javax.swing.JInternalFrame {
             CalculaTotal(novo.getQuantidadeVenda() * round(novo.getPreco(), 2));
 
         } catch (Exception e) {
-            e.printStackTrace();
             JOptionPane.showMessageDialog(rootPane, "Erro", e.getMessage(),
                     JOptionPane.ERROR_MESSAGE);
         }
