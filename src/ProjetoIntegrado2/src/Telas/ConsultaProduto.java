@@ -34,6 +34,7 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
         // Variáveis globais usadas na consulta Produto
     Integer codigo;
     String nome, tipo, fornecedor;
+    CadastroProduto menuCadProduto = null;
     
     // Variavel para alteração do produto selecionado
     // abre a tela de Cadastro
@@ -247,32 +248,36 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
 
     private void jButtonSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelecionarActionPerformed
         // TODO add your handling code here:
-        TableModel model = (AbstractTableModel) jTableTabelaDeProdutos.getModel();
+      TableModel model = (AbstractTableModel) jTableTabelaDeProdutos.getModel();
         jTableTabelaDeProdutos.setModel(model);
-
-        Produto p  = (Produto) model.getValueAt(0,0);
+        int coluna = 0;
+        int linha = jTableTabelaDeProdutos.getSelectedRow();
+        int codProduto = Integer.parseInt(jTableTabelaDeProdutos.getValueAt(linha, coluna).toString());
+        //Produto p  = (Produto) model.getValueAt(0, 0);
         
-        Produto produto = MockListaDeProduto.selecionaProduto(p.getCodProduto());
-      
-        try {
-            if (alteraProduto == null || !alteraProduto.isVisible()) {
-            alteraProduto = new CadastroProduto();
-            //jdiPrincipal.add(alteraProduto);
-            alteraProduto.setVisible(true);
-        } else if (alteraProduto.isVisible()) {
+        Produto p = MockListaDeProduto.selecionaProduto(codProduto);
+        
+//         Teste
+//        System.out.println("Selecionado");
+//        System.out.println("Codigo: "+ p.getCodProduto() + "| Nome: " + p.getNome() + " | Fornecedor: " + p.getFornecedor()
+//            + " | Tipo: "+ p.getTipo() + " | Qtd: " + p.getQuantidadeEstoque() + " | Valor: " + p.getPreco());
+
+        // Chama tela altera produto
+        if (menuCadProduto == null || !menuCadProduto.isVisible()) {
+            menuCadProduto = new CadastroProduto(p);
+            this.getParent().add(menuCadProduto);
+            menuCadProduto.setVisible(true);
+        } else if (menuCadProduto.isVisible()) {
             try {
-                alteraProduto.setSelected(true);
+                menuCadProduto.setSelected(true);
             } catch (PropertyVetoException ex) {
                 Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
             }
-            alteraProduto.getDesktopPane().getDesktopManager().deiconifyFrame(alteraProduto);
-            alteraProduto.getDesktopPane().getDesktopManager().maximizeFrame(alteraProduto);
-            alteraProduto.getDesktopPane().getDesktopManager().minimizeFrame(alteraProduto);
-            alteraProduto.toFront();
-        }
-            
-        } catch (Exception e) {
-        }
+            menuCadProduto.getDesktopPane().getDesktopManager().deiconifyFrame(menuCadProduto);
+            menuCadProduto.getDesktopPane().getDesktopManager().maximizeFrame(menuCadProduto);
+            menuCadProduto.getDesktopPane().getDesktopManager().minimizeFrame(menuCadProduto);
+            menuCadProduto.toFront();
+        }  
         
     }//GEN-LAST:event_jButtonSelecionarActionPerformed
 
@@ -282,7 +287,7 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
-        boolean resultSearch = false;        
+       boolean resultSearch = false;        
 //Verifica os campos da pesquisa e atribui seus valores as variaveis
         if (!jTextFieldCodProduto.getText().isEmpty()) {
             codigo = Integer.parseInt(jTextFieldCodProduto.getText().trim());
@@ -303,20 +308,32 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Falha ao obter lista", JOptionPane.ERROR_MESSAGE);
         }
+        
+        // limpado dados do filtro após pesquisa
+        jTextFieldCodProduto.setText(null);
+        jTextFieldNomeProduto.setText(null);
+        jComboBoxTipoDoProduto.setSelectedIndex(0);
+        jTextFieldFornecedor.setText(null);
+        codigo=null;
+        nome=null;
+        tipo=null;
+        fornecedor=null;
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jButtonCadastroGenericoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastroGenericoActionPerformed
-        // TODO add your handling code here:
         ArrayList<Produto> listaProduto = new ArrayList<Produto>();
     Produto p;
-    String str = "AAA";
-    String tipo = "jogo";
+     int n=0;
+    String str = jTextFieldNomeProduto.getText();
+    String tipo = jComboBoxTipoDoProduto.getSelectedItem().toString();
+    
 //    Random rd = new Random(100+1);
-    int n=0;
+   
     
     while(n<=5){
+        String codigo = jTextFieldCodProduto.getText() +""+ n;
         p=new Produto();
-        p.setCodProduto(n+1);
+        p.setCodProduto(Integer.parseInt(codigo));
         p.setNome(str+(n+1));
         p.setFornecedor(str+(n+3));
         p.setTipo(tipo);

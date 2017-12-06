@@ -26,6 +26,28 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         initComponents();
     }
 
+    public CadastroProduto(Produto produto) {
+        initComponents();
+
+        // inicializando os campos com os dados do Produto
+        cpCodigo.setText(String.valueOf(produto.getCodProduto()));
+        cpNome.setText(produto.getNome());
+        cpFornecedor.setText(produto.getFornecedor());
+        cpQtde.setText(String.valueOf(produto.getQuantidadeEstoque()));
+        cpValor.setText(String.valueOf(produto.getPreco()));
+        cbTipo.setSelectedItem(produto.getTipo());
+        if (produto.getTipo().equals("Jogo")) {
+            cbPlataforma.setSelectedItem(produto.getPlataforma());
+        }
+
+        // Adicionando evento personalizado ao botão salvar, quando este construtor for chamado
+//        for(int i=0; i<cbTipo.getItemCount();i++){
+//            if(cbTipo.getSelectedItem().equals(produto.getTipo())){
+//                cbTipo.setSelectedIndex(i);
+//            }
+//        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -210,12 +232,13 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel7)
                         .addComponent(cbPlataforma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel9)
-                        .addComponent(cpValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
-                            .addComponent(cpQtde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(cpQtde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(cpValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -326,9 +349,12 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
         // TODO add your handling code here:
+        int n = 0;
         if (!cpCodigo.equals("")) {
-            JOptionPane.showConfirmDialog(rootPane, "Deseja sair sem salvar as informações?","WARNING!",JOptionPane.YES_NO_OPTION);
-            
+            n = JOptionPane.showConfirmDialog(rootPane, "Deseja sair sem salvar as informações?", "WARNING!", JOptionPane.YES_NO_OPTION);
+            if (n != 0) {
+                return;
+            }
         }
         this.dispose();
     }//GEN-LAST:event_jButtonCancelActionPerformed
