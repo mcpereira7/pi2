@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import Model.ItensVenda;
 import Model.Venda;
 import connection.ConnectionFactory;
 import java.sql.Connection;
@@ -175,10 +176,69 @@ public class VendaDAO {
 
         return resultado;
     }
-    
-    //ITENSVENDA
-    
-    
+
+    public static List<Venda> getVendaRelatorio(Calendar de, Calendar ate, String campoOrdenacao, boolean ASC)
+            throws SQLException, Exception {
+
+        ResultSet rs = null;
+        PreparedStatement stmt = null;
+        List<Venda> resultado = new ArrayList<>();
+
+        String sql = "SELECT * FROM Venda WHERE DataVenda BETWEEN '?' AND '?' ORDER BY ? ?";
+
+        try {
+
+            stmt = cn.prepareStatement(sql);
+
+            stmt.setDate(0, (Date) de.getTime());
+            stmt.setDate(1, (Date) ate.getTime());
+            stmt.setString(2, campoOrdenacao);
+            stmt.setString(3, ASC ? "ASC" : "DESC");
+
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Venda venda = new Venda(rs);
+                resultado.add(venda);
+            }
+
+        } finally {
+            ConnectionFactory.closeConnection(cn, stmt, rs);
+        }
+
+        return resultado;
+    }
+
+    public static List<ItensVenda> getItensVenda(int idVenda) throws SQLException, Exception {
+        ResultSet rs = null;
+        PreparedStatement stmt = null;
+        List<ItensVenda> ItensVenda = new ArrayList<>();
+
+        String sql = "SELECT * FROM ItensVenda WHERE idVenda = ?";
+
+        try {
+            
+            stmt = cn.prepareStatement(sql);
+            stmt.setInt(0, idVenda);
+            
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                ItensVenda itemVenda = new ItensVenda();
+                
+                itemVenda.setCodProduto(rs.getInt("codProduto"));
+                itemVenda.setNome(rs.getString("nome"));
+                itemVenda.setPreco(rs.getFloat("preco"));
+                itemVenda.setQuantidade(rs.getInt("quantidade"));
+                ItensVenda.add(itemVenda);
+            }
+                    
+        } finally {
+            ConnectionFactory.closeConnection(cn, stmt, rs);
+        }
+        return ItensVenda;
+    }
+
     public static Calendar toCalendar(Date data) {
         Calendar dataCal = Calendar.getInstance();
         dataCal.setTime(data);

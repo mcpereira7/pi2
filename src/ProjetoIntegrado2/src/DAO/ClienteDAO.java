@@ -21,13 +21,12 @@ public class ClienteDAO {
     public static void inserir(Cliente cliente) throws SQLException, Exception {
         PreparedStatement stmt = null;
 
-        String sql = "INSERT INTO Cliente (id, codCliente, dataCadastro, nome, sexo, cpf, rg, dataNasc, telefone, "
+        String sql = "INSERT INTO Cliente (codCliente, dataCadastro, nome, sexo, cpf, rg, dataNasc, telefone, "
                 + "celular, email, cep, cidade, uf, endereco, endNumero, complemento, bairro, obs) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             stmt = cn.prepareStatement(sql);
-            stmt.setInt(1, cliente.getId());
             stmt.setInt(2, cliente.getCodCliente());
             stmt.setDate(3, (Date) cliente.getDataCadastro());
             stmt.setString(4, cliente.getNome());

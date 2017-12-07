@@ -14,7 +14,7 @@ public class ItensVenda {
     private int codProduto;
     private String nome;
     private int quantidade;
-    private double preco;
+    private float preco;
 
     public ItensVenda() {
 
@@ -48,7 +48,7 @@ public class ItensVenda {
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(float preco) {
         this.preco = preco;
     }
 
