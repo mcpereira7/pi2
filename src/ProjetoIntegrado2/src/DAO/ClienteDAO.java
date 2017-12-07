@@ -153,7 +153,8 @@ public class ClienteDAO {
         ResultSet rs = null;
         PreparedStatement stmt = null;
         
-        String sql = "SELECT * FROM cliente WHERE (codCliente = ? OR UPPER(nome) = LIKE UPPER(?)) AND disable = ?";
+        //Removi o ( = LIKE) porque não ta certo e coloquei um '' ali no LIKE UPPER acho que pode precisar. ACHO
+        String sql = "SELECT * FROM cliente WHERE (codCliente = ? OR UPPER(nome) LIKE UPPER('?')) AND disable = ?";
         
         try {
             stmt = cn.prepareStatement(sql);

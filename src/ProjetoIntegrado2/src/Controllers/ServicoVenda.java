@@ -5,18 +5,62 @@
  */
 package Controllers;
 
+import Exceptions.ClienteException;
 import Exceptions.DataSourceException;
 import Exceptions.VendaException;
 import Model.*;
+import static Telas.Vendas.isParsable;
+import java.awt.Component;
+import java.awt.HeadlessException;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author aayan
  */
 public class ServicoVenda {
+
+    public static List<Cliente> ConsultaClienteByNomeOuCodigo(String campoDaConsulta,
+            List<ItensVenda> listaItensVenda, List<Cliente> listaDeClientes, Component tela)
+            throws VendaException {
+
+        try {
+            //Verifica se o usuario 
+            if (!campoDaConsulta.isEmpty()) {
+                //Verifica se algum cliente já foi incluído à venda
+                if (!listaItensVenda.isEmpty() || !listaDeClientes.isEmpty()) {
+                    JOptionPane.showMessageDialog(tela, "Já existe um cliente na venda.");
+                    return null;
+                } else {
+                    //Verifica se é um código
+                    if (isParsable(campoDaConsulta)) {
+
+                        listaDeClientes = ServicoCliente.procuraCliente(Integer.parseInt(campoDaConsulta), campoDaConsulta);
+
+                        if (listaDeClientes.size() > 1) {
+                            JOptionPane.showMessageDialog(tela, "Mais de um cliente enconttrado com o mesmo nome.");
+                            return listaDeClientes;
+                            //clienteVenda = ServicoCliente.obterCliente(jTextFieldCodCliente.getText());
+                        } else {
+                            return listaDeClientes;
+                        }
+
+                    } else {
+                        listaDeClientes = ServicoCliente.procuraCliente(-1, campoDaConsulta);
+                        return listaDeClientes;
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(tela, "Digite um nome ou código valido.");
+                return null;
+            }
+        } catch (ClienteException | DataSourceException | HeadlessException | NumberFormatException e) {
+            throw new VendaException("Erro na fonte de dados.", e.getCause());
+        }
+    }
 
     public static void ConcluirVenda(Venda entrada) throws VendaException {
         try {
