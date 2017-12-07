@@ -386,6 +386,9 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         cli.setObs(TextAreaOBS.getText());
 
         try {
+            if (ServicoCliente.validaCodCliente(cli.getCodCliente())){
+                throw new Exception("Código do Item Informado Já Existente.");
+            }
             ServicoCliente.cadastrarCliente(cli);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage(),

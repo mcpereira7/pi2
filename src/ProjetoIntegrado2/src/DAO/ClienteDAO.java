@@ -14,18 +14,17 @@ public class ClienteDAO {
 
     private static Connection cn = null;
 
-    public ClienteDAO() {
-        cn = ConnectionFactory.getConnection();
-    }
-
     public static void inserir(Cliente cliente) throws SQLException, Exception {
         PreparedStatement stmt = null;
-
+        
         String sql = "INSERT INTO Cliente (codCliente, dataCadastro, nome, sexo, cpf, rg, dataNasc, telefone, "
                 + "celular, email, cep, cidade, uf, endereco, endNumero, complemento, bairro, obs) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
+        
+        cn = ConnectionFactory.getConnection();
+        
         try {
+            
             stmt = cn.prepareStatement(sql);
             stmt.setInt(2, cliente.getCodCliente());
             stmt.setDate(3, (Date) cliente.getDataCadastro());
@@ -60,7 +59,9 @@ public class ClienteDAO {
         String sql = "UPDATE cliente SET nome=?, sexo=?, cpf=?, rg=?, dataNasc=?, telefone=?, "
                 + "celular=?, email=?, cep=?, cidade=?, uf=?, endereco=?, endNumero=?, complemento=?, bairro=?, obs=? "
                 + "WHERE (cliente_id=?)";
-
+        
+        cn = ConnectionFactory.getConnection();
+        
         try {
             stmt = cn.prepareStatement(sql);
 
@@ -91,7 +92,9 @@ public class ClienteDAO {
         PreparedStatement stmt = null;
 
         String sql = "UPDATE cliente SET disable=? WHERE (cliente_id =?) ";
-
+        
+        cn = ConnectionFactory.getConnection();
+        
         try {
             stmt = cn.prepareStatement(sql);
             stmt.setBoolean(1, true);
@@ -108,6 +111,8 @@ public class ClienteDAO {
         PreparedStatement stmt = null;
         
         String sql = "SELECT * FROM ciente where disable = ?";
+        
+        cn = ConnectionFactory.getConnection();
         
         try {
             stmt = cn.prepareStatement(sql);
@@ -155,6 +160,8 @@ public class ClienteDAO {
         //Removi o ( = LIKE) porque não ta certo e coloquei um '' ali no LIKE UPPER acho que pode precisar. ACHO
         String sql = "SELECT * FROM cliente WHERE (codCliente = ? OR UPPER(nome) LIKE UPPER('?')) AND disable = ?";
         
+        cn = ConnectionFactory.getConnection();
+        
         try {
             stmt = cn.prepareStatement(sql);
             stmt.setInt(0, cod);
@@ -200,6 +207,7 @@ public class ClienteDAO {
         
         String sql = "SELECT * FROM cliente WHERE id = ? AND disable = ?";
         
+        cn = ConnectionFactory.getConnection();
         
         PreparedStatement stmt = null;
         
@@ -253,6 +261,7 @@ public class ClienteDAO {
         
         String sql = "SELECT * FROM cliente WHERE codCliente = ? AND disable = ?";
         
+        cn = ConnectionFactory.getConnection();
         
         PreparedStatement stmt = null;
         
@@ -297,7 +306,30 @@ public class ClienteDAO {
             ConnectionFactory.closeConnection(cn,stmt,rs);
         }
         
-        
         return null;
+    }
+    
+    public static boolean validaCodCliente(int codCliente)throws SQLException, Exception {
+        ResultSet rs = null;
+        PreparedStatement stmt = null;
+     
+        String sql = "SELECT codCliente FROM cliente WHERE codCliente = ?";
+        
+        cn = ConnectionFactory.getConnection();
+        
+        try {
+            stmt = cn.prepareStatement(sql);
+            
+            stmt.setInt(0, codCliente);
+            rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                return true;
+            }
+            
+        } finally{
+            ConnectionFactory.closeConnection(cn,stmt,rs);
+        }
+        return false;
     }
 }

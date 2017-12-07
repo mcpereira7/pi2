@@ -117,5 +117,14 @@ public class ServicoCliente {
             throw new DataSourceException("Erro na fonte de dados", e);
         }
     }
-
+    
+    public static boolean validaCodCliente(Integer codCliente)
+            throws ClienteException, DataSourceException {
+        try {
+            return ClienteDAO.validaCodCliente(codCliente);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DataSourceException("Erro na fonte de dados", e);
+        }
+    }
 }
