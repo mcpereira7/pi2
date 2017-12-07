@@ -39,7 +39,7 @@ public class Relatorio extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        buttonGroup1 = new javax.swing.ButtonGroup();
+        OrderButtonGroup = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
@@ -50,9 +50,9 @@ public class Relatorio extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jButtonGerarRelatorio = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
+        OrderComboBox = new javax.swing.JComboBox<>();
+        AscRadioButton = new javax.swing.JRadioButton();
+        DescRadioButton = new javax.swing.JRadioButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableReport = new javax.swing.JTable();
 
@@ -97,37 +97,37 @@ public class Relatorio extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Ordenar por"));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Data", "Cliente", "Produto", "Preço", "Quantidade", "Total" }));
+        OrderComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Data", "Cliente", "Produto", "Preço", "Quantidade", "Total" }));
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setText("Asc.");
+        OrderButtonGroup.add(AscRadioButton);
+        AscRadioButton.setText("Asc.");
 
-        buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setText("Desc.");
+        OrderButtonGroup.add(DescRadioButton);
+        DescRadioButton.setText("Desc.");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(OrderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 6, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jRadioButton1)
+                .addComponent(AscRadioButton)
                 .addGap(18, 18, 18)
-                .addComponent(jRadioButton3)
+                .addComponent(DescRadioButton)
                 .addGap(28, 28, 28))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(5, 5, 5)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(OrderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton3)))
+                    .addComponent(AscRadioButton)
+                    .addComponent(DescRadioButton)))
         );
 
         tableReport.setAutoCreateRowSorter(true);
@@ -212,7 +212,8 @@ public class Relatorio extends javax.swing.JInternalFrame {
         double totalVenda = 0;
         double totalGeral = 0;
         try {
-            List<Venda> listaRelatorio = ServicoVenda.ConsultaVendaByData(dataIni, dataFim);
+            List<Venda> listaRelatorio = ServicoVenda.ConsultaVendaRelatorio(dataIni, dataFim, 
+                    OrderComboBox.getSelectedItem().toString(),AscRadioButton.isSelected());
 
             if (listaRelatorio == null || listaRelatorio.isEmpty()) {
                 JOptionPane.showMessageDialog(rootPane, "Não há dados "
@@ -281,19 +282,19 @@ public class Relatorio extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton AscRadioButton;
+    private javax.swing.JRadioButton DescRadioButton;
     private javax.swing.JFormattedTextField FieldDataFinal;
     private javax.swing.JFormattedTextField FieldDataInicial;
-    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup OrderButtonGroup;
+    private javax.swing.JComboBox<String> OrderComboBox;
     private javax.swing.JButton jButtonGerarRelatorio;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;

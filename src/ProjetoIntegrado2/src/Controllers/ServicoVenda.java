@@ -90,6 +90,16 @@ public class ServicoVenda {
             throw new VendaException("Erro na fonte de dados.", e.getCause());
         }
     }
+    
+    public static List<Venda> ConsultaVendaRelatorio(Calendar de, Calendar ate, String campoOrdenacao, boolean ASC)
+            throws VendaException, DataSourceException {
+        try {
+            //Metodo que encontra a venda no banco com o codVenda
+            return DAO.VendaDAO.getVendaRelatorio(de, ate, campoOrdenacao, ASC);
+        } catch (Exception e) {
+            throw new VendaException("Erro na fonte de dados.", e.getCause());
+        }
+    }
 
 //    public static String ObterNomeClienteByCod(String codCliente)
     public static int geraCodVenda() {
