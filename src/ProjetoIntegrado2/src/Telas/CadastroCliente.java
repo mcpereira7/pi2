@@ -220,6 +220,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         fFieldDataCadastro.setEditable(false);
         fFieldDataCadastro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
         fFieldDataCadastro.setToolTipText("");
+        fFieldDataCadastro.setCaretColor(new java.awt.Color(153, 153, 153));
         fFieldDataCadastro.setText(data.getDataAtual());
 
         fFieldDataNasc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
@@ -367,7 +368,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         Cliente cli = new Cliente();
 
         cli.setCodCliente(Integer.parseInt(fieldCod.getText()));
-        cli.setDataCadastro((Date) fFieldDataCadastro.getValue());
+        cli.setDataCadastro(new Date(fFieldDataCadastro.getText()));
         cli.setNome(fieldNome.getText());
         cli.setSexo((String) comboSexo.getSelectedItem());
         cli.setCpf(fieldCPF.getText());
@@ -402,7 +403,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
                 "Cadastro efetuado", JOptionPane.INFORMATION_MESSAGE);
 
         fieldCod.setText("");
-        fFieldDataCadastro.setText("");
+        fFieldDataCadastro.setValue(null);
         fieldNome.setText("");
         comboSexo.setSelectedIndex(0);
         fieldCPF.setText("");

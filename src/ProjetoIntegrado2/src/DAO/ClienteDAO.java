@@ -19,31 +19,31 @@ public class ClienteDAO {
         
         String sql = "INSERT INTO Cliente (codCliente, dataCadastro, nome, sexo, cpf, rg, dataNasc, telefone, "
                 + "celular, email, cep, cidade, uf, endereco, endNumero, complemento, bairro, obs) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         cn = ConnectionFactory.getConnection();
         
         try {
             
             stmt = cn.prepareStatement(sql);
-            stmt.setInt(2, cliente.getCodCliente());
-            stmt.setDate(3, (Date) cliente.getDataCadastro());
-            stmt.setString(4, cliente.getNome());
-            stmt.setString(5, cliente.getSexo());
-            stmt.setString(6, cliente.getCpf());
-            stmt.setString(7, cliente.getRg());
-            stmt.setDate(8, (Date) cliente.getDataNasc());
-            stmt.setString(9, cliente.getTelefone());
-            stmt.setString(10, cliente.getCelular());
-            stmt.setString(11, cliente.getEmail());
-            stmt.setString(12, cliente.getCep());
-            stmt.setString(13, cliente.getCidade());
-            stmt.setString(14, cliente.getUf());
-            stmt.setString(15, cliente.getEndereco());
-            stmt.setString(16, cliente.getEndNumero());
-            stmt.setString(17, cliente.getComplemento());
-            stmt.setString(18, cliente.getBairro());
-            stmt.setString(19, cliente.getObs());
+            stmt.setInt(1, cliente.getCodCliente());
+            stmt.setDate(2, new Date(cliente.getDataCadastro().getTime()));
+            stmt.setString(3, cliente.getNome());
+            stmt.setString(4, cliente.getSexo());
+            stmt.setString(5, cliente.getCpf());
+            stmt.setString(6, cliente.getRg());
+            stmt.setDate(7, new Date(cliente.getDataNasc().getTime()));
+            stmt.setString(8, cliente.getTelefone());
+            stmt.setString(9, cliente.getCelular());
+            stmt.setString(10, cliente.getEmail());
+            stmt.setString(11, cliente.getCep());
+            stmt.setString(12, cliente.getCidade());
+            stmt.setString(13, cliente.getUf());
+            stmt.setString(14, cliente.getEndereco());
+            stmt.setString(15, cliente.getEndNumero());
+            stmt.setString(16, cliente.getComplemento());
+            stmt.setString(17, cliente.getBairro());
+            stmt.setString(18, cliente.getObs());
 
             stmt.execute();
 
@@ -69,7 +69,7 @@ public class ClienteDAO {
             stmt.setString(2, cliente.getSexo());
             stmt.setString(3, cliente.getCpf());
             stmt.setString(4, cliente.getRg());
-            stmt.setDate(5, (Date) cliente.getDataNasc());
+            stmt.setDate(5, new Date(cliente.getDataNasc().getTime()));
             stmt.setString(6, cliente.getTelefone());
             stmt.setString(7, cliente.getCelular());
             stmt.setString(8, cliente.getEmail());
@@ -320,7 +320,7 @@ public class ClienteDAO {
         try {
             stmt = cn.prepareStatement(sql);
             
-            stmt.setInt(0, codCliente);
+            stmt.setInt(1, codCliente);
             rs = stmt.executeQuery();
             
             if (rs.next()) {
