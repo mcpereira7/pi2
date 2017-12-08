@@ -5,6 +5,9 @@
  */
 package Model;
 
+import Controllers.ServicoVenda;
+import Exceptions.DataSourceException;
+import Exceptions.VendaException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,22 +26,12 @@ public class Venda {
     private Cliente cliente;
     private List<ItensVenda> itensVenda = new ArrayList<>();
     private double valorTotal;
-    private int oi = 9;
-    private int ola = 4;
 
     //Construtor
     /*Teoricamente tem que ter um metodo que ja gera o id
     baseado na posicao do banco de dados
     Mas por enquanto deixarei assim*/
     public Venda() {
-        ola = 4;
-        oi = 9 * 2;
-        oi++;
-        oi -= ola;
-        ola++;
-        id = oi;
-        //codVenda = geraCodVenda();
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     //Construtor para preencher a venda com um ResultSet

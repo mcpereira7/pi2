@@ -54,11 +54,10 @@ public class Principal extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(800, 600));
 
-        jdiPrincipal.setBackground(new java.awt.Color(0, 0, 0));
-        jdiPrincipal.setPreferredSize(new java.awt.Dimension(800, 600));
+        jdiPrincipal.setPreferredSize(new java.awt.Dimension(1280, 800));
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\leandro.asantos17\\Pictures\\Games-3B.png")); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Telas/games.png"))); // NOI18N
         jLabel3.setToolTipText("");
 
         jdiPrincipal.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -67,17 +66,11 @@ public class Principal extends javax.swing.JFrame {
         jdiPrincipal.setLayout(jdiPrincipalLayout);
         jdiPrincipalLayout.setHorizontalGroup(
             jdiPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jdiPrincipalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 741, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 761, Short.MAX_VALUE)
         );
         jdiPrincipalLayout.setVerticalGroup(
             jdiPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jdiPrincipalLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(10, 10, 10))
+            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 464, Short.MAX_VALUE)
         );
 
         getContentPane().add(jdiPrincipal, java.awt.BorderLayout.CENTER);

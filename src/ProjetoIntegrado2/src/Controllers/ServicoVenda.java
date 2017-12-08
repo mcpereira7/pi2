@@ -5,6 +5,7 @@
  */
 package Controllers;
 
+import DAO.VendaDAO;
 import Exceptions.ClienteException;
 import Exceptions.DataSourceException;
 import Exceptions.VendaException;
@@ -90,7 +91,7 @@ public class ServicoVenda {
             throw new VendaException("Erro na fonte de dados.", e.getCause());
         }
     }
-    
+
     public static List<Venda> ConsultaVendaRelatorio(Calendar de, Calendar ate, String campoOrdenacao, boolean ASC)
             throws VendaException, DataSourceException {
         try {
@@ -102,13 +103,20 @@ public class ServicoVenda {
     }
 
 //    public static String ObterNomeClienteByCod(String codCliente)
-    public static int geraCodVenda() {
-        Random rnd = new Random();
-        int parteUM = rnd.nextInt(100) + 1;
-        int parteDOIS = rnd.nextInt(98) + 151;
-
-        int fim = parteUM + parteDOIS;
-
-        return fim;
+    public static int geraCodVenda()
+            throws VendaException, DataSourceException {
+        try {
+            int codigo = VendaDAO.countVendas();
+            codigo++;
+            
+            while(codigo == VendaDAO.countVendas()) {
+                codigo++;
+            }
+            
+            return codigo;
+            
+        } catch (Exception e) {
+            throw new VendaException("Erro na fonte de dados.", e.getCause());
+        }
     }
 }

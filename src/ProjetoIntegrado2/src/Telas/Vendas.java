@@ -47,6 +47,7 @@ public class Vendas extends javax.swing.JInternalFrame {
     Produto produtoVenda = new Produto();
     //O objeto da Venda
     Venda carrinho = new Venda();
+    
     int codigo = 0;
 
     //Lista de Produtos
@@ -447,6 +448,7 @@ public class Vendas extends javax.swing.JInternalFrame {
         try {
             // TODO add your handling code here:
             Calendar dataCal = Calendar.getInstance();
+            carrinho.setId(codigo);
             carrinho.setDataVenda(dataCal);
             carrinho.setCliente(clienteVenda);
             ServicoVenda.ConcluirVenda(carrinho);
@@ -553,7 +555,12 @@ public class Vendas extends javax.swing.JInternalFrame {
     }
 
     public String GerarCodigoVenda() {
-        codigo = ServicoVenda.geraCodVenda();
+        
+        try {
+            codigo = ServicoVenda.geraCodVenda();
+        } catch (DataSourceException | VendaException e) {
+            e.getMessage();
+        }
         return Integer.toString(codigo);
     }
 

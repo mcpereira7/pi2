@@ -52,6 +52,28 @@ public class VendaDAO {
         }
     }
 
+    public static int countVendas()
+            throws SQLException, Exception {
+
+        List<Venda> resultado = new ArrayList<>();
+        ResultSet rs = null;
+        PreparedStatement stmt = null;
+
+        String sql = "SELECT COUNT(id) AS quantidade FROM Venda";
+
+        try {
+            stmt = cn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+
+            int quantidade = rs.getInt("quantidade");
+
+            return quantidade;
+
+        } finally {
+            ConnectionFactory.closeConnection(cn, stmt, rs);
+        }
+    }
+
     public static List<Venda> listar()
             throws SQLException, Exception {
 
@@ -217,22 +239,22 @@ public class VendaDAO {
         String sql = "SELECT * FROM ItensVenda WHERE idVenda = ?";
 
         try {
-            
+
             stmt = cn.prepareStatement(sql);
             stmt.setInt(0, idVenda);
-            
+
             rs = stmt.executeQuery();
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 ItensVenda itemVenda = new ItensVenda();
-                
+
                 itemVenda.setCodProduto(rs.getInt("codProduto"));
                 itemVenda.setNome(rs.getString("nome"));
                 itemVenda.setPreco(rs.getFloat("preco"));
                 itemVenda.setQuantidade(rs.getInt("quantidade"));
                 ItensVenda.add(itemVenda);
             }
-                    
+
         } finally {
             ConnectionFactory.closeConnection(cn, stmt, rs);
         }
