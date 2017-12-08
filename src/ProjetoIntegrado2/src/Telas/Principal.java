@@ -57,7 +57,7 @@ public class Principal extends javax.swing.JFrame {
         jdiPrincipal.setPreferredSize(new java.awt.Dimension(1280, 800));
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Telas/games.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Telas/Imagem.png"))); // NOI18N
         jLabel3.setToolTipText("");
 
         jdiPrincipal.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
