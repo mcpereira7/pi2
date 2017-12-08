@@ -15,7 +15,6 @@ import java.awt.Component;
 import java.awt.HeadlessException;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Random;
 import javax.swing.JOptionPane;
 
 /**
@@ -102,19 +101,19 @@ public class ServicoVenda {
         }
     }
 
-//    public static String ObterNomeClienteByCod(String codCliente)
     public static int geraCodVenda()
             throws VendaException, DataSourceException {
         try {
+            
             int codigo = VendaDAO.countVendas();
             codigo++;
-            
-            while(codigo == VendaDAO.countVendas()) {
+
+            while (codigo == VendaDAO.countVendas()) {
                 codigo++;
             }
-            
+
             return codigo;
-            
+
         } catch (Exception e) {
             throw new VendaException("Erro na fonte de dados.", e.getCause());
         }

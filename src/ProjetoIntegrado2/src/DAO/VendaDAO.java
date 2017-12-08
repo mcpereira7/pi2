@@ -34,16 +34,18 @@ public class VendaDAO {
 
         PreparedStatement stmt = null;
 
-        String sql = "INSERT INTO Venda (codVenda, dataVenda, cliente, codItensVenda, total)"
-                + "VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Venda (id, idCliente, Data, ValorTotal)"
+                + "VALUES (?, ?, ?, ?)";
+        
+        cn = ConnectionFactory.getConnection();
 
         try {
             stmt = cn.prepareStatement(sql);
             stmt.setInt(1, venda.getCodVenda());
-            stmt.setDate(2, (Date) venda.getDataVenda().getTime());
-            stmt.setInt(3, venda.getCliente().getCodCliente());
+            stmt.setInt(2, venda.getCliente().getCodCliente());
+            stmt.setDate(3, (Date) venda.getDataVenda().getTime());
             //stmt.setInt(4, venda.getCodItensVenda());
-            stmt.setDouble(5, venda.getValorTotal());
+            stmt.setDouble(4, venda.getValorTotal());
 
             stmt.execute();
 
@@ -55,11 +57,12 @@ public class VendaDAO {
     public static int countVendas()
             throws SQLException, Exception {
 
-        List<Venda> resultado = new ArrayList<>();
         ResultSet rs = null;
         PreparedStatement stmt = null;
 
-        String sql = "SELECT COUNT(id) AS quantidade FROM Venda";
+        String sql = "SELECT COUNT(id) AS quantidade FROM vendas";
+        
+        cn = ConnectionFactory.getConnection();
 
         try {
             stmt = cn.prepareStatement(sql);
@@ -81,7 +84,9 @@ public class VendaDAO {
         ResultSet rs = null;
         PreparedStatement stmt = null;
 
-        String sql = "SELECT * FROM Venda";
+        String sql = "SELECT * FROM vendas";
+        
+        cn = ConnectionFactory.getConnection();
 
         try {
 
@@ -91,9 +96,9 @@ public class VendaDAO {
             while (rs.next()) {
                 Venda venda = new Venda();
 
-                venda.setCodVenda(rs.getInt("CodVenda"));
-                venda.setDataVenda(toCalendar(rs.getDate("DataVenda")));
-                venda.setValorTotal(rs.getDouble("Total"));
+                venda.setCodVenda(rs.getInt("id"));
+                venda.setDataVenda(toCalendar(rs.getDate("Data")));
+                venda.setValorTotal(rs.getDouble("ValorTotal"));
 
                 resultado.add(venda);
             }
@@ -112,7 +117,9 @@ public class VendaDAO {
 
         Venda venda = new Venda();
 
-        String sql = "SELECT * FROM Venda WHERE CodVenda = ?";
+        String sql = "SELECT * FROM vendas WHERE id = ?";
+        
+        cn = ConnectionFactory.getConnection();
 
         try {
 
@@ -127,9 +134,9 @@ public class VendaDAO {
 
             rs = stmt.executeQuery();
 
-            venda.setCodVenda(rs.getInt("CodVenda"));
-            venda.setDataVenda(toCalendar(rs.getDate("DataVenda")));
-            venda.setValorTotal(rs.getDouble("Total"));
+            venda.setCodVenda(rs.getInt("id"));
+            venda.setDataVenda(toCalendar(rs.getDate("Data")));
+            venda.setValorTotal(rs.getDouble("ValorTotal"));
 
         } finally {
             ConnectionFactory.closeConnection(cn, stmt, rs);
@@ -147,7 +154,9 @@ public class VendaDAO {
 
         Venda venda = new Venda();
 
-        String sql = "SELECT * FROM Venda WHERE DataVenda = '?'";
+        String sql = "SELECT * FROM vendas WHERE Data = '?'";
+        
+        cn = ConnectionFactory.getConnection();
 
         try {
 
@@ -157,9 +166,9 @@ public class VendaDAO {
 
             rs = stmt.executeQuery();
 
-            venda.setCodVenda(rs.getInt("CodVenda"));
-            venda.setDataVenda(toCalendar(rs.getDate("DataVenda")));
-            venda.setValorTotal(rs.getDouble("Total"));
+            venda.setCodVenda(rs.getInt("id"));
+            venda.setDataVenda(toCalendar(rs.getDate("Data")));
+            venda.setValorTotal(rs.getDouble("ValorTotal"));
 
         } finally {
             ConnectionFactory.closeConnection(cn, stmt, rs);
@@ -175,14 +184,16 @@ public class VendaDAO {
         PreparedStatement stmt = null;
         List<Venda> resultado = new ArrayList<>();
 
-        String sql = "SELECT * FROM Venda WHERE DataVenda BETWEEN '?' AND '?'";
+        String sql = "SELECT * FROM vendas WHERE Data BETWEEN '?' AND '?'";
+        
+        cn = ConnectionFactory.getConnection();
 
         try {
 
             stmt = cn.prepareStatement(sql);
 
-            stmt.setDate(0, (Date) de.getTime());
-            stmt.setDate(1, (Date) para.getTime());
+            stmt.setDate(1, (Date) de.getTime());
+            stmt.setDate(2, (Date) para.getTime());
 
             rs = stmt.executeQuery();
 
@@ -206,16 +217,18 @@ public class VendaDAO {
         PreparedStatement stmt = null;
         List<Venda> resultado = new ArrayList<>();
 
-        String sql = "SELECT * FROM Venda WHERE DataVenda BETWEEN '?' AND '?' ORDER BY ? ?";
+        String sql = "SELECT * FROM vendas WHERE Data BETWEEN '?' AND '?' ORDER BY ? ?";
+        
+        cn = ConnectionFactory.getConnection();
 
         try {
 
             stmt = cn.prepareStatement(sql);
 
-            stmt.setDate(0, (Date) de.getTime());
-            stmt.setDate(1, (Date) ate.getTime());
-            stmt.setString(2, campoOrdenacao);
-            stmt.setString(3, ASC ? "ASC" : "DESC");
+            stmt.setDate(1, (Date) de.getTime());
+            stmt.setDate(2, (Date) ate.getTime());
+            stmt.setString(3, campoOrdenacao);
+            stmt.setString(4, ASC ? "ASC" : "DESC");
 
             rs = stmt.executeQuery();
 
@@ -237,6 +250,8 @@ public class VendaDAO {
         List<ItensVenda> ItensVenda = new ArrayList<>();
 
         String sql = "SELECT * FROM ItensVenda WHERE idVenda = ?";
+        
+        cn = ConnectionFactory.getConnection();
 
         try {
 
