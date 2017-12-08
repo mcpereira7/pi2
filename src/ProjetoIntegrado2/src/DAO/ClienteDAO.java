@@ -217,8 +217,8 @@ public class ClienteDAO {
             
             stmt = cn.prepareStatement(sql);
             
-            stmt.setInt(0, id);
-            stmt.setBoolean(1, false);
+            stmt.setInt(1, id);
+            stmt.setBoolean(2, false);
             
             rs = stmt.executeQuery();
             
