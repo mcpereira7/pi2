@@ -36,11 +36,11 @@ public class Venda {
 
     //Construtor para preencher a venda com um ResultSet
     public Venda(ResultSet rs) throws SQLException, Exception {
-        codVenda = rs.getInt("CodVenda");
-        dataVenda = DAO.VendaDAO.toCalendar(rs.getDate("DataVenda"));
-        cliente = DAO.ClienteDAO.obter(rs.getInt("cliente"));
+        codVenda = rs.getInt("id");
+        dataVenda = DAO.VendaDAO.toCalendar(rs.getDate("Data"));
+        cliente = DAO.ClienteDAO.obter(rs.getInt("idCliente"));
         itensVenda = DAO.VendaDAO.getItensVenda(rs.getInt("idCliente"));
-        valorTotal = rs.getDouble("Total");
+        valorTotal = rs.getDouble("ValorTotal");
     }
 
     //Metodos
