@@ -18,7 +18,7 @@ public class ClienteDAO {
         PreparedStatement stmt = null;
         
         String sql = "INSERT INTO Cliente (codCliente, dataCadastro, nome, sexo, cpf, rg, dataNasc, telefone, "
-                + "celular, email, cep, cidade, uf, endereco, endNumero, complemento, bairro, obs) "
+                + "celular, email, cep, cidade, uf, endereco, Numero, complemento, bairro, obs) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         cn = ConnectionFactory.getConnection();
@@ -57,7 +57,7 @@ public class ClienteDAO {
 
         //id=?, codCliente=?, dataCadastro=?,
         String sql = "UPDATE cliente SET nome=?, sexo=?, cpf=?, rg=?, dataNasc=?, telefone=?, "
-                + "celular=?, email=?, cep=?, cidade=?, uf=?, endereco=?, endNumero=?, complemento=?, bairro=?, obs=? "
+                + "celular=?, email=?, cep=?, cidade=?, uf=?, endereco=?, numero=?, complemento=?, bairro=?, obs=? "
                 + "WHERE (cliente_id=?)";
         
         cn = ConnectionFactory.getConnection();
@@ -138,7 +138,7 @@ public class ClienteDAO {
                 cliente.setCidade(rs.getString("cidade"));
                 cliente.setUf(rs.getString("uf"));
                 cliente.setEndereco(rs.getString("endereco"));
-                cliente.setEndNumero(rs.getString("endNumero"));
+                cliente.setEndNumero(rs.getString("Numero"));
                 cliente.setComplemento(rs.getString("complemento"));
                 cliente.setBairro(rs.getString("bairro"));
                 cliente.setObs(rs.getString("obs"));
@@ -158,15 +158,15 @@ public class ClienteDAO {
         PreparedStatement stmt = null;
         
         //Removi o ( = LIKE) porque não ta certo e coloquei um '' ali no LIKE UPPER acho que pode precisar. ACHO
-        String sql = "SELECT * FROM cliente WHERE (codCliente = ? OR UPPER(nome) LIKE UPPER('?')) AND disable = ?";
+        String sql = "SELECT * FROM cliente WHERE (codCliente = ? OR UPPER(nome) LIKE UPPER(?)) AND disable = ?";
         
         cn = ConnectionFactory.getConnection();
         
         try {
             stmt = cn.prepareStatement(sql);
-            stmt.setInt(0, cod);
-            stmt.setString(1, "%" + nome + "%");
-            stmt.setBoolean(2, false);
+            stmt.setInt(1, cod);
+            stmt.setString(2, "%'" + nome + "'%");
+            stmt.setBoolean(3, false);
             
             rs = stmt.executeQuery();
             
@@ -188,7 +188,7 @@ public class ClienteDAO {
                 cliente.setCidade(rs.getString("cidade"));
                 cliente.setUf(rs.getString("uf"));
                 cliente.setEndereco(rs.getString("endereco"));
-                cliente.setEndNumero(rs.getString("endNumero"));
+                cliente.setEndNumero(rs.getString("numero"));
                 cliente.setComplemento(rs.getString("complemento"));
                 cliente.setBairro(rs.getString("bairro"));
                 cliente.setObs(rs.getString("obs"));
@@ -240,7 +240,7 @@ public class ClienteDAO {
                 cliente.setCidade(rs.getString("cidade"));
                 cliente.setUf(rs.getString("uf"));
                 cliente.setEndereco(rs.getString("endereco"));
-                cliente.setEndNumero(rs.getString("endNumero"));
+                cliente.setEndNumero(rs.getString("numero"));
                 cliente.setComplemento(rs.getString("complemento"));
                 cliente.setBairro(rs.getString("bairro"));
                 cliente.setObs(rs.getString("obs"));
@@ -271,8 +271,8 @@ public class ClienteDAO {
             
             stmt = cn.prepareStatement(sql);
             
-            stmt.setInt(0, codCliente);
-            stmt.setBoolean(1, false);
+            stmt.setInt(1, codCliente);
+            stmt.setBoolean(2, false);
             
             rs = stmt.executeQuery();
             
@@ -294,7 +294,7 @@ public class ClienteDAO {
                 cliente.setCidade(rs.getString("cidade"));
                 cliente.setUf(rs.getString("uf"));
                 cliente.setEndereco(rs.getString("endereco"));
-                cliente.setEndNumero(rs.getString("endNumero"));
+                cliente.setEndNumero(rs.getString("numero"));
                 cliente.setComplemento(rs.getString("complemento"));
                 cliente.setBairro(rs.getString("bairro"));
                 cliente.setObs(rs.getString("obs"));
