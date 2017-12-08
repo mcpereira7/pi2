@@ -130,7 +130,7 @@ public class VendaDAO {
             Adiciona o codVenda ao objeto criado acima, preenchendo o ? da
             string com a posicao inserida
              */
-            stmt.setInt(0, codVenda);
+            stmt.setInt(1, codVenda);
 
             rs = stmt.executeQuery();
 
@@ -162,7 +162,7 @@ public class VendaDAO {
 
             stmt = cn.prepareStatement(sql);
 
-            stmt.setDate(0, (Date) data.getTime());
+            stmt.setDate(1, (Date) data.getTime());
 
             rs = stmt.executeQuery();
 
@@ -256,7 +256,7 @@ public class VendaDAO {
         try {
 
             stmt = cn.prepareStatement(sql);
-            stmt.setInt(0, idVenda);
+            stmt.setInt(1, idVenda);
 
             rs = stmt.executeQuery();
 
