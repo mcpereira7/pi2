@@ -41,11 +41,11 @@ public class VendaDAO {
 
         try {
             stmt = cn.prepareStatement(sql);
-            stmt.setInt(0, venda.getCodVenda());
-            stmt.setInt(1, venda.getCliente().getCodCliente());
-            stmt.setDate(2, (Date) venda.getDataVenda().getTime());
+            stmt.setInt(1, venda.getCodVenda());
+            stmt.setInt(2, venda.getCliente().getCodCliente());
+            stmt.setDate(3, (Date) venda.getDataVenda().getTime());
             //stmt.setInt(4, venda.getCodItensVenda());
-            stmt.setDouble(3, venda.getValorTotal());
+            stmt.setDouble(4, venda.getValorTotal());
 
             stmt.execute();
 
@@ -192,8 +192,8 @@ public class VendaDAO {
 
             stmt = cn.prepareStatement(sql);
 
-            stmt.setDate(0, (Date) de.getTime());
-            stmt.setDate(1, (Date) para.getTime());
+            stmt.setDate(1, (Date) de.getTime());
+            stmt.setDate(2, (Date) para.getTime());
 
             rs = stmt.executeQuery();
 
@@ -225,10 +225,10 @@ public class VendaDAO {
 
             stmt = cn.prepareStatement(sql);
 
-            stmt.setDate(0, (Date) de.getTime());
-            stmt.setDate(1, (Date) ate.getTime());
-            stmt.setString(2, campoOrdenacao);
-            stmt.setString(3, ASC ? "ASC" : "DESC");
+            stmt.setDate(1, (Date) de.getTime());
+            stmt.setDate(2, (Date) ate.getTime());
+            stmt.setString(3, campoOrdenacao);
+            stmt.setString(4, ASC ? "ASC" : "DESC");
 
             rs = stmt.executeQuery();
 
