@@ -390,7 +390,10 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Cliente cli = new Cliente();
-
+        String acao = "";
+        if (!fieldId.getText().equals("")){
+            cli.setId(Integer.parseInt(fieldId.getText()));
+        }
         cli.setCodCliente(Integer.parseInt(fieldCod.getText()));
         cli.setDataCadastro(new Date(fFieldDataCadastro.getText()));
         cli.setNome(fieldNome.getText());
@@ -411,13 +414,16 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         cli.setObs(TextAreaOBS.getText());
 
         try {
+            
             if (!fieldId.getText().equals("")) {
                 ServicoCliente.atualizaCliente(cli);
+                acao = "Atualizado";
             } else {
                 if (ServicoCliente.validaCodCliente(cli.getCodCliente())) {
                     throw new Exception("Código do Item Informado Já Existente.");
                 }
                 ServicoCliente.cadastrarCliente(cli);
+                acao = "Cadastrado";
             }
             
         } catch (Exception e) {
@@ -428,8 +434,8 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
 
         //Caso tenha chegado até aqui, o cliente foi inserido com sucesso
         //Então exibe uma mensagem de sucesso para o usuário
-        JOptionPane.showMessageDialog(rootPane, "Cliente inserido com sucesso",
-                "Cadastro efetuado", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(rootPane, "Cliente " + acao + " com sucesso",
+                "Cadastro/Atualização efetuado(a)", JOptionPane.INFORMATION_MESSAGE);
 
         fieldCod.setText("");
         fieldNome.setText("");
