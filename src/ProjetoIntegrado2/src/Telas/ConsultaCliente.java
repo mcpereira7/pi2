@@ -5,6 +5,7 @@
  */
 package Telas;
 
+import Controllers.ServicoCliente;
 import Model.Cliente;
 import Mock.MockListaDeCliente;
 import java.beans.PropertyVetoException;
@@ -281,7 +282,8 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
     public boolean refreshList() throws Exception {
 
         //List<Cliente> resultado = MockListaDeCliente.procurar(codPesquisa, nomePesquisa);
-        List<Cliente> resultado = ClienteDAO.procurar(codPesquisa, nomePesquisa);
+        //List<Cliente> resultado = ClienteDAO.procurar(codPesquisa, nomePesquisa);
+        List<Cliente> resultado = ServicoCliente.procuraCliente(codPesquisa, nomePesquisa);
 
         DefaultTableModel model = (DefaultTableModel) tabelaResultados.getModel();
         model.setRowCount(0);

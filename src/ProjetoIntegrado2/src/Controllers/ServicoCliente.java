@@ -38,7 +38,6 @@ public class ServicoCliente {
         }
     }
 
-    // Atualizar o Cliente no 'MOCK'
     public static void atualizaCliente(Cliente cliente)
             throws ClienteException, DataSourceException {
 
@@ -58,14 +57,10 @@ public class ServicoCliente {
         }
     }
 
-    // Realiza a pesquisa do Cliente por um nome no 'Mock'
     public static List<Cliente> procuraCliente(Integer cod, String nome)
             throws ClienteException, DataSourceException {
         try {
-            // Verifica se foi ou não informado um dado para pesquisa.
-            // Se informado um dado, realiza a listagem simples do mock.
-            // Se não informado um dado, realiza uma pesquisa com o dado.
-            if (nome == null && "".equals(nome)) {
+            if ((nome == null || nome.equals("")) && cod == null) {
                 //return MockListaDeCliente.listar();
                 return ClienteDAO.listar();
             } else {
@@ -73,13 +68,11 @@ public class ServicoCliente {
                 return ClienteDAO.procurar(cod, nome);
             }
         } catch (Exception e) {
-            //mostra no console qualquer erro que ocorra no 'MOCK'
             e.printStackTrace();
             throw new DataSourceException("Erro na fonte de dados", e);
         }
     }
 
-    //Obtem um cliente com ID informado do MOCK
     public static Cliente obterCliente(Integer id)
             throws ClienteException, DataSourceException {
         try {
@@ -87,7 +80,6 @@ public class ServicoCliente {
             //return MockListaDeCliente.obter(codigo);
             return ClienteDAO.obter(id);
         } catch (Exception e) {
-            //mostra no console qualquer erro que ocorra no 'MOCK'
             e.printStackTrace();
             throw new DataSourceException("Erro na fonte de da dados", e);
         }
