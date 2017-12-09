@@ -58,7 +58,7 @@ public class ProdutoDAO {
         ResultSet rs = null;
         PreparedStatement stmt = null;
 
-        String sql = "UPDATE produto SET  nome=?, quantidade=?, tipo=?, plataforma=?, preco=?, fornecedor=?, descricao=? WHERE id=?";
+        String sql = "UPDATE produto SET  nome=?, quantidade=?, tipo=?, plataforma=?, preco=?, fornecedor=?, descricao=?, disable=? WHERE id=?";
 
         try {
             stmt = cn.prepareStatement(sql);
@@ -70,7 +70,8 @@ public class ProdutoDAO {
             stmt.setFloat(5, produto.getPreco());
             stmt.setString(6, produto.getFornecedor());
             stmt.setString(7, produto.getDescricao());
-            stmt.setInt(8, produto.getId());
+            stmt.setBoolean(8, false);
+            stmt.setInt(9, produto.getId());
 
             stmt.execute();
 
@@ -93,10 +94,11 @@ public class ProdutoDAO {
         Produto p = null;
 
         // String de comando SQL
-        String sql = "SELECT * FROM produto";
+        String sql = "SELECT * FROM produto WHERE Disable=?";
 
         try {
             stm = cn.prepareStatement(sql);
+            stm.setBoolean(1, false);
             rs = stm.executeQuery();
 
             while (rs.next()) {
@@ -124,7 +126,7 @@ public class ProdutoDAO {
         ResultSet rs = null;
         PreparedStatement stmt = null;
 
-        String sql = " SELECT  * FROM produto WHERE (Codigo = ? OR UPPER(Nome) LIKE UPPER(?) OR UPPER(Fornecedor) LIKE UPPER(?) OR UPPER(Tipo) LIKE UPPER(?))";
+        String sql = " SELECT  * FROM produto WHERE (Codigo = ? OR UPPER(Nome) LIKE UPPER(?) OR UPPER(Fornecedor) LIKE UPPER(?) OR UPPER(Tipo) LIKE UPPER(?)) AND Disable=?";
 
         try {
             stmt = cn.prepareStatement(sql);
@@ -148,6 +150,7 @@ public class ProdutoDAO {
             } else {
                 stmt.setString(4, "");
             }
+             stmt.setBoolean(5, false);
 
             rs = stmt.executeQuery();
 
@@ -239,11 +242,12 @@ public class ProdutoDAO {
 
         Produto p = new Produto();
 
-        String sql = " SELECT  * FROM produto WHERE Codigo = ?";
+        String sql = " SELECT  * FROM produto WHERE Codigo = ? AND Disable=?";
 
         try {
             stmt = cn.prepareStatement(sql);
             stmt.setInt(1, codigo);
+            stmt.setBoolean(2, false);
 
             rs = stmt.executeQuery();
 
@@ -264,5 +268,25 @@ public class ProdutoDAO {
         } finally {
             ConnectionFactory.closeConnection(cn, stmt, rs);
         }
+        
+    }
+    
+    public static void excluir(Integer Id) throws SQLException, Exception {
+        PreparedStatement stmt = null;
+
+        String sql = "UPDATE produto SET disable=? WHERE (id =?) ";
+        
+        cn = ConnectionFactory.getConnection();
+        
+        try {
+            stmt = cn.prepareStatement(sql);
+            stmt.setBoolean(1, true);
+            stmt.setInt(2, Id);
+            stmt.execute();
+            
+        } finally {
+            ConnectionFactory.closeConnection(cn, stmt);
+        }
+
     }
 }

@@ -112,13 +112,13 @@ public class ClienteDAO {
         ResultSet rs = null;
         PreparedStatement stmt = null;
         
-        String sql = "SELECT * FROM ciente where disable = ?";
+        String sql = "SELECT * FROM cliente where disable = ?";
         
         cn = ConnectionFactory.getConnection();
         
         try {
             stmt = cn.prepareStatement(sql);
-            stmt.setBoolean(0, false);
+            stmt.setBoolean(1, false);
             
             rs = stmt.executeQuery();
             
