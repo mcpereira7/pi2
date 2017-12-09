@@ -8,6 +8,7 @@ package Mock;
 import Model.Produto;
 import java.util.ArrayList;
 import java.util.List;
+import Controllers.CodigoProduto;
 
 /**
  *
@@ -21,7 +22,7 @@ public class MockListaDeProduto {
 
     public static void adicionar(Produto p) throws Exception {
         p.setId(totalProdutos++);
-        p.setCodProduto(Model.Produto.CodigoProduto(p)+totalProdutos);
+        p.setCodProduto(Controllers.CodigoProduto.CodigoProduto(p));
         listaProdutos.add(p);
     }
 
@@ -60,15 +61,11 @@ public class MockListaDeProduto {
                     if (p.getTipo().toUpperCase().contains(tipo.toUpperCase())) {
                         resultados.add(p);
                     }
-                } else  if ((codigo == null ||codigo.equals(""))&& (nome == null || nome.equals(""))&& (tipo == null || tipo.equals(""))&& (fornecedor == null ||fornecedor.equals(""))) {
-                        resultados.add(p);
-                    }
+                }
             }
         
         return resultados;
     }
-    
-    
     
     public static Produto selecionaProduto(Integer codigo){
         for(Produto p : listaProdutos){

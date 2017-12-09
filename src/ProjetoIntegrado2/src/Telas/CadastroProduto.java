@@ -301,50 +301,50 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
-        
+
         try {
             p.setFornecedor(cpFornecedor.getText());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
-        
+
         try {
             p.setPreco(Float.parseFloat(cpValor.getText()));
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
-        
+
         try {
-            p.setDataCadastro(Date.from(Instant.now()));
+            p.setDataCadastro((java.sql.Date) Date.from(Instant.now()));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
-        
+
         try {
             p.setPlataforma((String) cbPlataforma.getSelectedItem());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
-        
+
         try {
             p.setDescricao(jTextArea1.getText());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
-        
+
         try {
             p.setTipo((String) cbTipo.getSelectedItem());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
-        
+
         try {
             p.setQuantidadeEstoque(Integer.parseInt(cpQtde.getText()));
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
 
-//        //gravando o objeto na lista
+        //gravando o objeto na lista
         try {
             if(!cpId.getText().equals("") || !cpId.getText().isEmpty()){
                 ServicoProduto.atualizaProduto(p);
@@ -372,7 +372,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
         // TODO add your handling code here:
         int n;
-        if (!cpNome.getText().equals("") || !cpFornecedor.getText().equals("") || !cpQtde.getText().equals("") || !cpValor.getText().equals("")) {
+        if (!cpCodigo.equals("")) {
             n = JOptionPane.showConfirmDialog(rootPane, "Deseja sair sem salvar as informações?", "WARNING!", JOptionPane.YES_NO_OPTION);
             if (n != 0) {
                 return;

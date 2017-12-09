@@ -5,13 +5,15 @@
  */
 package Controllers;
 
-import DAO.ProdutoDAO;
 import Exceptions.productException;
 import Exceptions.DataSourceException;
 import Model.Produto;
 import java.util.ArrayList;
 import java.util.List;
+import Mock.MockValidarProduto;
 import Mock.MockListaDeProduto;
+import Controllers.CodigoProduto;
+import Model.ItensVenda;
 
 /**
  *
@@ -21,10 +23,10 @@ public class ServicoProduto {
 
     public static void cadastroProduto(Produto produto) throws productException, DataSourceException {
         //validação do quarto:
-        ProdutoDAO.validaProduto(produto);
+        MockValidarProduto.validacao(produto);
 
         try {
-            ProdutoDAO.inserir(produto);
+            MockListaDeProduto.adicionar(produto);
         } catch (Exception e) {
             e.printStackTrace();
             throw new DataSourceException("Erro: ", e);
@@ -56,8 +58,7 @@ public class ServicoProduto {
     }
 
     public static List<Produto> consultaProduto(int codigo, String nome, String tipo, String fornecedor) throws Exception {
-//        List<Produto> produto=MockListaDeProduto.procurar(codigo, nome, tipo, fornecedor);
-List<Produto> produto=ProdutoDAO.procurarProduto(codigo, nome, tipo, fornecedor);
+        List<Produto> produto=MockListaDeProduto.procurar(codigo, nome, tipo, fornecedor);
         for (int i = 0; i < produto.size(); i++) {
                 if(!produto.isEmpty()){
                     return produto;
@@ -84,16 +85,16 @@ List<Produto> produto=ProdutoDAO.procurarProduto(codigo, nome, tipo, fornecedor)
         }
     }
 
-    public static void AtualizaEstoque(List<Produto> lista)
+    public static void AtualizaEstoque(List<ItensVenda> lista)
             throws productException {
         try {
             List<Produto> old = MockListaDeProduto.listar();
 
-            for (Produto produto : lista) {
+            for (ItensVenda item : lista) {
                 for (Produto produtoOld : old) {
-                    if (produto.getCodProduto() == produtoOld.getCodProduto()) {
+                    if (item.getCodProduto() == produtoOld.getCodProduto()) {
                         int quant = produtoOld.getQuantidadeEstoque();
-                        quant -= produto.getQuantidadeVenda();
+                        quant -= item.getQuantidade();
                         produtoOld.setQuantidadeEstoque(quant);
                     }
                 }
@@ -102,6 +103,5 @@ List<Produto> produto=ProdutoDAO.procurarProduto(codigo, nome, tipo, fornecedor)
 
         } catch (Exception e) {
         }
-
     }
 }

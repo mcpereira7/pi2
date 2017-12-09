@@ -161,7 +161,7 @@ public class ProdutoDAO {
                 p.setPreco(rs.getFloat("Preco"));
                 p.setFornecedor(rs.getString("Fornecedor"));
                 p.setDescricao(rs.getString("Descricao"));
-                p.setDataCadastro(rs.getTimestamp("DataCadastro"));
+                p.setDataCadastro(rs.getDate("DataCadastro"));
                 listaProduto.add(p);
             }
         } finally {

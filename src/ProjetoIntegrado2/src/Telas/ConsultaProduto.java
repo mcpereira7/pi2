@@ -34,7 +34,6 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
     // Variáveis globais usadas na consulta Produto
     Integer codigo;
     String nome, tipo, fornecedor;
-    CadastroProduto menuCadProduto = null;
 
     // Variavel para alteração do produto selecionado
     // abre a tela de Cadastro
@@ -234,40 +233,33 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
-       boolean resultSearch = false;        
+        boolean resultSearch = false;
 //Verifica os campos da pesquisa e atribui seus valores as variaveis
         if (!jTextFieldCodProduto.getText().isEmpty()) {
             codigo = Integer.parseInt(jTextFieldCodProduto.getText().trim());
         }
         if (!jTextFieldNomeProduto.getText().isEmpty()) {
             nome = jTextFieldNomeProduto.getText().trim();
-        }else{nome="";}
+        } else {
+            nome = "";
+        }
         if (jComboBoxTipoDoProduto.getSelectedIndex() != 0) {
             tipo = (String) jComboBoxTipoDoProduto.getSelectedItem();
-        }else {tipo="";}
+        } else {
+            tipo = "";
+        }
         if (!jTextFieldFornecedor.getText().isEmpty()) {
             fornecedor = jTextFieldFornecedor.getText().trim();
-        }else{fornecedor="";}
-        
+        } else {
+            fornecedor = "";
+        }
+
         try {
-            resultSearch=refreshList();
-            
+            resultSearch = refreshList();
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Falha ao obter lista", JOptionPane.ERROR_MESSAGE);
         }
-        
-        // limpado dados do filtro após pesquisa
-        jTextFieldCodProduto.setText(null);
-        jTextFieldNomeProduto.setText(null);
-        jComboBoxTipoDoProduto.setSelectedIndex(0);
-        jTextFieldFornecedor.setText(null);
-        codigo=null;
-        nome=null;
-        tipo=null;
-        fornecedor=null;
-        
-
-
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
@@ -325,7 +317,7 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
 
 //        List<Produto> resultado = MockListaDeProduto.procurar(codigo, nome, tipo, fornecedor);
 //    List<Produto> resultado = ServicoProduto.consultaProduto(codigo, nome, tipo, fornecedor); 
-List<Produto> resultado = ProdutoDAO.procurarProduto(codigo, nome,  fornecedor, tipo);
+        List<Produto> resultado = ProdutoDAO.procurarProduto(codigo, nome, fornecedor, tipo);
         DefaultTableModel model = (DefaultTableModel) jTableTabelaDeProdutos.getModel();
         model.setRowCount(0);
 
@@ -343,7 +335,7 @@ List<Produto> resultado = ProdutoDAO.procurarProduto(codigo, nome,  fornecedor, 
                 row[0] = p.getCodProduto();
                 row[1] = p.getNome();
                 row[2] = p.getFornecedor();
-                row[3] = p.getDataCadastro();
+                row[3] = df.format(p.getDataCadastro().getTime());
                 row[4] = p.getQuantidadeEstoque();
                 model.addRow(row);
                 // teste
