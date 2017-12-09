@@ -71,15 +71,15 @@ public class ServicoVenda {
         }
     }
 
-    public static Venda ConsultaVendaByCodVenda(int codVenda)
-            throws VendaException, DataSourceException {
-        try {
-            //Metodo que encontra a venda no banco com o codVenda
-            return DAO.VendaDAO.getVendaByCod(codVenda);
-        } catch (Exception e) {
-            throw new VendaException("Erro na fonte de dados.", e.getCause());
-        }
-    }
+//    public static Venda ConsultaVendaByCodVenda(int codVenda)
+//            throws VendaException, DataSourceException {
+//        try {
+//            //Metodo que encontra a venda no banco com o codVenda
+//            return DAO.VendaDAO.getVendaByCod(codVenda);
+//        } catch (Exception e) {
+//            throw new VendaException("Erro na fonte de dados.", e.getCause());
+//        }
+//    }
 
     public static List<Venda> ConsultaVendaByData(Calendar de, Calendar ate)
             throws VendaException, DataSourceException {

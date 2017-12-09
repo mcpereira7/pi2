@@ -34,18 +34,15 @@ public class VendaDAO {
 
         PreparedStatement stmt = null;
 
-        String sql = "INSERT INTO Venda (id, idCliente, Data, ValorTotal)"
-                + "VALUES (?, ?, ?, ?)";
-        
+        String sql = "INSERT INTO Venda (idCliente, ValorTotal)"
+                + "VALUES (?, ?)";
+
         cn = ConnectionFactory.getConnection();
 
         try {
             stmt = cn.prepareStatement(sql);
-            stmt.setInt(1, venda.getCodVenda());
-            stmt.setInt(2, venda.getCliente().getCodCliente());
-            stmt.setDate(3, (Date) venda.getDataVenda().getTime());
-            //stmt.setInt(4, venda.getCodItensVenda());
-            stmt.setDouble(4, venda.getValorTotal());
+            stmt.setInt(1, venda.getCliente().getCodCliente());
+            stmt.setDouble(2, venda.getValorTotal());
 
             stmt.execute();
 
@@ -61,7 +58,7 @@ public class VendaDAO {
         PreparedStatement stmt = null;
 
         String sql = "SELECT COUNT(id) AS quantidade FROM vendas";
-        
+
         cn = ConnectionFactory.getConnection();
 
         try {
@@ -85,7 +82,7 @@ public class VendaDAO {
         PreparedStatement stmt = null;
 
         String sql = "SELECT * FROM vendas";
-        
+
         cn = ConnectionFactory.getConnection();
 
         try {
@@ -96,86 +93,87 @@ public class VendaDAO {
             while (rs.next()) {
                 Venda venda = new Venda();
 
-                venda.setCodVenda(rs.getInt("id"));
+                //venda.setCodVenda(rs.getInt("id"));
                 venda.setDataVenda(toCalendar(rs.getDate("Data")));
                 venda.setValorTotal(rs.getDouble("ValorTotal"));
 
                 resultado.add(venda);
             }
-        } finally {
-            ConnectionFactory.closeConnection(cn, stmt, rs);
-        }
 
-        return resultado;
-    }
-
-    public static Venda getVendaByCod(int codVenda)
-            throws SQLException, Exception {
-
-        ResultSet rs = null;
-        PreparedStatement stmt = null;
-
-        Venda venda = new Venda();
-
-        String sql = "SELECT * FROM vendas WHERE id = ?";
-        
-        cn = ConnectionFactory.getConnection();
-
-        try {
-
-            //Prepara ou cria um objeto adaptado para o SQL
-            stmt = cn.prepareStatement(sql);
-
-            /*
-            Adiciona o codVenda ao objeto criado acima, preenchendo o ? da
-            string com a posicao inserida
-             */
-            stmt.setInt(1, codVenda);
-
-            rs = stmt.executeQuery();
-
-            venda.setCodVenda(rs.getInt("id"));
-            venda.setDataVenda(toCalendar(rs.getDate("Data")));
-            venda.setValorTotal(rs.getDouble("ValorTotal"));
+            return resultado;
 
         } finally {
             ConnectionFactory.closeConnection(cn, stmt, rs);
         }
-
-        return venda;
     }
+
+//    public static Venda getVendaByCod(int codVenda)
+//            throws SQLException, Exception {
+//
+//        ResultSet rs = null;
+//        PreparedStatement stmt = null;
+//
+//        Venda venda = new Venda();
+//
+//        String sql = "SELECT * FROM vendas WHERE id = ?";
+//
+//        cn = ConnectionFactory.getConnection();
+//
+//        try {
+//
+//            //Prepara ou cria um objeto adaptado para o SQL
+//            stmt = cn.prepareStatement(sql);
+//
+//            /*
+//            Adiciona o codVenda ao objeto criado acima, preenchendo o ? da
+//            string com a posicao inserida
+//             */
+//            stmt.setInt(1, codVenda);
+//
+//            rs = stmt.executeQuery();
+//
+//            venda.setCodVenda(rs.getInt("id"));
+//            venda.setDataVenda(toCalendar(rs.getDate("Data")));
+//            venda.setValorTotal(rs.getDouble("ValorTotal"));
+//
+//        } finally {
+//            ConnectionFactory.closeConnection(cn, stmt, rs);
+//        }
+//
+//        return venda;
+//    }
 
     //Pode retornar uma lista. Talvez esteja ERRADO
-    public static Venda getVendaByData(Calendar data)
-            throws SQLException, Exception {
-
-        ResultSet rs = null;
-        PreparedStatement stmt = null;
-
-        Venda venda = new Venda();
-
-        String sql = "SELECT * FROM vendas WHERE Data = '?'";
-        
-        cn = ConnectionFactory.getConnection();
-
-        try {
-
-            stmt = cn.prepareStatement(sql);
-
-            stmt.setDate(1, (Date) data.getTime());
-
-            rs = stmt.executeQuery();
-
-            venda.setCodVenda(rs.getInt("id"));
-            venda.setDataVenda(toCalendar(rs.getDate("Data")));
-            venda.setValorTotal(rs.getDouble("ValorTotal"));
-
-        } finally {
-            ConnectionFactory.closeConnection(cn, stmt, rs);
-        }
-
-        return venda;
-    }
+//    public static Venda getVendaByData(Calendar data)
+//            throws SQLException, Exception {
+//
+//        ResultSet rs = null;
+//        PreparedStatement stmt = null;
+//
+//        Venda venda = new Venda();
+//
+//        String sql = "SELECT * FROM vendas WHERE Data = '?'";
+//
+//        cn = ConnectionFactory.getConnection();
+//
+//        try {
+//
+//            stmt = cn.prepareStatement(sql);
+//
+//            stmt.setDate(1, (Date) data.getTime());
+//
+//            rs = stmt.executeQuery();
+//
+//            venda.setCodVenda(rs.getInt("id"));
+//            venda.setDataVenda(toCalendar(rs.getDate("Data")));
+//            venda.setValorTotal(rs.getDouble("ValorTotal"));
+//
+//        } finally {
+//            ConnectionFactory.closeConnection(cn, stmt, rs);
+//        }
+//
+//        return venda;
+//    }
 
     public static List<Venda> getVendaByDates(Calendar de, Calendar para)
             throws SQLException, Exception {
@@ -185,7 +183,7 @@ public class VendaDAO {
         List<Venda> resultado = new ArrayList<>();
 
         String sql = "SELECT * FROM vendas WHERE Data BETWEEN '?' AND '?'";
-        
+
         cn = ConnectionFactory.getConnection();
 
         try {
@@ -218,7 +216,7 @@ public class VendaDAO {
         List<Venda> resultado = new ArrayList<>();
 
         String sql = "SELECT * FROM vendas WHERE Data BETWEEN '?' AND '?' ORDER BY ? ?";
-        
+
         cn = ConnectionFactory.getConnection();
 
         try {
@@ -250,7 +248,7 @@ public class VendaDAO {
         List<ItensVenda> ItensVenda = new ArrayList<>();
 
         String sql = "SELECT * FROM ItensVenda WHERE idVenda = ?";
-        
+
         cn = ConnectionFactory.getConnection();
 
         try {
