@@ -6,7 +6,6 @@
 package Telas;
 
 import Controllers.ServicoProduto;
-import DAO.ProdutoDAO;
 import Mock.MockListaDeProduto;
 import Model.Produto;
 import java.beans.PropertyVetoException;
@@ -31,18 +30,19 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
     /**
      * Creates new form ConsultaProduto
      */
-    // Variáveis globais usadas na consulta Produto
+    
+        // Variáveis globais usadas na consulta Produto
     Integer codigo;
     String nome, tipo, fornecedor;
-    CadastroProduto menuCadProduto = null;
-
+    
     // Variavel para alteração do produto selecionado
     // abre a tela de Cadastro
     CadastroProduto alteraProduto = null;
-
+    
     //Selecionado
     String codDoProdutoSelecionado = null;
-
+    
+    
     public ConsultaProduto() {
         initComponents();
     }
@@ -93,7 +93,7 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Tipo");
 
-        jComboBoxTipoDoProduto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Escolha", "Nintendo Switch", "PC", "Playstation 3", "Playstation 4", "Xbox 360", "Xbox One", "Wii", "Wii U" }));
+        jComboBoxTipoDoProduto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel4.setText("Fornecedor");
 
@@ -249,34 +249,31 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         TableModel model = (AbstractTableModel) jTableTabelaDeProdutos.getModel();
         jTableTabelaDeProdutos.setModel(model);
-        int coluna = 0;
-        int linha = jTableTabelaDeProdutos.getSelectedRow();
-        int codProduto = Integer.parseInt(jTableTabelaDeProdutos.getValueAt(linha, coluna).toString());
-        //Produto p  = (Produto) model.getValueAt(0, 0);
 
-        Produto p = MockListaDeProduto.selecionaProduto(codProduto);
-
-//         Teste
-//        System.out.println("Selecionado");
-//        System.out.println("Codigo: "+ p.getCodProduto() + "| Nome: " + p.getNome() + " | Fornecedor: " + p.getFornecedor()
-//            + " | Tipo: "+ p.getTipo() + " | Qtd: " + p.getQuantidadeEstoque() + " | Valor: " + p.getPreco());
-        // Chama tela altera produto
-        if (menuCadProduto == null || !menuCadProduto.isVisible()) {
-            menuCadProduto = new CadastroProduto(p);
-            this.getParent().add(menuCadProduto);
-            menuCadProduto.setVisible(true);
-        } else if (menuCadProduto.isVisible()) {
+        Produto p  = (Produto) model.getValueAt(0,0);
+        
+        Produto produto = MockListaDeProduto.selecionaProduto(p.getCodProduto());
+      
+        try {
+            if (alteraProduto == null || !alteraProduto.isVisible()) {
+            alteraProduto = new CadastroProduto();
+            //jdiPrincipal.add(alteraProduto);
+            alteraProduto.setVisible(true);
+        } else if (alteraProduto.isVisible()) {
             try {
-                menuCadProduto.setSelected(true);
+                alteraProduto.setSelected(true);
             } catch (PropertyVetoException ex) {
                 Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
             }
-            menuCadProduto.getDesktopPane().getDesktopManager().deiconifyFrame(menuCadProduto);
-            menuCadProduto.getDesktopPane().getDesktopManager().maximizeFrame(menuCadProduto);
-            menuCadProduto.getDesktopPane().getDesktopManager().minimizeFrame(menuCadProduto);
-            menuCadProduto.toFront();
+            alteraProduto.getDesktopPane().getDesktopManager().deiconifyFrame(alteraProduto);
+            alteraProduto.getDesktopPane().getDesktopManager().maximizeFrame(alteraProduto);
+            alteraProduto.getDesktopPane().getDesktopManager().minimizeFrame(alteraProduto);
+            alteraProduto.toFront();
         }
-
+            
+        } catch (Exception e) {
+        }
+        
     }//GEN-LAST:event_jButtonSelecionarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
@@ -285,7 +282,7 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
-       boolean resultSearch = false;        
+        boolean resultSearch = false;        
 //Verifica os campos da pesquisa e atribui seus valores as variaveis
         if (!jTextFieldCodProduto.getText().isEmpty()) {
             codigo = Integer.parseInt(jTextFieldCodProduto.getText().trim());
@@ -306,48 +303,35 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Falha ao obter lista", JOptionPane.ERROR_MESSAGE);
         }
-        
-        // limpado dados do filtro após pesquisa
-        jTextFieldCodProduto.setText(null);
-        jTextFieldNomeProduto.setText(null);
-        jComboBoxTipoDoProduto.setSelectedIndex(0);
-        jTextFieldFornecedor.setText(null);
-        codigo=null;
-        nome=null;
-        tipo=null;
-        fornecedor=null;
-        
-
-
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jButtonCadastroGenericoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastroGenericoActionPerformed
-//        ArrayList<Produto> listaProduto = new ArrayList<Produto>();
-//        Produto p;
-//        int n = 0;
-//        String str = jTextFieldNomeProduto.getText();
-//        String tipo = jComboBoxTipoDoProduto.getSelectedItem().toString();
-//
-////    Random rd = new Random(100+1);
-//        while (n <= 5) {
-//            String codigo = jTextFieldCodProduto.getText() + "" + n;
-//            p = new Produto();
-//            p.setCodProduto(Integer.parseInt(codigo));
-//            p.setNome(str + (n + 1));
-//            p.setFornecedor(str + (n + 3));
-//            p.setTipo(tipo);
-//            p.setQuantidadeEstoque(10);
-//            p.setPreco(100.00f);
-//            Calendar dataCadastro = Calendar.getInstance();
-//            p.setDataCadastro(dataCadastro);
-//            try {
-//                Mock.MockListaDeProduto.adicionar(p);
-//            } catch (Exception ex) {
-//                Logger.getLogger(ConsultaProduto.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            n++;
-//
-//        }
+        // TODO add your handling code here:
+        ArrayList<Produto> listaProduto = new ArrayList<Produto>();
+    Produto p;
+    String str = "AAA";
+    String tipo = "jogo";
+//    Random rd = new Random(100+1);
+    int n=0;
+    
+    while(n<=5){
+        p=new Produto();
+        p.setCodProduto(n+1);
+        p.setNome(str+(n+1));
+        p.setFornecedor(str+(n+3));
+        p.setTipo(tipo);
+        p.setQuantidadeEstoque(10);
+        p.setPreco(100.00f);
+            Calendar dataCadastro = Calendar.getInstance();
+        p.setDataCadastro(dataCadastro);
+            try {
+                Mock.MockListaDeProduto.adicionar(p);
+            } catch (Exception ex) {
+                Logger.getLogger(ConsultaProduto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        n++;
+             
+    }
     }//GEN-LAST:event_jButtonCadastroGenericoActionPerformed
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
@@ -357,17 +341,19 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
     public String RetornaCodProduto() {
         return codDoProdutoSelecionado;
     }
-
+    
     public boolean refreshList() throws Exception {
 
-//        List<Produto> resultado = MockListaDeProduto.procurar(codigo, nome, tipo, fornecedor);
-//    List<Produto> resultado = ServicoProduto.consultaProduto(codigo, nome, tipo, fornecedor); 
-List<Produto> resultado = ProdutoDAO.procurarProduto(codigo, nome, tipo, fornecedor);
+        List<Produto> resultado = MockListaDeProduto.procurar(codigo, nome, tipo, fornecedor);
+
         DefaultTableModel model = (DefaultTableModel) jTableTabelaDeProdutos.getModel();
         model.setRowCount(0);
-
+        
         //        Formatar a saida da data para o padrão dd/MM/yyyy
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        
+        
+       
 
         if (resultado == null || resultado.size() <= 0) {
             return false;
@@ -380,21 +366,21 @@ List<Produto> resultado = ProdutoDAO.procurarProduto(codigo, nome, tipo, fornece
                 row[0] = p.getCodProduto();
                 row[1] = p.getNome();
                 row[2] = p.getFornecedor();
-                row[3] = p.getDataCadastro();
+                row[3] = df.format(p.getDataCadastro().getTime());
                 row[4] = p.getQuantidadeEstoque();
                 model.addRow(row);
                 // teste
-
-                System.out.println("Codigo: " + p.getCodProduto() + "| Nome: " + p.getNome() + " | Fornecedor: " + p.getFornecedor()
-                        + " | Tipo: " + p.getTipo() + " | Qtd: " + p.getQuantidadeEstoque() + " | Valor: " + p.getPreco());
-
-                // teste
+        
+                System.out.println("Codigo: "+ p.getCodProduto() + "| Nome: " + p.getNome() + " | Fornecedor: " + p.getFornecedor()
+            + " | Tipo: "+ p.getTipo() + " | Qtd: " + p.getQuantidadeEstoque() + " | Valor: " + p.getPreco());
+           
+        // teste
             }
         }
-
+ 
         return true;
     }
-
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBuscar;

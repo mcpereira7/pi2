@@ -26,28 +26,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         initComponents();
     }
 
-    public CadastroProduto(Produto produto) {
-        initComponents();
-
-        // inicializando os campos com os dados do Produto
-        cpCodigo.setText(String.valueOf(produto.getCodProduto()));
-        cpNome.setText(produto.getNome());
-        cpFornecedor.setText(produto.getFornecedor());
-        cpQtde.setText(String.valueOf(produto.getQuantidadeEstoque()));
-        cpValor.setText(String.valueOf(produto.getPreco()));
-        cbTipo.setSelectedItem(produto.getTipo());
-        if (produto.getTipo().equals("Jogo")) {
-            cbPlataforma.setSelectedItem(produto.getPlataforma());
-        }
-
-        // Adicionando evento personalizado ao botão salvar, quando este construtor for chamado
-//        for(int i=0; i<cbTipo.getItemCount();i++){
-//            if(cbTipo.getSelectedItem().equals(produto.getTipo())){
-//                cbTipo.setSelectedIndex(i);
-//            }
-//        }
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -274,59 +252,54 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
         //dados do objeto
         try {
-            p.setCodProduto(Integer.parseInt(cpCodigo.getText()));
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(rootPane, e.getMessage());
-        }
-        try {
             p.setNome(cpNome.getText());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
-        
+
         try {
             p.setFornecedor(cpFornecedor.getText());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
-        
+
         try {
             p.setPreco(Float.parseFloat(cpValor.getText()));
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
-        
+
         try {
-            p.setDataCadastro(Calendar.getInstance().getTime());
+            p.setDataCadastro(Calendar.getInstance());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
-        
+
         try {
             p.setPlataforma((String) cbPlataforma.getSelectedItem());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
-        
+
         try {
             p.setDescricao(jTextArea1.getText());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
-        
+
         try {
             p.setTipo((String) cbTipo.getSelectedItem());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
-        
+
         try {
             p.setQuantidadeEstoque(Integer.parseInt(cpQtde.getText()));
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
 
-//        //gravando o objeto na lista
+        //gravando o objeto na lista
         try {
             ServicoProduto.cadastroProduto(p);//chama serviço para adicionar produtos.
             JOptionPane.showMessageDialog(rootPane, "Produto cadastrado com sucesso!");
@@ -349,7 +322,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
         // TODO add your handling code here:
         int n;
-        if (!cpNome.getText().equals("") || !cpFornecedor.getText().equals("") || !cpQtde.getText().equals("") || !cpValor.getText().equals("")) {
+        if (!cpCodigo.equals("")) {
             n = JOptionPane.showConfirmDialog(rootPane, "Deseja sair sem salvar as informações?", "WARNING!", JOptionPane.YES_NO_OPTION);
             if (n != 0) {
                 return;

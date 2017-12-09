@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import DAO.ClienteDAO;
 
 /**
  *
@@ -30,7 +31,6 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
      */
     public ConsultaCliente() {
         initComponents();
-        jButtonCadastrar.setVisible(false);
     }
 
     /**
@@ -54,8 +54,7 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaResultados = new javax.swing.JTable();
         jButtonCancel = new javax.swing.JButton();
-        jButtonSelecionar = new javax.swing.JButton();
-        jButtonCadastrar = new javax.swing.JButton();
+        jButtonAtualizar = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -156,17 +155,10 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonSelecionar.setText("Alterar");
-        jButtonSelecionar.addActionListener(new java.awt.event.ActionListener() {
+        jButtonAtualizar.setText("Atualizar Produto");
+        jButtonAtualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCadastrarActionPerformed(evt);
-            }
-        });
-
-        jButtonCadastrar.setText("Cadastrar");
-        jButtonCadastrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCadastrarActionPerformed(evt);
+                jButtonAtualizarActionPerformed(evt);
             }
         });
 
@@ -180,11 +172,10 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButtonCadastrar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonSelecionar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButtonAtualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButtonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -197,9 +188,8 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancel)
-                    .addComponent(jButtonSelecionar)
-                    .addComponent(jButtonCadastrar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonAtualizar))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -227,11 +217,12 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
+    private void jButtonAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarActionPerformed
         
         Cliente cliente = new Cliente();
         try {
-            cliente = MockListaDeCliente.obterByCod(getClienteSelecionado());
+            //cliente = MockListaDeCliente.obterByCod(getClienteSelecionado());
+            cliente = ClienteDAO.obterByCod(getClienteSelecionado());
             //getClienteSelecionado()
         } catch (Exception ex) {
             Logger.getLogger(ConsultaCliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -253,11 +244,12 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
             menuCadCli.toFront();
             //getClienteSelecionado();
         }
-    }//GEN-LAST:event_jButtonCadastrarActionPerformed
+    }//GEN-LAST:event_jButtonAtualizarActionPerformed
 
     public boolean refreshList() throws Exception {
 
-        List<Cliente> resultado = MockListaDeCliente.procurar(codPesquisa, nomePesquisa);
+        //List<Cliente> resultado = MockListaDeCliente.procurar(codPesquisa, nomePesquisa);
+        List<Cliente> resultado = ClienteDAO.procurar(codPesquisa, nomePesquisa);
 
         DefaultTableModel model = (DefaultTableModel) tabelaResultados.getModel();
         model.setRowCount(0);
@@ -282,9 +274,9 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
     }
 
     public int getClienteSelecionado() {
-        int linha = jTable1.getSelectedRow();
-        int coluna = jTable1.getSelectedColumn();
-        int codCliente = (int) jTable1.getValueAt(linha, 0);
+        int linha = tabelaResultados.getSelectedRow();
+        //int coluna = tabelaResultados.getSelectedColumn();
+        int codCliente = (int) tabelaResultados.getValueAt(linha, 0);
         return codCliente;
     }
     
@@ -292,9 +284,8 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
     private javax.swing.JTextField CodPesquisaField;
     private javax.swing.JTextField NomePesquisaField;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButtonCadastrar;
+    private javax.swing.JButton jButtonAtualizar;
     private javax.swing.JButton jButtonCancel;
-    private javax.swing.JButton jButtonSelecionar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
