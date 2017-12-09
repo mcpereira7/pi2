@@ -9,6 +9,7 @@ import Model.Venda;
 import Model.Cliente;
 import Controllers.ServicoVenda;
 import Model.ItensVenda;
+import java.awt.Dimension;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -313,6 +314,11 @@ public class Relatorio extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButtonGerarRelatorioActionPerformed
 
+    public void setPosicao(){
+    Dimension d = this.getDesktopPane().getSize();
+    this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
+}
+    
 //Não me lembro o que tinha que fazer com isso  (:
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

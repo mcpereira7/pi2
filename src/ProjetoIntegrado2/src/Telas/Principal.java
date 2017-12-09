@@ -159,6 +159,7 @@ public class Principal extends javax.swing.JFrame {
             menuCadCli = new CadastroCliente();
             jdiPrincipal.add(menuCadCli);
             menuCadCli.setVisible(true);
+            menuCadCli.setPosicao();
         } else if (menuCadCli.isVisible()) {
             try {
                 menuCadCli.setSelected(true);
@@ -183,6 +184,7 @@ public class Principal extends javax.swing.JFrame {
             menuCadProduto = new CadastroProduto();
             jdiPrincipal.add(menuCadProduto);
             menuCadProduto.setVisible(true);
+            menuCadProduto.setPosicao();
         } else if (menuCadProduto.isVisible()) {
             try {
                 menuCadProduto.setSelected(true);
@@ -207,6 +209,7 @@ public class Principal extends javax.swing.JFrame {
             menuVenda = new Vendas();
             jdiPrincipal.add(menuVenda);
             menuVenda.setVisible(true);
+            menuVenda.setPosicao();
         } else if (menuVenda.isVisible()) {
             try {
                 menuVenda.setSelected(true);
@@ -225,6 +228,7 @@ public class Principal extends javax.swing.JFrame {
             novoRel = new Relatorio();
             jdiPrincipal.add(novoRel);
             novoRel.setVisible(true);
+            novoRel.setPosicao();
         } else if (novoRel.isVisible()) {
             try {
                 novoRel.setSelected(true);
@@ -248,6 +252,7 @@ public class Principal extends javax.swing.JFrame {
                         menuConsCli = new ConsultaCliente();
                         jdiPrincipal.add(menuConsCli);
                         menuConsCli.setVisible(true);
+                        menuConsCli.setPosicao();
                 } else if (menuConsCli.isVisible()) {
                          try {
                                 menuConsCli.setSelected(true);
@@ -266,6 +271,7 @@ public class Principal extends javax.swing.JFrame {
                         menuConsProd = new ConsultaProduto();
                         jdiPrincipal.add(menuConsProd);
                         menuConsProd.setVisible(true);
+                        menuConsProd.setPosicao();
                 } else if (menuConsProd.isVisible()) {
                          try {
                                 menuConsProd.setSelected(true);

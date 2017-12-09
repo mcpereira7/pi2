@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import DAO.ClienteDAO;
+import java.awt.Dimension;
 
 /**
  *
@@ -313,6 +314,11 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
         int codCliente = (int) tabelaResultados.getValueAt(linha, 0);
         return codCliente;
     }
+    
+    public void setPosicao(){
+    Dimension d = this.getDesktopPane().getSize();
+    this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CodPesquisaField;

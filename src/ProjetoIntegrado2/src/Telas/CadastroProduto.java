@@ -5,6 +5,7 @@ import Exceptions.DataSourceException;
 import Exceptions.productException;
 import Model.DataHoje;
 import Model.Produto;
+import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.time.Instant;
 import java.util.Date;
@@ -379,6 +380,10 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_jButtonCancelActionPerformed
 
+    public void setPosicao(){
+    Dimension d = this.getDesktopPane().getSize();
+    this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbPlataforma;

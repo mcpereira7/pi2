@@ -17,6 +17,7 @@ import Model.DataHoje;
 import Model.ItensVenda;
 import Model.Produto;
 import Model.Venda;
+import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.beans.PropertyVetoException;
 import java.math.BigDecimal;
@@ -580,6 +581,10 @@ public class Vendas extends javax.swing.JInternalFrame {
         jLabelTOTAL.setText(totalSTR);
     }
 
+    public void setPosicao(){
+    Dimension d = this.getDesktopPane().getSize();
+    this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAdicionarNaVenda;

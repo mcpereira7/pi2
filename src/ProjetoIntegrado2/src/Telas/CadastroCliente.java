@@ -8,6 +8,7 @@ package Telas;
 import Controllers.ServicoCliente;
 import Model.Cliente;
 import Model.DataHoje;
+import java.awt.Dimension;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.SimpleFormatter;
@@ -466,6 +467,10 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_fFieldDataCadastroActionPerformed
 
+    public void setPosicao(){
+    Dimension d = this.getDesktopPane().getSize();
+    this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea TextAreaOBS;
