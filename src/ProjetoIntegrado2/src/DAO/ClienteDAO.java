@@ -156,7 +156,7 @@ public class ClienteDAO {
         List<Cliente> listaClientes = new ArrayList<>();
         ResultSet rs = null;
         PreparedStatement stmt = null;
-        
+            
         //Removi o ( = LIKE) porque não ta certo e coloquei um '' ali no LIKE UPPER acho que pode precisar. ACHO
         String sql = "SELECT * FROM cliente WHERE (codCliente = ? OR UPPER(nome) LIKE UPPER(?)) AND disable = ?";
         
@@ -164,8 +164,18 @@ public class ClienteDAO {
         
         try {
             stmt = cn.prepareStatement(sql);
-            stmt.setInt(1, cod);
-            stmt.setString(2, "%'" + nome + "'%");
+            
+            if (cod != null){
+                stmt.setInt(1, cod);
+            }else{
+                stmt.setString(1, "");
+            }
+            
+            if (!nome.equals("")){
+                stmt.setString(2, "%" + nome + "%");
+            }else{
+                stmt.setString(2, "");
+            }
             stmt.setBoolean(3, false);
             
             rs = stmt.executeQuery();

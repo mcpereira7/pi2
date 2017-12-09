@@ -8,9 +8,7 @@ package Telas;
 import Controllers.ServicoCliente;
 import Model.Cliente;
 import Model.DataHoje;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.SimpleFormatter;
 import javax.swing.JOptionPane;
 
 /**
@@ -28,11 +26,12 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
     public CadastroCliente() {
         initComponents();
     }
-    
+
     // Chamada para atualizar o cliente.
     public CadastroCliente(Cliente cliente) {
         initComponents();
         
+        fieldId.setText(String.valueOf(cliente.getId()));
         fieldCod.setText(String.valueOf(cliente.getCodCliente()));
         fFieldDataCadastro.setValue(cliente.getDataCadastro());
         fieldNome.setText(cliente.getNome());
@@ -51,7 +50,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         fieldComplemento.setText(cliente.getComplemento());
         fieldBairro.setText(cliente.getBairro());
         TextAreaOBS.setText(cliente.getObs());
-        
+
         fieldCod.setEditable(false);
         fieldNome.setEditable(false);
         comboSexo.setEditable(false);
@@ -110,6 +109,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         fFieldDataNasc = new javax.swing.JFormattedTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        fieldId = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -253,6 +253,11 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
             }
         });
 
+        fieldId.setBackground(new java.awt.Color(204, 204, 204));
+        fieldId.setToolTipText("");
+        fieldId.setEnabled(false);
+        fieldId.setVisible(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -298,6 +303,8 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
                                                 .addComponent(jLabel18))
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(fieldCod, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(97, 97, 97)
+                                                .addComponent(fieldId, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(jLabel3)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -330,7 +337,9 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(fieldCod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(fieldCod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(fieldId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel2)
@@ -373,7 +382,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1)
                             .addComponent(jButton2))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
@@ -402,10 +411,15 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
         cli.setObs(TextAreaOBS.getText());
 
         try {
-            if (ServicoCliente.validaCodCliente(cli.getCodCliente())){
-                throw new Exception("Código do Item Informado Já Existente.");
+            if (!fieldId.getText().equals("")) {
+                ServicoCliente.atualizaCliente(cli);
+            } else {
+                if (ServicoCliente.validaCodCliente(cli.getCodCliente())) {
+                    throw new Exception("Código do Item Informado Já Existente.");
+                }
+                ServicoCliente.cadastrarCliente(cli);
             }
-            ServicoCliente.cadastrarCliente(cli);
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
@@ -460,6 +474,7 @@ public class CadastroCliente extends javax.swing.JInternalFrame {
     private javax.swing.JTextField fieldComplemento;
     private javax.swing.JTextField fieldEmail;
     private javax.swing.JTextField fieldEndereco;
+    private javax.swing.JTextField fieldId;
     private javax.swing.JTextField fieldNome;
     private javax.swing.JTextField fieldNr;
     private javax.swing.JTextField fieldRG;
