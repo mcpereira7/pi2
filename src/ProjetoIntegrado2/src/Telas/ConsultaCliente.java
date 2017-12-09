@@ -55,6 +55,7 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
         tabelaResultados = new javax.swing.JTable();
         jButtonCancel = new javax.swing.JButton();
         jButtonAtualizar = new javax.swing.JButton();
+        jButtonExcluir = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -137,7 +138,7 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -155,10 +156,17 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonAtualizar.setText("Atualizar Produto");
+        jButtonAtualizar.setText("Atualizar/Consultar Produto");
         jButtonAtualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonAtualizarActionPerformed(evt);
+            }
+        });
+
+        jButtonExcluir.setText("Excluir");
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirActionPerformed(evt);
             }
         });
 
@@ -172,9 +180,10 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButtonExcluir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonAtualizar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -185,11 +194,12 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancel)
-                    .addComponent(jButtonAtualizar))
-                .addContainerGap(19, Short.MAX_VALUE))
+                    .addComponent(jButtonAtualizar)
+                    .addComponent(jButtonExcluir))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -218,7 +228,7 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButtonAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarActionPerformed
-        
+
         Cliente cliente = new Cliente();
         try {
             //cliente = MockListaDeCliente.obterByCod(getClienteSelecionado());
@@ -227,7 +237,7 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
         } catch (Exception ex) {
             Logger.getLogger(ConsultaCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         if (menuCadCli == null || !menuCadCli.isVisible()) {
             menuCadCli = new CadastroCliente(cliente);
             this.getParent().add(menuCadCli);
@@ -245,6 +255,28 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
             //getClienteSelecionado();
         }
     }//GEN-LAST:event_jButtonAtualizarActionPerformed
+
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+
+        Cliente cliente = new Cliente();
+        try {
+            Object[] opcoes = {"Sim", "Não"};
+            try {
+                if (JOptionPane.showOptionDialog(this, "Deseja Realmente Excluir Este Item?", "Excluir Item", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]) != 0) {
+                    throw new Exception("Exclusão Abortada!");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Erro ao Excluir", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+            cliente = ClienteDAO.obterByCod(getClienteSelecionado());
+            ClienteDAO.excluir(cliente.getId());
+            DefaultTableModel model = (DefaultTableModel) tabelaResultados.getModel();
+            model.setRowCount(0);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro ao Excluir", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     public boolean refreshList() throws Exception {
 
@@ -279,13 +311,14 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
         int codCliente = (int) tabelaResultados.getValueAt(linha, 0);
         return codCliente;
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CodPesquisaField;
     private javax.swing.JTextField NomePesquisaField;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAtualizar;
     private javax.swing.JButton jButtonCancel;
+    private javax.swing.JButton jButtonExcluir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
