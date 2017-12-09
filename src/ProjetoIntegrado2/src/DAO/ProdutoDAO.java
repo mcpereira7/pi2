@@ -99,10 +99,26 @@ public class ProdutoDAO {
 
         try {
             stmt = cn.prepareStatement(sql);
+            if(codigo!=null){
             stmt.setInt(1, codigo);
+            }else{
+                stmt.setString(1, "");
+            }
+            if(!nome.equals("")){
             stmt.setString(2, "'%" + nome + "%'");
+            }else{
+                stmt.setString(2, "");
+            }
+            if(!fornecedor.equals("")){
             stmt.setString(3, "'%" + fornecedor + "%'");
+            }else{
+                stmt.setString(3, "");
+            }
+            if(!tipo.equals("")){
             stmt.setString(4, "'%" + tipo + "%'");
+            }else{
+                stmt.setString(4, "");
+            }
 
             rs = stmt.executeQuery();
 

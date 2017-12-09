@@ -6,7 +6,9 @@ import Exceptions.productException;
 import Model.DataHoje;
 import Model.Produto;
 import java.awt.HeadlessException;
+import java.time.Instant;
 import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.tools.OptionChecker;
 
@@ -297,7 +299,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         }
         
         try {
-            p.setDataCadastro(Calendar.getInstance());
+            p.setDataCadastro(Date.from(Instant.now()));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }

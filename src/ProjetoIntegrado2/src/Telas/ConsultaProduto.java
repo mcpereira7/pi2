@@ -292,13 +292,13 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
         }
         if (!jTextFieldNomeProduto.getText().isEmpty()) {
             nome = jTextFieldNomeProduto.getText().trim();
-        }
+        }else{nome="";}
         if (jComboBoxTipoDoProduto.getSelectedIndex() != 0) {
             tipo = (String) jComboBoxTipoDoProduto.getSelectedItem();
-        }
+        }else {tipo="";}
         if (!jTextFieldFornecedor.getText().isEmpty()) {
             fornecedor = jTextFieldFornecedor.getText().trim();
-        }
+        }else{fornecedor="";}
         
         try {
             resultSearch=refreshList();
