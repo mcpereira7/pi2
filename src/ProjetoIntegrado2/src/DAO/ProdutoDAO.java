@@ -51,16 +51,16 @@ public class ProdutoDAO {
 
     }
     
-    public static void atualizar(Produto produto) throws SQLException, Exception{
-         cn = ConnectionFactory.getConnection();
+    public static void atualizar(Produto produto) throws SQLException, Exception {
+        cn = ConnectionFactory.getConnection();
         ResultSet rs = null;
         PreparedStatement stmt = null;
-        
-        String sql="UPDATE produto SET  nome=?, quantidade=?, tipo=?, plataforma=?, preco=?, fornecedor=?, descricao=? WHERE codigo=?";
-        
-        try{
-            stmt=cn.prepareStatement(sql);
-            
+
+        String sql = "UPDATE produto SET  nome=?, quantidade=?, tipo=?, plataforma=?, preco=?, fornecedor=?, descricao=? WHERE codigo=?";
+
+        try {
+            stmt = cn.prepareStatement(sql);
+
             stmt.setString(1, produto.getNome());
             stmt.setInt(2, produto.getQuantidadeEstoque());
             stmt.setString(3, produto.getTipo());
@@ -68,11 +68,11 @@ public class ProdutoDAO {
             stmt.setFloat(5, produto.getPreco());
             stmt.setString(6, produto.getFornecedor());
             stmt.setString(7, produto.getDescricao());
-            
+
             stmt.executeQuery();
-            
-        }finally{
-            ConnectionFactory.closeConnection(cn,stmt);
+
+        } finally {
+            ConnectionFactory.closeConnection(cn, stmt);
         }
     }
 
@@ -124,26 +124,10 @@ public class ProdutoDAO {
 
         try {
             stmt = cn.prepareStatement(sql);
-            if(codigo!=null){
             stmt.setInt(1, codigo);
-            }else{
-                stmt.setString(1, "");
-            }
-            if(!nome.equals("")){
-            stmt.setString(2, "%" + nome + "%");
-            }else{
-                stmt.setString(2, "");
-            }
-            if(!fornecedor.equals("")){
-            stmt.setString(3, "%" + fornecedor + "%");
-            }else{
-                stmt.setString(3, "");
-            }
-            if(!tipo.equals("")){
-            stmt.setString(4, "%" + tipo + "%");
-            }else{
-                stmt.setString(4, "");
-            }
+            stmt.setString(2, "'%" + nome + "%'");
+            stmt.setString(3, "'%" + fornecedor + "%'");
+            stmt.setString(4, "'%" + tipo + "%'");
 
             rs = stmt.executeQuery();
 
@@ -158,7 +142,7 @@ public class ProdutoDAO {
                 p.setPreco(rs.getFloat("Preco"));
                 p.setFornecedor(rs.getString("Fornecedor"));
                 p.setDescricao(rs.getString("Descricao"));
-                p.setDataCadastro(rs.getDate("DataCadastro"));
+                //p.setDataCadastro(rs.getTimestamp("DataCadastro"));
                 listProduto.add(p);
             }
         } finally {
@@ -198,6 +182,59 @@ public class ProdutoDAO {
             throw new productException("Tipo de produto inválido, selecione uma das opções");
         }
 
+    }
+
+    public static void atualizarQuantidadeEstoque(int CodProduto, int quantidade) throws SQLException, Exception {
+
+        cn = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+
+        String sql = "UPDATE produto SET quantidade = ? WHERE Codigo = ?";
+
+        try {
+            stmt = cn.prepareStatement(sql);
+            stmt.setInt(1, quantidade);
+            stmt.setInt(2, CodProduto);
+            stmt.execute();
+
+        } finally {
+            ConnectionFactory.closeConnection(cn, stmt);
+        }
+
+    }
+
+    public static Produto procurarProdutoByCod(Integer codigo) throws SQLException, productException {
+        cn = ConnectionFactory.getConnection();
+        ResultSet rs = null;
+        PreparedStatement stmt = null;
+
+        Produto p = new Produto();
+
+        String sql = " SELECT  * FROM produto WHERE Codigo = ?";
+
+        try {
+            stmt = cn.prepareStatement(sql);
+            stmt.setInt(1, codigo);
+
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                p.setId(rs.getInt("Id"));
+                p.setCodProduto(rs.getInt("Codigo"));
+                p.setNome(rs.getString("Nome"));
+                p.setQuantidadeEstoque(rs.getInt("Quantidade"));
+                p.setTipo(rs.getString("Tipo"));
+                p.setPlataforma(rs.getString("Plataforma"));
+                p.setPreco(rs.getFloat("Preco"));
+                p.setFornecedor(rs.getString("Fornecedor"));
+                p.setDescricao(rs.getString("Descricao"));
+                p.setDataCadastro(rs.getDate("DataCadastro"));
+            }
+
+            return p;
+        } finally {
+            ConnectionFactory.closeConnection(cn, stmt, rs);
+        }
     }
 
 }

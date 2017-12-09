@@ -58,7 +58,7 @@ public class ClienteDAO {
         //id=?, codCliente=?, dataCadastro=?,
         String sql = "UPDATE cliente SET nome=?, sexo=?, cpf=?, rg=?, dataNasc=?, telefone=?, "
                 + "celular=?, email=?, cep=?, cidade=?, uf=?, endereco=?, numero=?, complemento=?, bairro=?, obs=? "
-                + "WHERE (cliente_id=?)";
+                + "WHERE (id=?)";
         
         cn = ConnectionFactory.getConnection();
         
@@ -73,15 +73,15 @@ public class ClienteDAO {
             stmt.setString(6, cliente.getTelefone());
             stmt.setString(7, cliente.getCelular());
             stmt.setString(8, cliente.getEmail());
-            stmt.setString(9, cliente.getCidade());
-            stmt.setString(10, cliente.getUf());
-            stmt.setString(11, cliente.getEndereco());
-            stmt.setString(12, cliente.getEndNumero());
-            stmt.setString(13, cliente.getComplemento());
-            stmt.setString(14, cliente.getBairro());
-            stmt.setString(15, cliente.getObs());
-            stmt.setInt(15, cliente.getId());
-
+            stmt.setString(9, cliente.getCep());
+            stmt.setString(10, cliente.getCidade());
+            stmt.setString(11, cliente.getUf());
+            stmt.setString(12, cliente.getEndereco());
+            stmt.setString(13, cliente.getEndNumero());
+            stmt.setString(14, cliente.getComplemento());
+            stmt.setString(15, cliente.getBairro());
+            stmt.setString(16, cliente.getObs());
+            stmt.setInt(17, cliente.getId());
             stmt.execute();
         } finally {
             ConnectionFactory.closeConnection(cn, stmt);
@@ -91,7 +91,7 @@ public class ClienteDAO {
     public static void excluir(Integer Id) throws SQLException, Exception {
         PreparedStatement stmt = null;
 
-        String sql = "UPDATE cliente SET disable=? WHERE (cliente_id =?) ";
+        String sql = "UPDATE cliente SET disable=? WHERE (id =?) ";
         
         cn = ConnectionFactory.getConnection();
         
@@ -99,6 +99,8 @@ public class ClienteDAO {
             stmt = cn.prepareStatement(sql);
             stmt.setBoolean(1, true);
             stmt.setInt(2, Id);
+            stmt.execute();
+            
         } finally {
             ConnectionFactory.closeConnection(cn, stmt);
         }
@@ -156,7 +158,7 @@ public class ClienteDAO {
         List<Cliente> listaClientes = new ArrayList<>();
         ResultSet rs = null;
         PreparedStatement stmt = null;
-        
+            
         //Removi o ( = LIKE) porque não ta certo e coloquei um '' ali no LIKE UPPER acho que pode precisar. ACHO
         String sql = "SELECT * FROM cliente WHERE (codCliente = ? OR UPPER(nome) LIKE UPPER(?)) AND disable = ?";
         
@@ -164,8 +166,18 @@ public class ClienteDAO {
         
         try {
             stmt = cn.prepareStatement(sql);
-            stmt.setInt(1, cod);
-            stmt.setString(2, "%'" + nome + "'%");
+            
+            if (cod != null){
+                stmt.setInt(1, cod);
+            }else{
+                stmt.setString(1, "");
+            }
+            
+            if (!nome.equals("")){
+                stmt.setString(2, "%" + nome + "%");
+            }else{
+                stmt.setString(2, "");
+            }
             stmt.setBoolean(3, false);
             
             rs = stmt.executeQuery();

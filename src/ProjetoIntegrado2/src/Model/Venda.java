@@ -5,9 +5,6 @@
  */
 package Model;
 
-import Controllers.ServicoVenda;
-import Exceptions.DataSourceException;
-import Exceptions.VendaException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -25,7 +22,7 @@ public class Venda {
     private Calendar dataVenda;
     private Cliente cliente;
     private List<ItensVenda> itensVenda = new ArrayList<>();
-    private double valorTotal;
+    private float valorTotal;
 
     //Construtor
     /*Teoricamente tem que ter um metodo que ja gera o id
@@ -40,7 +37,7 @@ public class Venda {
         dataVenda = DAO.VendaDAO.toCalendar(rs.getDate("Data"));
         cliente = DAO.ClienteDAO.obter(rs.getInt("idCliente"));
         itensVenda = DAO.VendaDAO.getItensVenda(rs.getInt("idCliente"));
-        valorTotal = rs.getDouble("ValorTotal");
+        valorTotal = rs.getFloat("ValorTotal");
     }
 
     //Metodos
@@ -98,11 +95,11 @@ public class Venda {
         this.itensVenda = listaProdutos;
     }
 
-    public double getValorTotal() {
+    public float getValorTotal() {
         return valorTotal;
     }
 
-    public void setValorTotal(double valorTotal) {
+    public void setValorTotal(float valorTotal) {
         this.valorTotal = valorTotal;
     }
 

@@ -7,13 +7,10 @@ package Controllers;
 
 import Exceptions.ClienteException;
 import Exceptions.DataSourceException;
-import Mock.MockListaDeCliente;
 import Model.Cliente;
 import Model.ValidadorCliente;
 import DAO.ClienteDAO;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -32,6 +29,7 @@ public class ServicoCliente {
             // Realizada a inserção de dados no 'MOCk'
             //MockListaDeCliente.inserir(cliente);
             ClienteDAO.inserir(cliente);
+            
         } catch (Exception e) {
 
             //mostra no console qualquer erro que ocorra no 'MOCK'

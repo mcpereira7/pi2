@@ -34,15 +34,18 @@ public class VendaDAO {
 
         PreparedStatement stmt = null;
 
-        String sql = "INSERT INTO Venda (idCliente, ValorTotal)"
+        String sql = "INSERT INTO vendas (idCliente, ValorTotal)"
                 + "VALUES (?, ?)";
 
         cn = ConnectionFactory.getConnection();
 
         try {
+            
+            int idCliente = ClienteDAO.obterByCod(venda.getCliente().getCodCliente()).getId();
+            
             stmt = cn.prepareStatement(sql);
-            stmt.setInt(1, venda.getCliente().getCodCliente());
-            stmt.setDouble(2, venda.getValorTotal());
+            stmt.setInt(1, idCliente);
+            stmt.setFloat(2, venda.getValorTotal());
 
             stmt.execute();
 
@@ -95,7 +98,7 @@ public class VendaDAO {
 
                 //venda.setCodVenda(rs.getInt("id"));
                 venda.setDataVenda(toCalendar(rs.getDate("Data")));
-                venda.setValorTotal(rs.getDouble("ValorTotal"));
+                venda.setValorTotal(rs.getFloat("ValorTotal"));
 
                 resultado.add(venda);
             }

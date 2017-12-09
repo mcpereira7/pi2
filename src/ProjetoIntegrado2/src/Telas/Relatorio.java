@@ -280,6 +280,18 @@ public class Relatorio extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButtonGerarRelatorioActionPerformed
 
+//Não me lembro o que tinha que fazer com isso  (:
+//    String campoOrdem = "";
+//        switch (OrderComboBox.getSelectedItem().toString()){
+//            case "Data":
+//                campoOrdem = "Data";
+//            case "Cliente":
+//                campoOrdem = "idCliente";
+//        }
+//        
+//        try {
+//            List<Venda> listaRelatorio = ServicoVenda.ConsultaVendaRelatorio(dataIni, dataFim, 
+//                    campoOrdem,AscRadioButton.isSelected());
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton AscRadioButton;

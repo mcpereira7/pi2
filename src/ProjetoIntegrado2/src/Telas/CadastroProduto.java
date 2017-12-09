@@ -144,6 +144,8 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             }
         });
 
+        cpId.setPreferredSize(new java.awt.Dimension(0, 0));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -278,6 +280,12 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
         //dados do objeto
         try {
+         p.setCodProduto(Integer.parseInt(cpCodigo.getText()));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+        
+        try {
             p.setNome(cpNome.getText());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
@@ -296,7 +304,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         }
 
         try {
-            p.setDataCadastro((java.sql.Date) Date.from(Instant.now()));
+            p.setDataCadastro(Date.from(Instant.now()));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }

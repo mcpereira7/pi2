@@ -5,18 +5,10 @@
  */
 package Telas;
 
-import Controllers.ServicoProduto;
 import DAO.ProdutoDAO;
-import Mock.MockListaDeProduto;
 import Model.Produto;
-import java.beans.PropertyVetoException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
@@ -303,7 +295,7 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
                 row[0] = p.getCodProduto();
                 row[1] = p.getNome();
                 row[2] = p.getFornecedor();
-                row[3] = df.format(p.getDataCadastro().getTime());
+                row[3] = p.getDataCadastro();
                 row[4] = p.getQuantidadeEstoque();
                 model.addRow(row);
                 // teste
