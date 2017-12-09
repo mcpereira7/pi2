@@ -11,7 +11,6 @@ import Exceptions.DataSourceException;
 import Model.Produto;
 import java.util.ArrayList;
 import java.util.List;
-import Mock.MockListaDeProduto;
 import Model.ItensVenda;
 
 /**
@@ -32,6 +31,17 @@ public class ServicoProduto {
             throw new DataSourceException("Erro: ", e);
         }
 
+    }
+    
+    public static void atualizaProduto(Produto produto) throws productException, DataSourceException {
+         ProdutoDAO.validaProduto(produto);
+         
+         try {
+            ProdutoDAO.atualizar(produto);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DataSourceException("Erro: ", e);
+        }
     }
 
 //    public static ArrayList<Produto> ListarProduto(String filtro) {

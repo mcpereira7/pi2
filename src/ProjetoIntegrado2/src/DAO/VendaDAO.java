@@ -9,10 +9,11 @@ import Model.ItensVenda;
 import Model.Venda;
 import connection.ConnectionFactory;
 import java.sql.Connection;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -97,7 +98,7 @@ public class VendaDAO {
                 Venda venda = new Venda();
 
                 //venda.setCodVenda(rs.getInt("id"));
-                venda.setDataVenda(toCalendar(rs.getDate("Data")));
+                venda.setDataVenda(rs.getDate("Data"));
                 venda.setValorTotal(rs.getFloat("ValorTotal"));
 
                 resultado.add(venda);
@@ -178,7 +179,7 @@ public class VendaDAO {
 //        return venda;
 //    }
 
-    public static List<Venda> getVendaByDates(Calendar de, Calendar para)
+    public static List<Venda> getVendaByDates(Date de, Date para)
             throws SQLException, Exception {
 
         ResultSet rs = null;
@@ -193,8 +194,8 @@ public class VendaDAO {
 
             stmt = cn.prepareStatement(sql);
 
-            stmt.setDate(1, (Date) de.getTime());
-            stmt.setDate(2, (Date) para.getTime());
+            stmt.setDate(1, (java.sql.Date) de);
+            stmt.setDate(2, (java.sql.Date) para);
 
             rs = stmt.executeQuery();
 
@@ -211,23 +212,23 @@ public class VendaDAO {
         return resultado;
     }
 
-    public static List<Venda> getVendaRelatorio(Calendar de, Calendar ate, String campoOrdenacao, boolean ASC)
+    public static List<Venda> getVendaRelatorio(Date de, Date ate, String campoOrdenacao, boolean ASC)
             throws SQLException, Exception {
 
         ResultSet rs = null;
         PreparedStatement stmt = null;
         List<Venda> resultado = new ArrayList<>();
 
-        String sql = "SELECT * FROM vendas WHERE Data BETWEEN '?' AND '?' ORDER BY ? ?";
+        String sql = "SELECT * FROM vendas WHERE Data BETWEEN ? AND ? ORDER BY ? ?";
 
         cn = ConnectionFactory.getConnection();
 
         try {
-
+            
             stmt = cn.prepareStatement(sql);
 
-            stmt.setDate(1, (Date) de.getTime());
-            stmt.setDate(2, (Date) ate.getTime());
+            stmt.setDate(1, new java.sql.Date(de.getTime()));
+            stmt.setDate(2, new java.sql.Date(ate.getTime()));
             stmt.setString(3, campoOrdenacao);
             stmt.setString(4, ASC ? "ASC" : "DESC");
 

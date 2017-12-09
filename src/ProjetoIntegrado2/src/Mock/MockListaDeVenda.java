@@ -9,7 +9,7 @@ package Mock;
 import Model.Cliente;
 import Model.Venda;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -55,7 +55,7 @@ public class MockListaDeVenda {
         return resultado;
     }
 
-    public static Venda getVenda(Calendar data)
+    public static Venda getVenda(Date data)
             throws Exception {
 
         for (Venda Venda : listaDeVendas) {
@@ -66,25 +66,25 @@ public class MockListaDeVenda {
         return null;
     }
 
-    public static List<Venda> getVenda(Calendar de, Calendar ate)
-            throws Exception {
-
-        List<Venda> resultado = new ArrayList<>();
-        Calendar agora = Calendar.getInstance();
-
-        if (!de.after(agora) || !ate.after(agora)) {
-
-            for (Venda venda : listaDeVendas) {
-                if ((venda.getDataVenda().compareTo(de) == 0 || venda.getDataVenda().compareTo(de) >= 1)
-                        && (venda.getDataVenda().compareTo(de) == 0 || venda.getDataVenda().compareTo(de) >= 1)) {
-                    resultado.add(venda);
-                }
-            }
-            de.add(Calendar.DATE, 1);
-        }
-
-        return resultado;
-    }
+//    public static List<Venda> getVenda(Date de, Date ate)
+//            throws Exception {
+//
+//        List<Venda> resultado = new ArrayList<>();
+//        Date agora = Date.getInstance();
+//
+//        if (!de.after(agora) || !ate.after(agora)) {
+//
+//            for (Venda venda : listaDeVendas) {
+//                if ((venda.getDataVenda().compareTo(de) == 0 || venda.getDataVenda().compareTo(de) >= 1)
+//                        && (venda.getDataVenda().compareTo(de) == 0 || venda.getDataVenda().compareTo(de) >= 1)) {
+//                    resultado.add(venda);
+//                }
+//            }
+//            de.add(Calendar.DATE, 1);
+//        }
+//
+//        return resultado;
+//    }
 
     public static List<Venda> getVenda(Cliente cliente)
             throws Exception {

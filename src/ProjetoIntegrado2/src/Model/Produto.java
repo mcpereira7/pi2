@@ -25,6 +25,7 @@ public class Produto {
     private String tipo;
     private int quantidadeVenda;
     private int quantidadeEstoque;//Se precisar
+    private boolean Disable;
 
     //Construtor
     //Venda de produtos
@@ -110,6 +111,14 @@ public class Produto {
 
     public int getQuantidadeVenda() {
         return quantidadeVenda;
+    }
+
+    public boolean isDisable() {
+        return Disable;
+    }
+
+    public void setDisable(boolean Disable) {
+        this.Disable = Disable;
     }
 
     public void setQuantidadeVenda(int quantidadeVenda) {

@@ -5,10 +5,14 @@
  */
 package Telas;
 
+import Controllers.ServicoProduto;
 import DAO.ProdutoDAO;
 import Model.Produto;
+import java.beans.PropertyVetoException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
@@ -256,6 +260,21 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
         // TODO add your handling code here:
+        TableModel model = (AbstractTableModel) jTableTabelaDeProdutos.getModel();
+        jTableTabelaDeProdutos.setModel(model);
+        int coluna = 0;
+        int linha = jTableTabelaDeProdutos.getSelectedRow();
+        int codProduto = Integer.parseInt(jTableTabelaDeProdutos.getValueAt(linha, coluna).toString());
+        
+        Produto p = ProdutoDAO.selecionaProduto(codProduto);
+        
+        
+        
+        try {
+            ServicoProduto.atualizaProduto(p);
+        } catch (Exception e) {
+        }
+        
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
@@ -265,8 +284,25 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
         int coluna = 0;
         int linha = jTableTabelaDeProdutos.getSelectedRow();
         int codProduto = Integer.parseInt(jTableTabelaDeProdutos.getValueAt(linha, coluna).toString());
-
-
+        
+        Produto p = ProdutoDAO.selecionaProduto(codProduto);
+        
+        // Chama tela altera produto
+        if (alteraProduto == null || !alteraProduto.isVisible()) {
+            alteraProduto = new CadastroProduto(p);
+            this.getParent().add(alteraProduto);
+            alteraProduto.setVisible(true);
+        } else if (alteraProduto.isVisible()) {
+            try {
+                alteraProduto.setSelected(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            alteraProduto.getDesktopPane().getDesktopManager().deiconifyFrame(alteraProduto);
+            alteraProduto.getDesktopPane().getDesktopManager().maximizeFrame(alteraProduto);
+            alteraProduto.getDesktopPane().getDesktopManager().minimizeFrame(alteraProduto);
+            alteraProduto.toFront();
+        }
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     public String RetornaCodProduto() {

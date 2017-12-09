@@ -26,6 +26,8 @@ public class ProdutoDAO {
 
     private static Connection cn = null;
 
+    private static List<Produto> listaProduto = new ArrayList<Produto>();
+
     public static void inserir(Produto produto) throws SQLException, Exception {
         cn = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
@@ -50,13 +52,13 @@ public class ProdutoDAO {
         }
 
     }
-    
+
     public static void atualizar(Produto produto) throws SQLException, Exception {
         cn = ConnectionFactory.getConnection();
         ResultSet rs = null;
         PreparedStatement stmt = null;
 
-        String sql = "UPDATE produto SET  nome=?, quantidade=?, tipo=?, plataforma=?, preco=?, fornecedor=?, descricao=? WHERE codigo=?";
+        String sql = "UPDATE produto SET  nome=?, quantidade=?, tipo=?, plataforma=?, preco=?, fornecedor=?, descricao=? WHERE id=?";
 
         try {
             stmt = cn.prepareStatement(sql);
@@ -68,8 +70,9 @@ public class ProdutoDAO {
             stmt.setFloat(5, produto.getPreco());
             stmt.setString(6, produto.getFornecedor());
             stmt.setString(7, produto.getDescricao());
+            stmt.setInt(8, produto.getId());
 
-            stmt.executeQuery();
+            stmt.execute();
 
         } finally {
             ConnectionFactory.closeConnection(cn, stmt);
@@ -115,7 +118,8 @@ public class ProdutoDAO {
     }
 
     public static List<Produto> procurarProduto(Integer codigo, String nome, String fornecedor, String tipo) throws SQLException, productException {
-        List<Produto> listProduto = new ArrayList<Produto>();
+//        List<Produto> listProduto = new ArrayList<Produto>();
+        listaProduto.clear();
         cn = ConnectionFactory.getConnection();
         ResultSet rs = null;
         PreparedStatement stmt = null;
@@ -124,10 +128,26 @@ public class ProdutoDAO {
 
         try {
             stmt = cn.prepareStatement(sql);
-            stmt.setInt(1, codigo);
-            stmt.setString(2, "'%" + nome + "%'");
-            stmt.setString(3, "'%" + fornecedor + "%'");
-            stmt.setString(4, "'%" + tipo + "%'");
+            if (codigo != null) {
+                stmt.setInt(1, codigo);
+            } else {
+                stmt.setString(1, "");
+            }
+            if (!nome.equals("")) {
+                stmt.setString(2, "%" + nome + "%");
+            } else {
+                stmt.setString(2, "");
+            }
+            if (!fornecedor.equals("")) {
+                stmt.setString(3, "%" + fornecedor + "%");
+            } else {
+                stmt.setString(3, "");
+            }
+            if (!tipo.equals("")) {
+                stmt.setString(4, "%" + tipo + "%");
+            } else {
+                stmt.setString(4, "");
+            }
 
             rs = stmt.executeQuery();
 
@@ -142,14 +162,14 @@ public class ProdutoDAO {
                 p.setPreco(rs.getFloat("Preco"));
                 p.setFornecedor(rs.getString("Fornecedor"));
                 p.setDescricao(rs.getString("Descricao"));
-                //p.setDataCadastro(rs.getTimestamp("DataCadastro"));
-                listProduto.add(p);
+                p.setDataCadastro(rs.getDate("DataCadastro"));
+                listaProduto.add(p);
             }
         } finally {
             ConnectionFactory.closeConnection(cn, stmt, rs);
         }
 
-        return listProduto;
+        return listaProduto;
     }
 
 //    Validação do produto a ser gravado na base.
@@ -182,6 +202,15 @@ public class ProdutoDAO {
             throw new productException("Tipo de produto inválido, selecione uma das opções");
         }
 
+    }
+
+    public static Produto selecionaProduto(Integer codigo) {
+        for (Produto p : listaProduto) {
+            if (p.getCodProduto() == codigo) {
+                return p;
+            }
+        }
+        return null;
     }
 
     public static void atualizarQuantidadeEstoque(int CodProduto, int quantidade) throws SQLException, Exception {
@@ -236,5 +265,4 @@ public class ProdutoDAO {
             ConnectionFactory.closeConnection(cn, stmt, rs);
         }
     }
-
 }

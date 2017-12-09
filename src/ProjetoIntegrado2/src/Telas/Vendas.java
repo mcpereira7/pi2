@@ -435,8 +435,9 @@ public class Vendas extends javax.swing.JInternalFrame {
             carrinho.setCliente(clienteVenda);
             carrinho.setValorTotal(TOTAL);
             ServicoVenda.ConcluirVenda(carrinho);
-            
-            
+            JOptionPane.showMessageDialog(rootPane, "Venda concluída com sucesso..");
+            dispose();
+
         } catch (VendaException ex) {
             Logger.getLogger(Vendas.class.getName()).log(Level.SEVERE, null, ex);
         }

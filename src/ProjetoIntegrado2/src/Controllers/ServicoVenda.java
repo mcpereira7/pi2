@@ -14,6 +14,7 @@ import static Telas.Vendas.isParsable;
 import java.awt.Component;
 import java.awt.HeadlessException;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -81,7 +82,7 @@ public class ServicoVenda {
 //        }
 //    }
 
-    public static List<Venda> ConsultaVendaByData(Calendar de, Calendar ate)
+    public static List<Venda> ConsultaVendaByData(Date de, Date ate)
             throws VendaException, DataSourceException {
         try {
             //Metodo que encontra a venda no banco com o codVenda
@@ -91,7 +92,7 @@ public class ServicoVenda {
         }
     }
 
-    public static List<Venda> ConsultaVendaRelatorio(Calendar de, Calendar ate, String campoOrdenacao, boolean ASC)
+    public static List<Venda> ConsultaVendaRelatorio(Date de, Date ate, String campoOrdenacao, boolean ASC)
             throws VendaException, DataSourceException {
         try {
             //Metodo que encontra a venda no banco com o codVenda

@@ -8,7 +8,7 @@ package Model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,7 +19,7 @@ public class Venda {
 
     private int id;
     private int codVenda;
-    private Calendar dataVenda;
+    private Date dataVenda;
     private Cliente cliente;
     private List<ItensVenda> itensVenda = new ArrayList<>();
     private float valorTotal;
@@ -34,7 +34,7 @@ public class Venda {
     //Construtor para preencher a venda com um ResultSet
     public Venda(ResultSet rs) throws SQLException, Exception {
         codVenda = rs.getInt("id");
-        dataVenda = DAO.VendaDAO.toCalendar(rs.getDate("Data"));
+        dataVenda = rs.getDate("Data");
         cliente = DAO.ClienteDAO.obter(rs.getInt("idCliente"));
         itensVenda = DAO.VendaDAO.getItensVenda(rs.getInt("idCliente"));
         valorTotal = rs.getFloat("ValorTotal");
@@ -71,11 +71,11 @@ public class Venda {
         this.codVenda = codVenda;
     }
 
-    public Calendar getDataVenda() {
+    public Date getDataVenda() {
         return dataVenda;
     }
 
-    public void setDataVenda(Calendar dataVenda) {
+    public void setDataVenda(Date dataVenda) {
         this.dataVenda = dataVenda;
     }
 

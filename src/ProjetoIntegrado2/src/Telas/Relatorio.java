@@ -9,10 +9,17 @@ import Model.Venda;
 import Model.Cliente;
 import Controllers.ServicoVenda;
 import Model.ItensVenda;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -204,16 +211,42 @@ public class Relatorio extends javax.swing.JInternalFrame {
 
     private void jButtonGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGerarRelatorioActionPerformed
         //Obtém as datas configuradas no relatório
-        Calendar dataIni = Calendar.getInstance();
-        Calendar dataFim = Calendar.getInstance();
-        dataIni.setTime((Date) FieldDataInicial.getValue());
-        dataFim.setTime((Date) FieldDataFinal.getValue());
         
+        String data1 = FieldDataInicial.getText();
+        String data2 = FieldDataFinal.getText();
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.mm.yyyy hh:mm:ss");
+
+        Date dataIni = new Date();
+        
+        try {
+            dataIni = sdf.parse(data1);
+        } catch (ParseException ex) {
+            Logger.getLogger(Relatorio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+         Date dataFim = new Date();;
+        
+        try {
+            dataFim = sdf.parse(data2);
+        } catch (ParseException ex) {
+            Logger.getLogger(Relatorio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         double totalVenda = 0;
         double totalGeral = 0;
+        
         try {
-            List<Venda> listaRelatorio = ServicoVenda.ConsultaVendaRelatorio(dataIni, dataFim, 
-                    OrderComboBox.getSelectedItem().toString(),AscRadioButton.isSelected());
+            String campoOrdem = "";
+            switch (OrderComboBox.getSelectedItem().toString()) {
+                case "Data":
+                    campoOrdem = "Data";
+                case "Cliente":
+                    campoOrdem = "idCliente";
+            }
+
+            List<Venda> listaRelatorio = ServicoVenda.ConsultaVendaRelatorio(dataIni, dataFim,
+                    OrderComboBox.getSelectedItem().toString(), AscRadioButton.isSelected());
 
             if (listaRelatorio == null || listaRelatorio.isEmpty()) {
                 JOptionPane.showMessageDialog(rootPane, "Não há dados "
@@ -246,13 +279,13 @@ public class Relatorio extends javax.swing.JInternalFrame {
                     //Itera pelos itens de reserva
                     for (ItensVenda item : listaProdutos) {
                         Object[] linhaItem = new Object[6];
-                        
+
                         linhaItem[2] = item.getCodProduto();
                         linhaItem[3] = item.getPreco();
                         linhaItem[4] = item.getQuantidade();
                         linhaItem[5] = item.getPreco() * item.getQuantidade();
-                        totalVenda += (double)linhaItem[5];
-                        
+                        totalVenda += (double) linhaItem[5];
+
                         modelRelatorio.addRow(linhaItem);
                     }
                 }
@@ -281,17 +314,6 @@ public class Relatorio extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonGerarRelatorioActionPerformed
 
 //Não me lembro o que tinha que fazer com isso  (:
-//    String campoOrdem = "";
-//        switch (OrderComboBox.getSelectedItem().toString()){
-//            case "Data":
-//                campoOrdem = "Data";
-//            case "Cliente":
-//                campoOrdem = "idCliente";
-//        }
-//        
-//        try {
-//            List<Venda> listaRelatorio = ServicoVenda.ConsultaVendaRelatorio(dataIni, dataFim, 
-//                    campoOrdem,AscRadioButton.isSelected());
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton AscRadioButton;
