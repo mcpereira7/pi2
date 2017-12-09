@@ -6,7 +6,9 @@ import Exceptions.productException;
 import Model.DataHoje;
 import Model.Produto;
 import java.awt.HeadlessException;
+import java.time.Instant;
 import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.tools.OptionChecker;
 
@@ -24,6 +26,26 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
      */
     public CadastroProduto() {
         initComponents();
+    }
+
+    public CadastroProduto(Produto produto) {
+        initComponents();
+
+        // inicializando os campos com os dados do Produto
+        
+        cpId.setText(String.valueOf(produto.getId()));
+        cpCodigo.setText(String.valueOf(produto.getCodProduto()));
+        cpNome.setText(produto.getNome());
+        cpFornecedor.setText(produto.getFornecedor());
+        cpQtde.setText(String.valueOf(produto.getQuantidadeEstoque()));
+        cpValor.setText(String.valueOf(produto.getPreco()));
+        cbTipo.setSelectedItem(produto.getTipo());
+        cbPlataforma.setSelectedItem(produto.getPlataforma());
+        jTextArea1.setText(produto.getDescricao());
+        
+        
+        
+
     }
 
     /**
@@ -57,6 +79,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         jLabel10 = new javax.swing.JLabel();
         jButtonSave = new javax.swing.JButton();
         jButtonCancel = new javax.swing.JButton();
+        cpId = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -156,6 +179,8 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                             .addComponent(cpNome, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(cpCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(48, 48, 48)
+                                .addComponent(cpId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -192,7 +217,8 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                     .addComponent(jLabelCodigo)
                     .addComponent(cpCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(cpId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -270,7 +296,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         }
 
         try {
-            p.setDataCadastro(Calendar.getInstance());
+            p.setDataCadastro((java.sql.Date) Date.from(Instant.now()));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
@@ -337,6 +363,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cbTipo;
     private javax.swing.JTextField cpCodigo;
     private javax.swing.JTextField cpFornecedor;
+    private javax.swing.JTextField cpId;
     private javax.swing.JTextField cpNome;
     private javax.swing.JTextField cpQtde;
     private javax.swing.JTextField cpValor;

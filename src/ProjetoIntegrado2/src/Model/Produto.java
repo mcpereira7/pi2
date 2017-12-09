@@ -6,6 +6,7 @@
 package Model;
 
 import java.util.Calendar;
+import java.sql.Date;
 
 /**
  *
@@ -17,7 +18,7 @@ public class Produto {
     private int id; //id do banco de dados, preferencialmente automatico
     private int codProduto; //id que vai aparecer para o usuário, tbm automático
     private float preco;
-    private Calendar dataCadastro;
+    private Date dataCadastro;
     private String nome;
     private String plataforma;
     private String fornecedor;
@@ -60,11 +61,11 @@ public class Produto {
         this.preco = preco;
     }
 
-    public Calendar getDataCadastro() {
+    public Date getDataCadastro() {
         return dataCadastro;
     }
 
-    public void setDataCadastro(Calendar dataCadastro) {
+    public void setDataCadastro(Date dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
 
