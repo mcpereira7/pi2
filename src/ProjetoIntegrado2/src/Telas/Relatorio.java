@@ -9,17 +9,13 @@ import Model.Venda;
 import Model.Cliente;
 import Controllers.ServicoVenda;
 import Model.ItensVenda;
-import java.sql.Time;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -89,7 +85,7 @@ public class Relatorio extends javax.swing.JInternalFrame {
 
         jLabel3.setText("* range máximo de 30 dias");
 
-        FieldDataInicial.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
+        FieldDataInicial.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
 
         FieldDataFinal.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter()));
 
@@ -211,31 +207,33 @@ public class Relatorio extends javax.swing.JInternalFrame {
 
     private void jButtonGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGerarRelatorioActionPerformed
         //Obtém as datas configuradas no relatório
-        
-        String data1 = FieldDataInicial.getText();
-        String data2 = FieldDataFinal.getText();
-        
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.mm.yyyy hh:mm:ss");
 
-        Date dataIni = new Date();
-        
-        try {
-            dataIni = sdf.parse(data1);
-        } catch (ParseException ex) {
-            Logger.getLogger(Relatorio.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-         Date dataFim = new Date();;
-        
-        try {
-            dataFim = sdf.parse(data2);
-        } catch (ParseException ex) {
-            Logger.getLogger(Relatorio.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        Date dataIni = (Date) FieldDataInicial.getValue();
+
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.setTimeInMillis(dataIni.getTime());
+        calendar1.set(Calendar.HOUR_OF_DAY, 0);
+        calendar1.set(Calendar.MINUTE, 0);
+        calendar1.set(Calendar.SECOND, 0);
+        calendar1.set(Calendar.MILLISECOND, 0);
+
+        dataIni = calendar1.getTime();
+
+        Date dataFim = (Date) FieldDataFinal.getValue();
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.setTimeInMillis(dataFim.getTime());
+        calendar2.set(Calendar.HOUR_OF_DAY, 23);
+        calendar2.set(Calendar.MINUTE, 59);
+        calendar2.set(Calendar.SECOND, 59);
+        calendar2.set(Calendar.MILLISECOND, 999);
+
+        dataFim = calendar2.getTime();
 
         double totalVenda = 0;
         double totalGeral = 0;
-        
+
         try {
             String campoOrdem = "";
             switch (OrderComboBox.getSelectedItem().toString()) {
@@ -273,7 +271,7 @@ public class Relatorio extends javax.swing.JInternalFrame {
                 }
 
                 //Obtém a lista de itens de reserva
-                List<ItensVenda> listaProdutos = venda.getListaItensVenda();
+                List<ItensVenda> listaProdutos = DAO.VendaDAO.getItensVenda(venda.getId());
                 //Verifica se há itens de reserva antes de iterá-los
                 if (listaProdutos != null || !listaProdutos.isEmpty()) {
                     //Itera pelos itens de reserva

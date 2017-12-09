@@ -66,6 +66,7 @@ public class ServicoVenda {
     public static void ConcluirVenda(Venda entrada) throws VendaException {
         try {
             ServicoProduto.AtualizaEstoque(entrada.getListaItensVenda());
+            //DAO.VendaDAO.insertItensVenda(entrada.getListaItensVenda(), entrada);
             DAO.VendaDAO.inserir(entrada);
         } catch (Exception e) {
             throw new VendaException("Erro na fonte de dados.", e.getCause());
@@ -81,7 +82,6 @@ public class ServicoVenda {
 //            throw new VendaException("Erro na fonte de dados.", e.getCause());
 //        }
 //    }
-
     public static List<Venda> ConsultaVendaByData(Date de, Date ate)
             throws VendaException, DataSourceException {
         try {
@@ -95,7 +95,10 @@ public class ServicoVenda {
     public static List<Venda> ConsultaVendaRelatorio(Date de, Date ate, String campoOrdenacao, boolean ASC)
             throws VendaException, DataSourceException {
         try {
-            //Metodo que encontra a venda no banco com o codVenda
+            
+            
+
+//Metodo que encontra a venda no banco com o codVenda
             return DAO.VendaDAO.getVendaRelatorio(de, ate, campoOrdenacao, ASC);
         } catch (Exception e) {
             throw new VendaException("Erro na fonte de dados.", e.getCause());
@@ -105,7 +108,7 @@ public class ServicoVenda {
     public static int geraCodVenda()
             throws VendaException, DataSourceException {
         try {
-            
+
             int codigo = VendaDAO.countVendas();
             codigo++;
 

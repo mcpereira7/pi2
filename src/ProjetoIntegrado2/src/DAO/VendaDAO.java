@@ -13,6 +13,7 @@ import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,9 +42,9 @@ public class VendaDAO {
         cn = ConnectionFactory.getConnection();
 
         try {
-            
+
             int idCliente = ClienteDAO.obterByCod(venda.getCliente().getCodCliente()).getId();
-            
+
             stmt = cn.prepareStatement(sql);
             stmt.setInt(1, idCliente);
             stmt.setFloat(2, venda.getValorTotal());
@@ -146,7 +147,6 @@ public class VendaDAO {
 //
 //        return venda;
 //    }
-
     //Pode retornar uma lista. Talvez esteja ERRADO
 //    public static Venda getVendaByData(Calendar data)
 //            throws SQLException, Exception {
@@ -178,7 +178,6 @@ public class VendaDAO {
 //
 //        return venda;
 //    }
-
     public static List<Venda> getVendaByDates(Date de, Date para)
             throws SQLException, Exception {
 
@@ -224,11 +223,14 @@ public class VendaDAO {
         cn = ConnectionFactory.getConnection();
 
         try {
-            
+
             stmt = cn.prepareStatement(sql);
 
-            stmt.setDate(1, new java.sql.Date(de.getTime()));
-            stmt.setDate(2, new java.sql.Date(ate.getTime()));
+            Timestamp t = new Timestamp(de.getTime());
+            Timestamp t2 = new Timestamp(ate.getTime());
+
+            stmt.setTimestamp(1, t);
+            stmt.setTimestamp(2, t2);
             stmt.setString(3, campoOrdenacao);
             stmt.setString(4, ASC ? "ASC" : "DESC");
 
@@ -244,6 +246,33 @@ public class VendaDAO {
         }
 
         return resultado;
+    }
+
+    public static void insertItensVenda(List<ItensVenda> item, Venda venda) throws SQLException, Exception {
+
+        PreparedStatement stmt = null;
+
+        String sql = "INSERT INTO ItensVenda (idVenda, idProduto, Quantidade, ValorTotal)"
+                + "VALUES (?, ?, ?, ?)";
+
+        cn = ConnectionFactory.getConnection();
+
+        try {
+
+            for (ItensVenda itensVenda : item) {
+
+                stmt = cn.prepareStatement(sql);
+                stmt.setInt(1, venda.getId());
+                stmt.setFloat(2, itensVenda.getCodProduto());
+                stmt.setInt(3, itensVenda.getQuantidade());
+                stmt.setFloat(4, (float) itensVenda.getPreco());
+
+                stmt.execute();
+            }
+        } finally {
+            ConnectionFactory.closeConnection(cn, stmt);
+        }
+
     }
 
     public static List<ItensVenda> getItensVenda(int idVenda) throws SQLException, Exception {
