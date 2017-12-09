@@ -36,8 +36,6 @@ public class Vendas extends javax.swing.JInternalFrame {
 
     //Criando objeto que retorna a data atual.
     DataHoje data = new DataHoje();
-    //Consulta de cliente
-    TesteDialog telaConsulta = null;
     //Cliente da venda
     Cliente clienteVenda = new Cliente();
     //Produto a ser add
