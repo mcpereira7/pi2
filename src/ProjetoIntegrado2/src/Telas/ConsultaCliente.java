@@ -31,7 +31,6 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
      */
     public ConsultaCliente() {
         initComponents();
-        jButtonAtualizar.setVisible(false);
     }
 
     /**
@@ -176,7 +175,7 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButtonAtualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButtonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -190,7 +189,7 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancel)
                     .addComponent(jButtonAtualizar))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -275,9 +274,9 @@ public class ConsultaCliente extends javax.swing.JInternalFrame {
     }
 
     public int getClienteSelecionado() {
-        int linha = jTable1.getSelectedRow();
-        int coluna = jTable1.getSelectedColumn();
-        int codCliente = (int) jTable1.getValueAt(linha, 0);
+        int linha = tabelaResultados.getSelectedRow();
+        //int coluna = tabelaResultados.getSelectedColumn();
+        int codCliente = (int) tabelaResultados.getValueAt(linha, 0);
         return codCliente;
     }
     
