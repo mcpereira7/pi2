@@ -98,9 +98,6 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
         jLabelCodigo.setText("Código");
 
-        cpCodigo.setEditable(false);
-        cpCodigo.setText("<campo desabilitado>");
-        cpCodigo.setEnabled(false);
         cpCodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cpCodigoActionPerformed(evt);
@@ -277,6 +274,11 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
         //dados do objeto
         try {
+            p.setCodProduto(Integer.parseInt(cpCodigo.getText()));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+        try {
             p.setNome(cpNome.getText());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
@@ -324,7 +326,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
 
-        //gravando o objeto na lista
+//        //gravando o objeto na lista
         try {
             ServicoProduto.cadastroProduto(p);//chama serviço para adicionar produtos.
             JOptionPane.showMessageDialog(rootPane, "Produto cadastrado com sucesso!");

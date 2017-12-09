@@ -322,32 +322,32 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jButtonCadastroGenericoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastroGenericoActionPerformed
-        ArrayList<Produto> listaProduto = new ArrayList<Produto>();
-        Produto p;
-        int n = 0;
-        String str = jTextFieldNomeProduto.getText();
-        String tipo = jComboBoxTipoDoProduto.getSelectedItem().toString();
-
-//    Random rd = new Random(100+1);
-        while (n <= 5) {
-            String codigo = jTextFieldCodProduto.getText() + "" + n;
-            p = new Produto();
-            p.setCodProduto(Integer.parseInt(codigo));
-            p.setNome(str + (n + 1));
-            p.setFornecedor(str + (n + 3));
-            p.setTipo(tipo);
-            p.setQuantidadeEstoque(10);
-            p.setPreco(100.00f);
-            Calendar dataCadastro = Calendar.getInstance();
-            p.setDataCadastro(dataCadastro);
-            try {
-                Mock.MockListaDeProduto.adicionar(p);
-            } catch (Exception ex) {
-                Logger.getLogger(ConsultaProduto.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            n++;
-
-        }
+//        ArrayList<Produto> listaProduto = new ArrayList<Produto>();
+//        Produto p;
+//        int n = 0;
+//        String str = jTextFieldNomeProduto.getText();
+//        String tipo = jComboBoxTipoDoProduto.getSelectedItem().toString();
+//
+////    Random rd = new Random(100+1);
+//        while (n <= 5) {
+//            String codigo = jTextFieldCodProduto.getText() + "" + n;
+//            p = new Produto();
+//            p.setCodProduto(Integer.parseInt(codigo));
+//            p.setNome(str + (n + 1));
+//            p.setFornecedor(str + (n + 3));
+//            p.setTipo(tipo);
+//            p.setQuantidadeEstoque(10);
+//            p.setPreco(100.00f);
+//            Calendar dataCadastro = Calendar.getInstance();
+//            p.setDataCadastro(dataCadastro);
+//            try {
+//                Mock.MockListaDeProduto.adicionar(p);
+//            } catch (Exception ex) {
+//                Logger.getLogger(ConsultaProduto.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            n++;
+//
+//        }
     }//GEN-LAST:event_jButtonCadastroGenericoActionPerformed
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
@@ -361,7 +361,8 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
     public boolean refreshList() throws Exception {
 
 //        List<Produto> resultado = MockListaDeProduto.procurar(codigo, nome, tipo, fornecedor);
-    List<Produto> resultado = ProdutoDAO.listarProduto();
+//    List<Produto> resultado = ServicoProduto.consultaProduto(codigo, nome, tipo, fornecedor); 
+List<Produto> resultado = ProdutoDAO.procurarProduto(codigo, nome, tipo, fornecedor);
         DefaultTableModel model = (DefaultTableModel) jTableTabelaDeProdutos.getModel();
         model.setRowCount(0);
 
@@ -379,7 +380,7 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
                 row[0] = p.getCodProduto();
                 row[1] = p.getNome();
                 row[2] = p.getFornecedor();
-                row[3] = df.format(p.getDataCadastro().getTime());
+                row[3] = p.getDataCadastro();
                 row[4] = p.getQuantidadeEstoque();
                 model.addRow(row);
                 // teste
