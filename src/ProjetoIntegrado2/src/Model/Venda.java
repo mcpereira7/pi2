@@ -5,6 +5,9 @@
  */
 package Model;
 
+import Controllers.ServicoVenda;
+import Exceptions.DataSourceException;
+import Exceptions.VendaException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,41 +24,39 @@ public class Venda {
     private int codVenda;
     private Calendar dataVenda;
     private Cliente cliente;
-    private List<Produto> listaProdutos = new ArrayList<>();
+    private List<ItensVenda> itensVenda = new ArrayList<>();
     private double valorTotal;
-    private int oi = 9;
-    private int ola = 4;
-    
 
     //Construtor
     /*Teoricamente tem que ter um metodo que ja gera o id
     baseado na posicao do banco de dados
     Mas por enquanto deixarei assim*/
     public Venda() {
-        ola = 4;
-        oi = 9 * 2;
-        oi++;
-        oi -= ola;
-        ola++;
-        id = oi;
-        //codVenda = geraCodVenda();
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     //Construtor para preencher a venda com um ResultSet
-    public Venda(ResultSet rs) throws SQLException {
-        codVenda = rs.getInt("CodVenda");
-        dataVenda = DAO.VendaDAO.toCalendar(rs.getDate("DataVenda"));
-        //cliente = DAO.ClienteDAO.getClienteByCod(rs.getInt("CodCliente"));
-        //itensVenda
-        valorTotal = rs.getDouble("Total");
+    public Venda(ResultSet rs) throws SQLException, Exception {
+        codVenda = rs.getInt("id");
+        dataVenda = DAO.VendaDAO.toCalendar(rs.getDate("Data"));
+        cliente = DAO.ClienteDAO.obter(rs.getInt("idCliente"));
+        itensVenda = DAO.VendaDAO.getItensVenda(rs.getInt("idCliente"));
+        valorTotal = rs.getDouble("ValorTotal");
     }
 
     //Metodos
-    public void setProdutoNaLista(Produto entrada) {
-        listaProdutos.add(entrada);
+    //Adiciona o produto na ItensVenda
+    public void setProdutoNoItensVenda(Produto entrada) {
+
+        ItensVenda item = new ItensVenda();
+
+        item.setCodProduto(entrada.getCodProduto());
+        item.setNome(entrada.getNome());
+        item.setQuantidade(entrada.getQuantidadeVenda());
+        item.setPreco(entrada.getPreco());
+
+        itensVenda.add(item);
     }
-    
+
     public int getId() {
         return id;
     }
@@ -89,12 +90,12 @@ public class Venda {
         this.cliente = cliente;
     }
 
-    public List<Produto> getListaProdutos() {
-        return listaProdutos;
+    public List<ItensVenda> getListaItensVenda() {
+        return itensVenda;
     }
 
-    public void setListaProdutos(ArrayList<Produto> listaProdutos) {
-        this.listaProdutos = listaProdutos;
+    public void setListaItensVenda(ArrayList<ItensVenda> listaProdutos) {
+        this.itensVenda = listaProdutos;
     }
 
     public double getValorTotal() {

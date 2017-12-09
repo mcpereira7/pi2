@@ -117,7 +117,7 @@ public class ProdutoDAO {
                 p.setPreco(rs.getFloat("Preco"));
                 p.setFornecedor(rs.getString("Fornecedor"));
                 p.setDescricao(rs.getString("Descricao"));
-                p.setDataCadastro(rs.getTimestamp("DataCadastro"));
+                p.setDataCadastro(rs.getDate("DataCadastro"));
                 listProduto.add(p);
             }
         } finally {
@@ -155,6 +155,25 @@ public class ProdutoDAO {
 
         if (produto.getTipo().contentEquals("Escolha")) {
             throw new productException("Tipo de produto inválido, selecione uma das opções");
+        }
+
+    }
+
+    public static void atualizarQuantidadeEstoque(int CodProduto, int quantidade) throws SQLException, Exception {
+
+        cn = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+
+        String sql = "UPDATE produto SET quantidade = ? WHERE Codigo = ?";
+
+        try {
+            stmt = cn.prepareStatement(sql);
+            stmt.setInt(1, quantidade);
+            stmt.setInt(2, CodProduto);
+            stmt.execute();
+
+        } finally {
+            ConnectionFactory.closeConnection(cn, stmt);
         }
 
     }

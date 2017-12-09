@@ -6,12 +6,14 @@
 package Controllers;
 
 import DAO.ProdutoDAO;
+import DAO.VendaDAO;
 import Exceptions.productException;
 import Exceptions.DataSourceException;
 import Model.Produto;
 import java.util.ArrayList;
 import java.util.List;
 import Mock.MockListaDeProduto;
+import Model.ItensVenda;
 
 /**
  *
@@ -46,11 +48,11 @@ public class ServicoProduto {
 
     public static List<Produto> consultaProduto(int codigo, String nome, String tipo, String fornecedor) throws Exception {
 //        List<Produto> produto=MockListaDeProduto.procurar(codigo, nome, tipo, fornecedor);
-List<Produto> produto=ProdutoDAO.procurarProduto(codigo, nome, tipo, fornecedor);
+        List<Produto> produto = ProdutoDAO.procurarProduto(codigo, nome, tipo, fornecedor);
         for (int i = 0; i < produto.size(); i++) {
-                if(!produto.isEmpty()){
-                    return produto;
-                }
+            if (!produto.isEmpty()) {
+                return produto;
+            }
         }
         return null;
     }
@@ -73,21 +75,25 @@ List<Produto> produto=ProdutoDAO.procurarProduto(codigo, nome, tipo, fornecedor)
         }
     }
 
-    public static void AtualizaEstoque(List<Produto> lista)
+    public static void AtualizaEstoque(List<ItensVenda> lista)
             throws productException {
         try {
-            List<Produto> old = MockListaDeProduto.listar();
 
-            for (Produto produto : lista) {
+            List<Produto> old = ProdutoDAO.listarProduto();
+
+            for (ItensVenda item : lista) {
                 for (Produto produtoOld : old) {
-                    if (produto.getCodProduto() == produtoOld.getCodProduto()) {
+                    if (item.getCodProduto() == produtoOld.getCodProduto()) {
                         int quant = produtoOld.getQuantidadeEstoque();
-                        quant -= produto.getQuantidadeVenda();
-                        produtoOld.setQuantidadeEstoque(quant);
+                        quant -= item.getQuantidade();
+                        if (quant < 0) {
+                            throw new Exception("Quantidade em estoque diponivel: " + produtoOld.getQuantidadeEstoque());
+                        }
+
+                        ProdutoDAO.atualizarQuantidadeEstoque(item.getCodProduto(), quant);
                     }
                 }
             }
-            MockListaDeProduto.RefreshLista(old);
 
         } catch (Exception e) {
         }
