@@ -50,6 +50,31 @@ public class ProdutoDAO {
         }
 
     }
+    
+    public static void atualizar(Produto produto) throws SQLException, Exception{
+         cn = ConnectionFactory.getConnection();
+        ResultSet rs = null;
+        PreparedStatement stmt = null;
+        
+        String sql="UPDATE produto SET  nome=?, quantidade=?, tipo=?, plataforma=?, preco=?, fornecedor=?, descricao=? WHERE codigo=?";
+        
+        try{
+            stmt=cn.prepareStatement(sql);
+            
+            stmt.setString(1, produto.getNome());
+            stmt.setInt(2, produto.getQuantidadeEstoque());
+            stmt.setString(3, produto.getTipo());
+            stmt.setString(4, produto.getPlataforma());
+            stmt.setFloat(5, produto.getPreco());
+            stmt.setString(6, produto.getFornecedor());
+            stmt.setString(7, produto.getDescricao());
+            
+            stmt.executeQuery();
+            
+        }finally{
+            ConnectionFactory.closeConnection(cn,stmt);
+        }
+    }
 
     public static List<Produto> listarProduto() throws SQLException, Exception {
 //        abrindo a conexão com o banco
@@ -105,17 +130,17 @@ public class ProdutoDAO {
                 stmt.setString(1, "");
             }
             if(!nome.equals("")){
-            stmt.setString(2, "'%" + nome + "%'");
+            stmt.setString(2, "%" + nome + "%");
             }else{
                 stmt.setString(2, "");
             }
             if(!fornecedor.equals("")){
-            stmt.setString(3, "'%" + fornecedor + "%'");
+            stmt.setString(3, "%" + fornecedor + "%");
             }else{
                 stmt.setString(3, "");
             }
             if(!tipo.equals("")){
-            stmt.setString(4, "'%" + tipo + "%'");
+            stmt.setString(4, "%" + tipo + "%");
             }else{
                 stmt.setString(4, "");
             }

@@ -70,8 +70,6 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableTabelaDeProdutos = new javax.swing.JTable();
         jButtonCancelar = new javax.swing.JButton();
-        jButtonSelecionar = new javax.swing.JButton();
-        jButtonCadastroGenerico = new javax.swing.JButton();
         jButtonEditar = new javax.swing.JButton();
         jButtonExcluir = new javax.swing.JButton();
 
@@ -93,7 +91,7 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Tipo");
 
-        jComboBoxTipoDoProduto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Escolha", "Nintendo Switch", "PC", "Playstation 3", "Playstation 4", "Xbox 360", "Xbox One", "Wii", "Wii U" }));
+        jComboBoxTipoDoProduto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Escolha", "Jogo", "Periférico", "Itens diversos" }));
 
         jLabel4.setText("Fornecedor");
 
@@ -102,7 +100,7 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(28, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonBuscar, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -181,21 +179,12 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
             }
         });
 
-        jButtonSelecionar.setText("Selecionar");
-        jButtonSelecionar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSelecionarActionPerformed(evt);
-            }
-        });
-
-        jButtonCadastroGenerico.setText("Generico");
-        jButtonCadastroGenerico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCadastroGenericoActionPerformed(evt);
-            }
-        });
-
         jButtonEditar.setText("Editar");
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditarActionPerformed(evt);
+            }
+        });
 
         jButtonExcluir.setText("Excluir");
         jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -214,14 +203,10 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButtonCadastroGenerico)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonExcluir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonEditar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                        .addComponent(jButtonSelecionar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
                         .addComponent(jButtonCancelar)))
                 .addContainerGap())
         );
@@ -235,8 +220,6 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCancelar)
-                    .addComponent(jButtonSelecionar)
-                    .addComponent(jButtonCadastroGenerico)
                     .addComponent(jButtonEditar)
                     .addComponent(jButtonExcluir))
                 .addContainerGap())
@@ -244,40 +227,6 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButtonSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSelecionarActionPerformed
-        // TODO add your handling code here:
-        TableModel model = (AbstractTableModel) jTableTabelaDeProdutos.getModel();
-        jTableTabelaDeProdutos.setModel(model);
-        int coluna = 0;
-        int linha = jTableTabelaDeProdutos.getSelectedRow();
-        int codProduto = Integer.parseInt(jTableTabelaDeProdutos.getValueAt(linha, coluna).toString());
-        //Produto p  = (Produto) model.getValueAt(0, 0);
-
-        Produto p = MockListaDeProduto.selecionaProduto(codProduto);
-
-//         Teste
-//        System.out.println("Selecionado");
-//        System.out.println("Codigo: "+ p.getCodProduto() + "| Nome: " + p.getNome() + " | Fornecedor: " + p.getFornecedor()
-//            + " | Tipo: "+ p.getTipo() + " | Qtd: " + p.getQuantidadeEstoque() + " | Valor: " + p.getPreco());
-        // Chama tela altera produto
-        if (menuCadProduto == null || !menuCadProduto.isVisible()) {
-            menuCadProduto = new CadastroProduto(p);
-            this.getParent().add(menuCadProduto);
-            menuCadProduto.setVisible(true);
-        } else if (menuCadProduto.isVisible()) {
-            try {
-                menuCadProduto.setSelected(true);
-            } catch (PropertyVetoException ex) {
-                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            menuCadProduto.getDesktopPane().getDesktopManager().deiconifyFrame(menuCadProduto);
-            menuCadProduto.getDesktopPane().getDesktopManager().maximizeFrame(menuCadProduto);
-            menuCadProduto.getDesktopPane().getDesktopManager().minimizeFrame(menuCadProduto);
-            menuCadProduto.toFront();
-        }
-
-    }//GEN-LAST:event_jButtonSelecionarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         // TODO add your handling code here:
@@ -321,38 +270,20 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
-    private void jButtonCadastroGenericoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastroGenericoActionPerformed
-//        ArrayList<Produto> listaProduto = new ArrayList<Produto>();
-//        Produto p;
-//        int n = 0;
-//        String str = jTextFieldNomeProduto.getText();
-//        String tipo = jComboBoxTipoDoProduto.getSelectedItem().toString();
-//
-////    Random rd = new Random(100+1);
-//        while (n <= 5) {
-//            String codigo = jTextFieldCodProduto.getText() + "" + n;
-//            p = new Produto();
-//            p.setCodProduto(Integer.parseInt(codigo));
-//            p.setNome(str + (n + 1));
-//            p.setFornecedor(str + (n + 3));
-//            p.setTipo(tipo);
-//            p.setQuantidadeEstoque(10);
-//            p.setPreco(100.00f);
-//            Calendar dataCadastro = Calendar.getInstance();
-//            p.setDataCadastro(dataCadastro);
-//            try {
-//                Mock.MockListaDeProduto.adicionar(p);
-//            } catch (Exception ex) {
-//                Logger.getLogger(ConsultaProduto.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            n++;
-//
-//        }
-    }//GEN-LAST:event_jButtonCadastroGenericoActionPerformed
-
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonExcluirActionPerformed
+
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        // TODO add your handling code here:
+        TableModel model = (AbstractTableModel) jTableTabelaDeProdutos.getModel();
+        jTableTabelaDeProdutos.setModel(model);
+        int coluna = 0;
+        int linha = jTableTabelaDeProdutos.getSelectedRow();
+        int codProduto = Integer.parseInt(jTableTabelaDeProdutos.getValueAt(linha, coluna).toString());
+        
+        
+    }//GEN-LAST:event_jButtonEditarActionPerformed
 
     public String RetornaCodProduto() {
         return codDoProdutoSelecionado;
@@ -362,7 +293,7 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
 
 //        List<Produto> resultado = MockListaDeProduto.procurar(codigo, nome, tipo, fornecedor);
 //    List<Produto> resultado = ServicoProduto.consultaProduto(codigo, nome, tipo, fornecedor); 
-List<Produto> resultado = ProdutoDAO.procurarProduto(codigo, nome, tipo, fornecedor);
+List<Produto> resultado = ProdutoDAO.procurarProduto(codigo, nome,  fornecedor, tipo);
         DefaultTableModel model = (DefaultTableModel) jTableTabelaDeProdutos.getModel();
         model.setRowCount(0);
 
@@ -398,11 +329,9 @@ List<Produto> resultado = ProdutoDAO.procurarProduto(codigo, nome, tipo, fornece
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBuscar;
-    private javax.swing.JButton jButtonCadastroGenerico;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonExcluir;
-    private javax.swing.JButton jButtonSelecionar;
     private javax.swing.JComboBox<String> jComboBoxTipoDoProduto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
