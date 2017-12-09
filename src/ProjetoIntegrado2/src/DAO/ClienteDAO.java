@@ -91,7 +91,7 @@ public class ClienteDAO {
     public static void excluir(Integer Id) throws SQLException, Exception {
         PreparedStatement stmt = null;
 
-        String sql = "UPDATE cliente SET disable=? WHERE (cliente_id =?) ";
+        String sql = "UPDATE cliente SET disable=? WHERE (id =?) ";
         
         cn = ConnectionFactory.getConnection();
         
@@ -99,6 +99,8 @@ public class ClienteDAO {
             stmt = cn.prepareStatement(sql);
             stmt.setBoolean(1, true);
             stmt.setInt(2, Id);
+            stmt.execute();
+            
         } finally {
             ConnectionFactory.closeConnection(cn, stmt);
         }
