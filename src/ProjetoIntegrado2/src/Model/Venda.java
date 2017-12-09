@@ -36,7 +36,7 @@ public class Venda {
         codVenda = rs.getInt("id");
         dataVenda = rs.getDate("Data");
         cliente = DAO.ClienteDAO.obter(rs.getInt("idCliente"));
-        itensVenda = DAO.VendaDAO.getItensVenda(rs.getInt("idCliente"));
+        itensVenda = DAO.VendaDAO.getItensVenda(rs.getInt("idVenda"));
         valorTotal = rs.getFloat("ValorTotal");
     }
 
