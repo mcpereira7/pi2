@@ -8,6 +8,7 @@ package Telas;
 import Controllers.ServicoProduto;
 import DAO.ProdutoDAO;
 import Model.Produto;
+import java.awt.Dimension;
 import java.beans.PropertyVetoException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -256,11 +257,21 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Falha ao obter lista", JOptionPane.ERROR_MESSAGE);
         }
+        
+        // limpado dados do filtro após pesquisa
+        jTextFieldCodProduto.setText(null);
+        jTextFieldNomeProduto.setText(null);
+        jComboBoxTipoDoProduto.setSelectedIndex(0);
+        jTextFieldFornecedor.setText(null);
+        codigo=null;
+        nome=null;
+        tipo=null;
+        fornecedor=null;
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
         // TODO add your handling code here:
-        TableModel model = (AbstractTableModel) jTableTabelaDeProdutos.getModel();
+        DefaultTableModel model = (DefaultTableModel) jTableTabelaDeProdutos.getModel();
         jTableTabelaDeProdutos.setModel(model);
         int coluna = 0;
         int linha = jTableTabelaDeProdutos.getSelectedRow();
@@ -271,8 +282,20 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
         
         
         try {
-            ServicoProduto.atualizaProduto(p);
+             int n, i;
+        if (p.getCodProduto()>0l) {
+            n = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir o produto selecionado?", "WARNING!", JOptionPane.YES_NO_OPTION);
+            if (n == JOptionPane.YES_OPTION) {
+                ServicoProduto.excluirProduto(p);
+                
+                i= jTableTabelaDeProdutos.getSelectedRow();
+               model.removeRow(i);
+                return;
+            }
+        }
+            
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage(), "Falha ao excluir Produto", JOptionPane.ERROR_MESSAGE);
         }
         
     }//GEN-LAST:event_jButtonExcluirActionPerformed
@@ -345,7 +368,10 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
 
         return true;
     }
-
+public void setPosicao(){
+    Dimension d = this.getDesktopPane().getSize();
+    this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBuscar;

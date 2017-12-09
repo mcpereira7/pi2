@@ -12,13 +12,13 @@ public class ConnectionFactory {
 
     private static final String DRIVER = "com.mysql.jdbc.Driver";
     private static final String URL = "jdbc:mysql://localhost:3306/ljgames?useSSL=false";
-//    private static final String USER = "pi";
-//    private static final String PASS = "senac";
-    private static final String USER = "root";
+    private static final String USER = "pi";
+    private static final String PASS = "senac";
+//    private static final String USER = "root";
 //    private static final String PASS = "rom08_01";
     
 //by Andre, é a senha do meu server
-    private static final String PASS = "admin";
+//    private static final String PASS = "admin";
 
     public static Connection getConnection() {
         try {
