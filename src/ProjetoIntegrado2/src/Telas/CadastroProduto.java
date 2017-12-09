@@ -43,10 +43,12 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         cbPlataforma.setSelectedItem(produto.getPlataforma());
         jTextArea1.setText(produto.getDescricao());
         
-        
+        cpCodigo.setEditable(false);
         
 
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -143,6 +145,13 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
                 jButtonCancelActionPerformed(evt);
             }
         });
+
+        cpId.setEditable(false);
+        cpId.setAutoscrolls(false);
+        cpId.setEnabled(false);
+        cpId.setMaximumSize(new java.awt.Dimension(0, 0));
+        cpId.setMinimumSize(new java.awt.Dimension(0, 0));
+        cpId.setPreferredSize(new java.awt.Dimension(0, 0));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -278,6 +287,11 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
         //dados do objeto
         try {
+            p.setId(Integer.parseInt(cpId.getText()));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e.getMessage());
+        }
+        try {
             p.setCodProduto(Integer.parseInt(cpCodigo.getText()));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
@@ -332,8 +346,13 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
 
 //        //gravando o objeto na lista
         try {
+            if(!cpId.getText().equals("") || !cpId.getText().isEmpty()){
+                ServicoProduto.atualizaProduto(p);
+                JOptionPane.showMessageDialog(rootPane, "Produto atualizado com sucesso!");
+            }else{
             ServicoProduto.cadastroProduto(p);//chama serviço para adicionar produtos.
             JOptionPane.showMessageDialog(rootPane, "Produto cadastrado com sucesso!");
+            }
         } catch (DataSourceException | productException | HeadlessException e) {
             JOptionPane.showMessageDialog(rootPane, e, "Erro, ", JOptionPane.ERROR_MESSAGE);
             return;

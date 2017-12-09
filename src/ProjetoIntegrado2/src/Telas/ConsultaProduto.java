@@ -272,6 +272,21 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
         // TODO add your handling code here:
+        TableModel model = (AbstractTableModel) jTableTabelaDeProdutos.getModel();
+        jTableTabelaDeProdutos.setModel(model);
+        int coluna = 0;
+        int linha = jTableTabelaDeProdutos.getSelectedRow();
+        int codProduto = Integer.parseInt(jTableTabelaDeProdutos.getValueAt(linha, coluna).toString());
+        
+        Produto p = ProdutoDAO.selecionaProduto(codProduto);
+        
+        
+        
+        try {
+            ServicoProduto.atualizaProduto(p);
+        } catch (Exception e) {
+        }
+        
     }//GEN-LAST:event_jButtonExcluirActionPerformed
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
@@ -282,7 +297,24 @@ public class ConsultaProduto extends javax.swing.JInternalFrame {
         int linha = jTableTabelaDeProdutos.getSelectedRow();
         int codProduto = Integer.parseInt(jTableTabelaDeProdutos.getValueAt(linha, coluna).toString());
         
+        Produto p = ProdutoDAO.selecionaProduto(codProduto);
         
+        // Chama tela altera produto
+        if (menuCadProduto == null || !menuCadProduto.isVisible()) {
+            menuCadProduto = new CadastroProduto(p);
+            this.getParent().add(menuCadProduto);
+            menuCadProduto.setVisible(true);
+        } else if (menuCadProduto.isVisible()) {
+            try {
+                menuCadProduto.setSelected(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            menuCadProduto.getDesktopPane().getDesktopManager().deiconifyFrame(menuCadProduto);
+            menuCadProduto.getDesktopPane().getDesktopManager().maximizeFrame(menuCadProduto);
+            menuCadProduto.getDesktopPane().getDesktopManager().minimizeFrame(menuCadProduto);
+            menuCadProduto.toFront();
+        }
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
     public String RetornaCodProduto() {

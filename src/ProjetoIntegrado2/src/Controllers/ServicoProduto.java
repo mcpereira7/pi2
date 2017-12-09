@@ -30,6 +30,17 @@ public class ServicoProduto {
             throw new DataSourceException("Erro: ", e);
         }
     }
+    
+    public static void atualizaProduto(Produto produto) throws productException, DataSourceException {
+         ProdutoDAO.validaProduto(produto);
+         
+         try {
+            ProdutoDAO.atualizar(produto);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DataSourceException("Erro: ", e);
+        }
+    }
 
 //    public static ArrayList<Produto> ListarProduto(String filtro) {
     public static ArrayList<Produto> ListarProduto(Produto produto) {
