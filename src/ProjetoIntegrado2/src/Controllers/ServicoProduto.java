@@ -6,7 +6,6 @@
 package Controllers;
 
 import DAO.ProdutoDAO;
-import DAO.VendaDAO;
 import Exceptions.productException;
 import Exceptions.DataSourceException;
 import Model.Produto;
@@ -23,6 +22,7 @@ public class ServicoProduto {
 
     public static void cadastroProduto(Produto produto) throws productException, DataSourceException {
         //validação do quarto:
+        //validação do quarto:
         ProdutoDAO.validaProduto(produto);
 
         try {
@@ -31,6 +31,7 @@ public class ServicoProduto {
             e.printStackTrace();
             throw new DataSourceException("Erro: ", e);
         }
+
     }
 
 //    public static ArrayList<Produto> ListarProduto(String filtro) {
@@ -58,17 +59,13 @@ public class ServicoProduto {
     }
 
     public static Produto getProdutoByCodProduto(String codProduto) throws productException {
+        
         try {
             int codProdutoNumero = Integer.parseInt(codProduto);
-            Produto resultado = null;
 
-            List<Produto> lista = MockListaDeProduto.listar();
-            for (Produto produto : lista) {
-                if (produto.getCodProduto() == codProdutoNumero) {
-                    resultado = produto;
-                }
-            }
-            return resultado;
+            Produto prod = ProdutoDAO.procurarProdutoByCod(codProdutoNumero);
+            
+            return prod;
 
         } catch (Exception e) {
             throw new productException("Erro: ");
@@ -97,6 +94,5 @@ public class ServicoProduto {
 
         } catch (Exception e) {
         }
-
     }
 }

@@ -47,7 +47,7 @@ public class Vendas extends javax.swing.JInternalFrame {
     Produto produtoVenda = new Produto();
     //O objeto da Venda
     Venda carrinho = new Venda();
-    
+
     int codigo = 0;
 
     //Lista de Produtos
@@ -437,9 +437,6 @@ public class Vendas extends javax.swing.JInternalFrame {
     private void jButtonFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFinalizarActionPerformed
         try {
             // TODO add your handling code here:
-            Calendar dataCal = Calendar.getInstance();
-            carrinho.setId(codigo);
-            carrinho.setDataVenda(dataCal);
             carrinho.setCliente(clienteVenda);
             ServicoVenda.ConcluirVenda(carrinho);
             JOptionPane.showMessageDialog(rootPane, "Teste");
@@ -489,7 +486,7 @@ public class Vendas extends javax.swing.JInternalFrame {
         row[0] = prod.getCodProduto();
         row[1] = prod.getNome();
         row[2] = prod.getFornecedor();
-        row[3] = df.format(prod.getDataCadastro().getTime());
+        row[3] = prod.getDataCadastro();
         row[4] = prod.getQuantidadeEstoque();
         model.addRow(row);
 
@@ -545,7 +542,7 @@ public class Vendas extends javax.swing.JInternalFrame {
     }
 
     public String GerarCodigoVenda() {
-        
+
         try {
             codigo = ServicoVenda.geraCodVenda();
         } catch (DataSourceException | VendaException e) {
