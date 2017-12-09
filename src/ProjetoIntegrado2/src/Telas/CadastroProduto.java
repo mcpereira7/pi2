@@ -297,7 +297,7 @@ public class CadastroProduto extends javax.swing.JInternalFrame {
         }
         
         try {
-            p.setDataCadastro(Calendar.getInstance());
+            p.setDataCadastro(Calendar.getInstance().getTime());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
