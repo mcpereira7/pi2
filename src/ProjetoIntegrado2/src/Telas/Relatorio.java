@@ -11,6 +11,8 @@ import Controllers.ServicoVenda;
 import Model.ItensVenda;
 import Model.Produto;
 import java.awt.Dimension;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -275,17 +277,17 @@ public class Relatorio extends javax.swing.JInternalFrame {
                 if (listaProdutos != null || !listaProdutos.isEmpty()) {
                     //Itera pelos itens de reserva
                     for (ItensVenda item : listaProdutos) {
-                        
+
                         Produto p = DAO.ProdutoDAO.procurarProdutoById(item.getCodProduto());
-                        
+
                         Object[] linhaItem = new Object[6];
-                        
+
                         String prod = p.getCodProduto() + " - " + p.getNome();
 
                         linhaItem[2] = prod;
-                        linhaItem[3] = item.getPreco();
+                        linhaItem[3] = round(item.getPreco(), 2);
                         linhaItem[4] = item.getQuantidade();
-                        linhaItem[5] = item.getPreco() * item.getQuantidade();
+                        linhaItem[5] = round((item.getPreco() * item.getQuantidade()), 2);
                         totalVenda += (double) linhaItem[5];
 
                         modelRelatorio.addRow(linhaItem);
@@ -315,11 +317,21 @@ public class Relatorio extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButtonGerarRelatorioActionPerformed
 
-    public void setPosicao(){
-    Dimension d = this.getDesktopPane().getSize();
-    this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
-}
-    
+    public static double round(double value, int places) {
+        if (places < 0) {
+            throw new IllegalArgumentException();
+        }
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+
+    public void setPosicao() {
+        Dimension d = this.getDesktopPane().getSize();
+        this.setLocation((d.width - this.getSize().width) / 2, (d.height - this.getSize().height) / 2);
+    }
+
 //Não me lembro o que tinha que fazer com isso  (:
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
