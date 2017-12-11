@@ -112,72 +112,33 @@ public class VendaDAO {
         }
     }
 
-//    public static Venda getVendaByCod(int codVenda)
-//            throws SQLException, Exception {
-//
-//        ResultSet rs = null;
-//        PreparedStatement stmt = null;
-//
-//        Venda venda = new Venda();
-//
-//        String sql = "SELECT * FROM vendas WHERE id = ?";
-//
-//        cn = ConnectionFactory.getConnection();
-//
-//        try {
-//
-//            //Prepara ou cria um objeto adaptado para o SQL
-//            stmt = cn.prepareStatement(sql);
-//
-//            /*
-//            Adiciona o codVenda ao objeto criado acima, preenchendo o ? da
-//            string com a posicao inserida
-//             */
-//            stmt.setInt(1, codVenda);
-//
-//            rs = stmt.executeQuery();
-//
-//            venda.setCodVenda(rs.getInt("id"));
-//            venda.setDataVenda(toCalendar(rs.getDate("Data")));
-//            venda.setValorTotal(rs.getDouble("ValorTotal"));
-//
-//        } finally {
-//            ConnectionFactory.closeConnection(cn, stmt, rs);
-//        }
-//
-//        return venda;
-//    }
-    //Pode retornar uma lista. Talvez esteja ERRADO
-//    public static Venda getVendaByData(Calendar data)
-//            throws SQLException, Exception {
-//
-//        ResultSet rs = null;
-//        PreparedStatement stmt = null;
-//
-//        Venda venda = new Venda();
-//
-//        String sql = "SELECT * FROM vendas WHERE Data = '?'";
-//
-//        cn = ConnectionFactory.getConnection();
-//
-//        try {
-//
-//            stmt = cn.prepareStatement(sql);
-//
-//            stmt.setDate(1, (Date) data.getTime());
-//
-//            rs = stmt.executeQuery();
-//
-//            venda.setCodVenda(rs.getInt("id"));
-//            venda.setDataVenda(toCalendar(rs.getDate("Data")));
-//            venda.setValorTotal(rs.getDouble("ValorTotal"));
-//
-//        } finally {
-//            ConnectionFactory.closeConnection(cn, stmt, rs);
-//        }
-//
-//        return venda;
-//    }
+    public static int getLastVendaID()
+            throws SQLException, Exception {
+        ResultSet rs = null;
+        PreparedStatement stmt = null;
+
+        int id = -1;
+
+        String sql = "SELECT Id Ultimo FROM vendas WHERE Data = (SELECT MAX(Data) FROM vendas)";
+
+        cn = ConnectionFactory.getConnection();
+
+        try {
+            stmt = cn.prepareStatement(sql);
+
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                id = rs.getInt("Ultimo");
+            }
+
+        } finally {
+            ConnectionFactory.closeConnection(cn, stmt, rs);
+        }
+
+        return id;
+    }
+
     public static List<Venda> getVendaByDates(Date de, Date para)
             throws SQLException, Exception {
 
@@ -237,7 +198,13 @@ public class VendaDAO {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Venda venda = new Venda(rs);
+                Venda venda = new Venda();
+                venda.setId(rs.getInt("Id"));
+                venda.setDataVenda(rs.getDate("Data"));
+                venda.setCliente(DAO.ClienteDAO.obter(rs.getInt("idCliente")));
+                venda.setListaItensVenda(DAO.VendaDAO.getItensVenda(rs.getInt("id")));
+                venda.setValorTotal(rs.getFloat("ValorTotal"));
+
                 resultado.add(venda);
             }
 
@@ -248,22 +215,23 @@ public class VendaDAO {
         return resultado;
     }
 
-    public static void insertItensVenda(List<ItensVenda> item, Venda venda) throws SQLException, Exception {
+    public static void insertItensVenda(List<ItensVenda> listaItens, int idVenda)
+            throws SQLException, Exception {
 
         PreparedStatement stmt = null;
 
-        String sql = "INSERT INTO ItensVenda (idVenda, idProduto, Quantidade, ValorTotal)"
+        String sql = "INSERT INTO ItensVenda (idVenda, idProduto, Quantidade, Valor)"
                 + "VALUES (?, ?, ?, ?)";
 
         cn = ConnectionFactory.getConnection();
 
         try {
 
-            for (ItensVenda itensVenda : item) {
+            for (ItensVenda itensVenda : listaItens) {
 
                 stmt = cn.prepareStatement(sql);
-                stmt.setInt(1, venda.getId());
-                stmt.setFloat(2, itensVenda.getCodProduto());
+                stmt.setInt(1, idVenda);
+                stmt.setInt(2, itensVenda.getCodProduto());
                 stmt.setInt(3, itensVenda.getQuantidade());
                 stmt.setFloat(4, (float) itensVenda.getPreco());
 
@@ -275,7 +243,8 @@ public class VendaDAO {
 
     }
 
-    public static List<ItensVenda> getItensVenda(int idVenda) throws SQLException, Exception {
+    public static List<ItensVenda> getItensVenda(int idVenda)
+            throws SQLException, Exception {
         ResultSet rs = null;
         PreparedStatement stmt = null;
         List<ItensVenda> ItensVenda = new ArrayList<>();
@@ -294,10 +263,10 @@ public class VendaDAO {
             while (rs.next()) {
                 ItensVenda itemVenda = new ItensVenda();
 
-                itemVenda.setCodProduto(rs.getInt("codProduto"));
-                itemVenda.setNome(rs.getString("nome"));
-                itemVenda.setPreco(rs.getFloat("preco"));
+                itemVenda.setCodProduto(rs.getInt("idProduto"));
+                itemVenda.setPreco(rs.getFloat("valor"));
                 itemVenda.setQuantidade(rs.getInt("quantidade"));
+
                 ItensVenda.add(itemVenda);
             }
 
@@ -312,4 +281,5 @@ public class VendaDAO {
         dataCal.setTime(data);
         return dataCal;
     }
+
 }

@@ -9,16 +9,12 @@ import Model.Venda;
 import Model.Cliente;
 import Controllers.ServicoVenda;
 import Model.ItensVenda;
+import Model.Produto;
 import java.awt.Dimension;
-import java.sql.Time;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -279,9 +275,14 @@ public class Relatorio extends javax.swing.JInternalFrame {
                 if (listaProdutos != null || !listaProdutos.isEmpty()) {
                     //Itera pelos itens de reserva
                     for (ItensVenda item : listaProdutos) {
+                        
+                        Produto p = DAO.ProdutoDAO.procurarProdutoById(item.getCodProduto());
+                        
                         Object[] linhaItem = new Object[6];
+                        
+                        String prod = p.getCodProduto() + " - " + p.getNome();
 
-                        linhaItem[2] = item.getCodProduto();
+                        linhaItem[2] = prod;
                         linhaItem[3] = item.getPreco();
                         linhaItem[4] = item.getQuantidade();
                         linhaItem[5] = item.getPreco() * item.getQuantidade();

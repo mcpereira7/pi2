@@ -5,10 +5,8 @@
  */
 package Telas;
 
-import Controllers.ServicoCliente;
 import Controllers.ServicoProduto;
 import Controllers.ServicoVenda;
-import Exceptions.ClienteException;
 import Exceptions.DataSourceException;
 import Exceptions.VendaException;
 import Exceptions.productException;
@@ -24,7 +22,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -122,7 +119,7 @@ public class Vendas extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Cod. Produto", "Descrição", "Quantidade", "Valor Unitário", "Valor Total"
+                "Cod. Produto", "Nome", "Quantidade", "Valor Unitário", "Valor Total"
             }
         ));
         jScrollPane1.setViewportView(jTableProdutosNaVenda);
@@ -489,22 +486,6 @@ public class Vendas extends javax.swing.JInternalFrame {
         row[3] = prod.getQuantidadeEstoque();
         model.addRow(row);
 
-//        for (int i = 0; i < prod.size(); i++) {
-//            Produto p = prod.get(i);
-//            if (p != null) {
-//                Object[] row = new Object[5];
-//                row[0] = p.getCodProduto();
-//                row[1] = p.getNome();
-//                row[2] = p.getFornecedor();
-//                row[3] = df.format(p.getDataCadastro().getTime());
-//                row[4] = p.getQuantidadeEstoque();
-//                model.addRow(row);
-//                // teste
-//        
-//                System.out.println("Codigo: "+ p.getCodProduto() + "| Nome: " + p.getNome() + " | Fornecedor: " + p.getFornecedor()
-//            + " | Tipo: "+ p.getTipo() + " | Qtd: " + p.getQuantidadeEstoque() + " | Valor: " + p.getPreco());
-        // teste
-//            } 
         return true;
     }
 
@@ -562,7 +543,7 @@ public class Vendas extends javax.swing.JInternalFrame {
             DefaultTableModel model = (DefaultTableModel) jTableProdutosNaVenda.getModel();
             Object[] row = new Object[5];
             row[0] = novo.getCodProduto();
-            row[1] = novo.getDescricao();
+            row[1] = novo.getNome();
             row[2] = novo.getQuantidadeVenda();
             row[3] = round(novo.getPreco(), 2);
             row[4] = novo.getQuantidadeVenda() * round(novo.getPreco(), 2);

@@ -46,7 +46,7 @@ public class Venda {
 
         ItensVenda item = new ItensVenda();
 
-        item.setCodProduto(entrada.getCodProduto());
+        item.setCodProduto(entrada.getId());
         item.setNome(entrada.getNome());
         item.setQuantidade(entrada.getQuantidadeVenda());
         item.setPreco(entrada.getPreco());
@@ -91,7 +91,7 @@ public class Venda {
         return itensVenda;
     }
 
-    public void setListaItensVenda(ArrayList<ItensVenda> listaProdutos) {
+    public void setListaItensVenda(List<ItensVenda> listaProdutos) {
         this.itensVenda = listaProdutos;
     }
 

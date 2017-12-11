@@ -234,6 +234,42 @@ public class ProdutoDAO {
         }
 
     }
+    
+    public static Produto procurarProdutoById(Integer id) throws SQLException, productException {
+        cn = ConnectionFactory.getConnection();
+        ResultSet rs = null;
+        PreparedStatement stmt = null;
+
+        Produto p = new Produto();
+
+        String sql = " SELECT  * FROM produto WHERE Id = ? AND Disable= ?";
+
+        try {
+            stmt = cn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            stmt.setBoolean(2, false);
+
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                p.setId(rs.getInt("Id"));
+                p.setCodProduto(rs.getInt("Codigo"));
+                p.setNome(rs.getString("Nome"));
+                p.setQuantidadeEstoque(rs.getInt("Quantidade"));
+                p.setTipo(rs.getString("Tipo"));
+                p.setPlataforma(rs.getString("Plataforma"));
+                p.setPreco(rs.getFloat("Preco"));
+                p.setFornecedor(rs.getString("Fornecedor"));
+                p.setDescricao(rs.getString("Descricao"));
+                p.setDataCadastro(rs.getDate("DataCadastro"));
+            }
+
+            return p;
+        } finally {
+            ConnectionFactory.closeConnection(cn, stmt, rs);
+        }
+        
+    }
 
     public static Produto procurarProdutoByCod(Integer codigo) throws SQLException, productException {
         cn = ConnectionFactory.getConnection();

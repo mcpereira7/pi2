@@ -13,7 +13,6 @@ import Model.*;
 import static Telas.Vendas.isParsable;
 import java.awt.Component;
 import java.awt.HeadlessException;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -66,8 +65,9 @@ public class ServicoVenda {
     public static void ConcluirVenda(Venda entrada) throws VendaException {
         try {
             ServicoProduto.AtualizaEstoque(entrada.getListaItensVenda());
-            //DAO.VendaDAO.insertItensVenda(entrada.getListaItensVenda(), entrada);
             DAO.VendaDAO.inserir(entrada);
+            int id = DAO.VendaDAO.getLastVendaID();
+            DAO.VendaDAO.insertItensVenda(entrada.getListaItensVenda(), id);
         } catch (Exception e) {
             throw new VendaException("Erro na fonte de dados.", e.getCause());
         }
@@ -95,11 +95,11 @@ public class ServicoVenda {
     public static List<Venda> ConsultaVendaRelatorio(Date de, Date ate, String campoOrdenacao, boolean ASC)
             throws VendaException, DataSourceException {
         try {
-            
-            
 
-//Metodo que encontra a venda no banco com o codVenda
+            //Metodo que encontra a venda no banco com o codVenda
+            
             return DAO.VendaDAO.getVendaRelatorio(de, ate, campoOrdenacao, ASC);
+            
         } catch (Exception e) {
             throw new VendaException("Erro na fonte de dados.", e.getCause());
         }
